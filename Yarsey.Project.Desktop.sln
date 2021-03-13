@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yarsey.Domain", "Yarsey.Dom
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yarsey.EntityFramework", "Yarsey.EntityFramework\Yarsey.EntityFramework.csproj", "{E2989958-FEB7-4141-9043-42DEDC070539}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Yarsey.WPF", "Yarsey.WPF\Yarsey.WPF.csproj", "{13F5A387-E222-4A56-9561-25FE2FABB383}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{E2989958-FEB7-4141-9043-42DEDC070539}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2989958-FEB7-4141-9043-42DEDC070539}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2989958-FEB7-4141-9043-42DEDC070539}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13F5A387-E222-4A56-9561-25FE2FABB383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13F5A387-E222-4A56-9561-25FE2FABB383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13F5A387-E222-4A56-9561-25FE2FABB383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13F5A387-E222-4A56-9561-25FE2FABB383}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
