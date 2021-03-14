@@ -10,6 +10,15 @@
     <Folder Include="ViewModels\" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Yarsey.Domain\Yarsey.Domain.csproj" />
     <ProjectReference Include="..\Yarsey.EntityFramework\Yarsey.EntityFramework.csproj" />
   </ItemGroup>
@@ -29,5 +38,10 @@
     <Reference Include="Syncfusion.SfGridConverter.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfGridConverter.WPF.dll</HintPath>
     </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 </Project>
