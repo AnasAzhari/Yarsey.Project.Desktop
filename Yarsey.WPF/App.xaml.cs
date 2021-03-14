@@ -11,7 +11,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Yarsey.WPF.HostBuilder;
 using Yarsey.EntityFramework;
-
+using Yarsey.WPF.ViewModels;
+using Yarsey.WPF.Stores;
 
 namespace Yarsey.WPF
 {
@@ -36,14 +37,21 @@ namespace Yarsey.WPF
         }
 
         protected override void OnStartup(StartupEventArgs e)
-        {
+        { 
             _host.Start();
             YarseyDbContextFactory contextFactory = _host.Services.GetRequiredService<YarseyDbContextFactory>();
             using (YarseyDbContext context=contextFactory.CreateDbContext())
             {
                 context.Database.Migrate();
             }
+            NavigationStore navigationStore = new NavigationStore();
+            navigationStore.CurrentViewModel = new CustomerViewModel(navigationStore);
 
+            MainWindow = new MainWindow()
+            {
+                DataContext = new MainViewModel(navigationStore)
+            };
+            MainWindow.Show();
 
             base.OnStartup(e);
         }
