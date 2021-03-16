@@ -8,7 +8,7 @@
         xmlns:views="clr-namespace:Yarsey.WPF.Views"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
-    <ContentControl Content="{Binding CurrentViewModel}">
+    <!--<ContentControl Content="{Binding CurrentViewModel}">
         <ContentControl.Resources>
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomeView/>
@@ -18,8 +18,61 @@
             </DataTemplate>
         </ContentControl.Resources>
     
-    </ContentControl>
-   
+    </ContentControl>-->
+    <Grid RenderOptions.EdgeMode="Aliased">
+        <!--<Grid.Resources>
+            <Style TargetType="Button" BasedOn="{StaticResource NavigationButton}"/>
+        </Grid.Resources>-->
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="20*"/>
+
+        </Grid.ColumnDefinitions>
+
+
+        <Grid Grid.Column="0" >
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="5*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <ScrollViewer HorizontalAlignment="Stretch" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
+                        <StackPanel x:Name="Menu" Margin="10">
+                            <!--<Image  Source="/Resources/Icon/customer_32px.png" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
+                        </StackPanel>
+                    </ScrollViewer>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <StackPanel Orientation="Vertical" >
+                        <ToggleButton Height="30"      Content="Show Selection" Command="{Binding NavigateHomeCommand}"/>
+                        <ToggleButton Height="30"  Content="Show Customer" Command="{Binding NavigateCustomerCommand}" />
+                    </StackPanel>
+                </Grid>
+            </Grid>
+
+
+
+        </Grid>
+        <Grid Grid.Column="1" >
+
+
+            <ContentControl Content="{Binding CurrentViewModel}" Margin="5,5,5,5">
+
+                <ContentControl.Resources>
+                    <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                        <views:HomeView/>
+                    </DataTemplate>
+                    <DataTemplate DataType="{x:Type viewmodels:CustomerViewModel}">
+                        <views:CustomerView/>
+                    </DataTemplate>
+                </ContentControl.Resources>
+
+
+            </ContentControl>
+        </Grid>
+    </Grid>
+
 
 
 </Window>

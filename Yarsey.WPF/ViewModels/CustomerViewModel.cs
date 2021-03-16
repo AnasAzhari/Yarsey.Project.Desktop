@@ -12,10 +12,10 @@ namespace Yarsey.WPF.ViewModels
     public class CustomerViewModel:ViewModelBase
     {
       
-        public ICommand NavigateHomeCommand { get; }
+        //public ICommand NavigateHomeCommand { get; }
         public CustomerViewModel(NavigationStore navigationStore)
         {
-            NavigateHomeCommand = new NavigateHomeCommand(navigationStore);
+            //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
         }
     }
 }
