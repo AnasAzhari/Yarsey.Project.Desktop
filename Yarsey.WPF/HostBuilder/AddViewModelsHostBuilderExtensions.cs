@@ -6,6 +6,9 @@ using Yarsey.EntityFramework;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Yarsey.WPF.Stores;
+using Yarsey.WPF.Services;
+using Yarsey.WPF.ViewModels;
 
 namespace Yarsey.WPF.HostBuilder
 {
@@ -15,26 +18,12 @@ namespace Yarsey.WPF.HostBuilder
         {
             host.ConfigureServices(services =>
             {
+                services.AddSingleton<HomeViewModel>(s => new HomeViewModel(s.GetRequiredService<NavigationStore>()));
+                services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>()));
+                services.AddSingleton<MainViewModel>(s => new MainViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<CustomerViewModel>(), s.GetRequiredService<HomeViewModel>()));
+                services.AddSingleton<MainWindow>(s => new MainWindow() { DataContext = s.GetRequiredService<MainViewModel>() });
 
-                //services.AddTransient(CreateHomeViewModel);
-                //services.AddTransient<PortfolioViewModel>();
-                //services.AddTransient<BuyViewModel>();
-                //services.AddTransient<SellViewModel>();
-                //services.AddTransient<AssetSummaryViewModel>();
-                //services.AddTransient<MainViewModel>();
-
-                //services.AddSingleton<CreateViewModel<HomeViewModel>>(services => () => services.GetRequiredService<HomeViewModel>());
-                //services.AddSingleton<CreateViewModel<PortfolioViewModel>>(services => () => services.GetRequiredService<PortfolioViewModel>());
-                //services.AddSingleton<CreateViewModel<BuyViewModel>>(services => () => services.GetRequiredService<BuyViewModel>());
-                //services.AddSingleton<CreateViewModel<SellViewModel>>(services => () => services.GetRequiredService<SellViewModel>());
-                //services.AddSingleton<CreateViewModel<LoginViewModel>>(services => () => CreateLoginViewModel(services));
-                //services.AddSingleton<CreateViewModel<RegisterViewModel>>(services => () => CreateRegisterViewModel(services));
-
-                //services.AddSingleton<ISimpleTraderViewModelFactory, SimpleTraderViewModelFactory>();
-
-                //services.AddSingleton<ViewModelDelegateRenavigator<HomeViewModel>>();
-                //services.AddSingleton<ViewModelDelegateRenavigator<LoginViewModel>>();
-                //services.AddSingleton<ViewModelDelegateRenavigator<RegisterViewModel>>();
+               
             });
 
             return host;

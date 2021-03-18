@@ -12,6 +12,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Http" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
   </ItemGroup>
   <ItemGroup>
@@ -19,11 +20,17 @@
     <ProjectReference Include="..\Yarsey.EntityFramework\Yarsey.EntityFramework.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <Reference Include="Syncfusion.Data.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Data.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Grid.Wpf">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Grid.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfAccordion.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfAccordion.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfCellGrid.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfCellGrid.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfChart.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfChart.WPF.dll</HintPath>
@@ -31,8 +38,14 @@
     <Reference Include="Syncfusion.SfGrid.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfGrid.WPF.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.SfGridCommon.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfGridCommon.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.SfGridConverter.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfGridConverter.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.MVVM.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Tools.MVVM.WPF.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

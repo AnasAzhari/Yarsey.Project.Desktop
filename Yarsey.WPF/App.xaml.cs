@@ -23,6 +23,8 @@ namespace Yarsey.WPF
     {
         private readonly IHost _host;
 
+        public IHost CurrentHost { get { return _host; } }
+
         public App()
         {
             _host = CreateHostBuilder().Build();
@@ -32,6 +34,8 @@ namespace Yarsey.WPF
         {
             return Host.CreateDefaultBuilder(args)
                 .AddConfiguration()
+                .AddStores()
+                .AddViewModels()
                 .AddDbContext(); 
                 
         }
@@ -44,14 +48,18 @@ namespace Yarsey.WPF
             {
                 context.Database.Migrate();
             }
-            NavigationStore navigationStore = new NavigationStore();
-            navigationStore.CurrentViewModel = new CustomerViewModel(navigationStore);
+            //NavigationStore navigationStore = new NavigationStore();
+            //navigationStore.CurrentViewModel = new CustomerViewModel(navigationStore);
 
-            MainWindow = new MainWindow()
-            {
-                DataContext = new MainViewModel(navigationStore)
-            };
-            MainWindow.Show();
+            //MainWindow = new MainWindow()
+            //{
+            //    DataContext = new MainViewModel(navigationStore)
+            //};
+            //MainWindow.Show();
+            MainWindow mainWindow= _host.Services.GetRequiredService<MainWindow>();
+            NavigationStore navStore = _host.Services.GetRequiredService<NavigationStore>();
+            navStore.CurrentViewModel = _host.Services.GetRequiredService<CustomerViewModel>();
+            mainWindow.Show();
 
             base.OnStartup(e);
         }

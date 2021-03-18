@@ -19,12 +19,17 @@ namespace Yarsey.WPF.ViewModels
         public ICommand NavigateCustomerCommand { get; }
         public ICommand NavigateHomeCommand { get; }
 
-        public MainViewModel(NavigationStore navigationStore)
+        public MainViewModel(NavigationStore navigationStore,CustomerViewModel customerViewModel,HomeViewModel homeViewModel)
         {
             _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
-            NavigateCustomerCommand = new NavigateCommand<CustomerViewModel>(navigationStore, () => new CustomerViewModel(navigationStore));
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+
+            ///////////  old implementation
+            //NavigateCustomerCommand = new NavigateCommand<CustomerViewModel>(navigationStore, () => new CustomerViewModel(navigationStore));
+            //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+
+            NavigateCustomerCommand = new NavigateCommand<CustomerViewModel>(navigationStore,()=> customerViewModel);
+            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => homeViewModel);
         }
 
         private void OnCurrentViewModelChanged()
