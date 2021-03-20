@@ -8,6 +8,7 @@ using Yarsey.WPF.Stores;
 using Yarsey.WPF.Commands;
 using Yarsey.Domain.Models;
 using System.Collections.ObjectModel;
+using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.WPF.ViewModels
 {
@@ -23,23 +24,27 @@ namespace Yarsey.WPF.ViewModels
 
         }
 
+        private readonly CustomerDataService _customerDataService;
 
         //public ICommand NavigateHomeCommand { get; }
-        public CustomerViewModel(NavigationStore navigationStore)
+        public  CustomerViewModel(NavigationStore navigationStore,CustomerDataService customerDataService)
         {
             //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
-            this.CustomerCollection = GetCustomerCollection();
+            this._customerDataService = customerDataService;
+            //this.CustomerCollection = await GetCustomerCollection();
         }
 
-        private ObservableCollection<Customer> GetCustomerCollection()
+        public  async Task<ObservableCollection<Customer>> GetCustomerCollection()
         {
             //string dbLocation = ConfigurationManager.AppSettings.Get("dbLocation");
 
             //IDataService<Customer> custService = new GenericDataService<Customer>(new YarseyDBContextFactory(dbLocation));
             //var customers = custService.GetAll().Result.ToList();
-            
 
-            ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>();
+
+            //ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>();
+            IEnumerable<Customer> customerlist = await _customerDataService.GetAll();
+            ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(customerlist);
 
             return custCollection;
         }

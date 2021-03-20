@@ -45,6 +45,7 @@ namespace Yarsey.WPF
             if (eventHandler != null)
                 eventHandler(this, new PropertyChangedEventArgs(propertyName));
         }
+        public virtual void Dispose() { }
 
     }
 }
