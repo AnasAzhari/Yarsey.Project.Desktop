@@ -25,7 +25,7 @@ namespace Yarsey.EntityFramework
                 entity.Property(e => e.Adress);
                 entity.Property(e => e.PhoneNo);
                 entity.Property(e => e.CompanyName);
-                entity.Property(e => e.Notes);
+                entity.Property(e => e.Note);
 
 
             });

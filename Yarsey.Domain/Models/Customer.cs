@@ -26,9 +26,10 @@ namespace Yarsey.Domain.Models
         public string PhoneNo { get; set; }
         
         [MaxLength(250)]
-        public string Notes { get; set; }
+        public string Note { get; set; }
 
-        public DateTime? Logged { get; set; }
+        //public DateTime Logged { get; set; }
+
 
         public DateTime Created_at { get; set; }
     }

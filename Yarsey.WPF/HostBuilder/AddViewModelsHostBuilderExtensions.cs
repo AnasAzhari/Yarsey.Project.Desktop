@@ -9,6 +9,7 @@ using System.Text;
 using Yarsey.WPF.Stores;
 using Yarsey.WPF.Services;
 using Yarsey.WPF.ViewModels;
+using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.WPF.HostBuilder
 {
@@ -19,7 +20,7 @@ namespace Yarsey.WPF.HostBuilder
             host.ConfigureServices(services =>
             {
                 services.AddSingleton<HomeViewModel>(s => new HomeViewModel(s.GetRequiredService<NavigationStore>()));
-                services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>()));
+                services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<CustomerDataService>()));
                 services.AddSingleton<MainViewModel>(s => new MainViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<CustomerViewModel>(), s.GetRequiredService<HomeViewModel>()));
                 services.AddSingleton<MainWindow>(s => new MainWindow() { DataContext = s.GetRequiredService<MainViewModel>() });
 

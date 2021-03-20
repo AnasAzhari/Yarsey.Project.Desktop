@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yarsey.EntityFramework;
 
 namespace Yarsey.EntityFramework.Migrations
 {
     [DbContext(typeof(YarseyDbContext))]
-    partial class YarseyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210320102514_deletelogged")]
+    partial class deletelogged
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -42,7 +44,7 @@ namespace Yarsey.EntityFramework.Migrations
                         .HasMaxLength(128)
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Note")
+                    b.Property<string>("Notes")
                         .HasMaxLength(250)
                         .HasColumnType("TEXT");
 

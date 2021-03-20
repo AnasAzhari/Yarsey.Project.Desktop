@@ -31,7 +31,9 @@ namespace Yarsey.WPF.ViewModels
         {
             //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
             this._customerDataService = customerDataService;
-            //this.CustomerCollection = await GetCustomerCollection();
+
+            this.CustomerCollection = GetCustomerCollection().Result;
+            Console.WriteLine("Testing");
         }
 
         public  async Task<ObservableCollection<Customer>> GetCustomerCollection()
