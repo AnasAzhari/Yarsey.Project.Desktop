@@ -9,6 +9,7 @@ using System.Collections.Generic;
 using System.Text;
 using Yarsey.WPF.Stores;
 using Yarsey.Domain.Services;
+using Yarsey.WPF.Services;
 
 namespace Yarsey.WPF.HostBuilder
 {
@@ -23,6 +24,12 @@ namespace Yarsey.WPF.HostBuilder
             });
 
             return host;
+        }
+
+        public static INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
+        {
+
+
         }
     }
 }

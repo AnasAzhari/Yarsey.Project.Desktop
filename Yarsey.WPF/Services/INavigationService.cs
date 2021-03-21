@@ -8,6 +8,6 @@ namespace Yarsey.WPF.Services
 {
     public interface INavigationService
     {
-        void Navigate();
+        public void Navigate();
     }
 }
