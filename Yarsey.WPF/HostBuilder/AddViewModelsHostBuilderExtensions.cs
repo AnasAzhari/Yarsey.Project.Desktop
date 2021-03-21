@@ -22,12 +22,25 @@ namespace Yarsey.WPF.HostBuilder
                 services.AddSingleton<HomeViewModel>(s => new HomeViewModel(s.GetRequiredService<NavigationStore>()));
                 services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<CustomerDataService>()));
                 services.AddSingleton<MainViewModel>(s => new MainViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<CustomerViewModel>(), s.GetRequiredService<HomeViewModel>()));
+
+                services.AddTransient<INavigationService>(s => CreateHomeNavigationService(s));
+
                 services.AddSingleton<MainWindow>(s => new MainWindow() { DataContext = s.GetRequiredService<MainViewModel>() });
 
                
             });
 
             return host;
+        }
+
+
+        public static INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
+        {
+            return new LayoutNavigationService<HomeViewModel>(
+                    serviceProvider.GetRequiredService<NavigationStore>(),
+                    () => serviceProvider.GetRequiredService<HomeViewModel>(),
+                    () => serviceProvider.GetRequiredService<NavigationBarViewModel>()
+                );
         }
     }
 }
