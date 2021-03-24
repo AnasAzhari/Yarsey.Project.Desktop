@@ -29,10 +29,9 @@ namespace Yarsey.WPF.ViewModels
             _navigationStore = navigationStore;
             _modalNavigationStore = modalNavigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
+            _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
 
-
-            //NavigateCustomerCommand = new NavigateCommand<CustomerViewModel>(navigationStore,()=> customerViewModel);
-            //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => homeViewModel);
+        
         }
 
         private void OnCurrentViewModelChanged()

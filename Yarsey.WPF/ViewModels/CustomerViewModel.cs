@@ -25,13 +25,14 @@ namespace Yarsey.WPF.ViewModels
         }
 
         private readonly CustomerDataService _customerDataService;
+        private readonly ModalNavigationStore _modalNavigationStore;
 
         //public ICommand NavigateHomeCommand { get; }
-        public  CustomerViewModel(NavigationStore navigationStore,CustomerDataService customerDataService)
+        public  CustomerViewModel(NavigationStore navigationStore,ModalNavigationStore modalNavigationStore,CustomerDataService customerDataService)
         {
             //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
             this._customerDataService = customerDataService;
-
+            this._modalNavigationStore = modalNavigationStore;
             this.CustomerCollection = GetCustomerCollection().Result;
             Console.WriteLine("Testing");
         }
