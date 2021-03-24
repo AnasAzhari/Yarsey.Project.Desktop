@@ -21,15 +21,12 @@ namespace Yarsey.WPF.HostBuilder
             {
                 services.AddSingleton<CustomerDataService>(s => new CustomerDataService(s.GetRequiredService<YarseyDbContextFactory>()));
 
+
             });
 
             return host;
         }
 
-        public static INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
-        {
-
-
-        }
+    
     }
 }

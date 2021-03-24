@@ -15,13 +15,18 @@ namespace Yarsey.WPF.HostBuilder
 {
     public static class AddViewModelsHostBuilderExtensions
     {
+       
         public static IHostBuilder AddViewModels(this IHostBuilder host)
         {
             host.ConfigureServices(services =>
             {
+               // services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
+                services.AddSingleton<CloseNavigationService>();
                 services.AddSingleton<HomeViewModel>(s => new HomeViewModel(s.GetRequiredService<NavigationStore>()));
-                services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<CustomerDataService>()));
-                services.AddSingleton<MainViewModel>(s => new MainViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<CustomerViewModel>(), s.GetRequiredService<HomeViewModel>()));
+                services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<CustomerDataService>()));
+                services.AddSingleton<MainViewModel>();
+
+  
 
                 services.AddTransient<INavigationService>(s => CreateHomeNavigationService(s));
 
@@ -33,7 +38,7 @@ namespace Yarsey.WPF.HostBuilder
             return host;
         }
 
-
+        // create layout for HomeViewModel
         public static INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
         {
             return new LayoutNavigationService<HomeViewModel>(
