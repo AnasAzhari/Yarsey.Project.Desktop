@@ -16,8 +16,9 @@ namespace Yarsey.WPF.HostBuilder
         {
             host.ConfigureServices(services =>
             {
+
                 services.AddSingleton<NavigationStore>();
-              
+                services.AddSingleton<ModalNavigationStore>();
 
             });
 

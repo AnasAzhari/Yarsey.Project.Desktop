@@ -26,10 +26,10 @@ namespace Yarsey.WPF.HostBuilder
             return host;
         }
 
-        public static INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
-        {
+        //public static INavigationService CreateHomeNavigationService(IServiceProvider serviceProvider)
+        //{
 
 
-        }
+        //}
     }
 }

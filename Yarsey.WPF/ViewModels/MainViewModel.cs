@@ -13,28 +13,36 @@ namespace Yarsey.WPF.ViewModels
     {
         private readonly NavigationStore _navigationStore;
 
+        private readonly ModalNavigationStore _modalNavigationStore;
+
         public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
 
+        public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
+
+        public bool IsOpen => _modalNavigationStore.IsOpen;
 
         public ICommand NavigateCustomerCommand { get; }
         public ICommand NavigateHomeCommand { get; }
 
-        public MainViewModel(NavigationStore navigationStore,CustomerViewModel customerViewModel,HomeViewModel homeViewModel)
+        public MainViewModel(NavigationStore navigationStore,ModalNavigationStore modalNavigationStore)
         {
             _navigationStore = navigationStore;
+            _modalNavigationStore = modalNavigationStore;
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
 
-            ///////////  old implementation
-            //NavigateCustomerCommand = new NavigateCommand<CustomerViewModel>(navigationStore, () => new CustomerViewModel(navigationStore));
-            //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
 
-            NavigateCustomerCommand = new NavigateCommand<CustomerViewModel>(navigationStore,()=> customerViewModel);
-            NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => homeViewModel);
+            //NavigateCustomerCommand = new NavigateCommand<CustomerViewModel>(navigationStore,()=> customerViewModel);
+            //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => homeViewModel);
         }
 
         private void OnCurrentViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentViewModel));
+        }
+        private void OnCurrentModalViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentModalViewModel));
+            OnPropertyChanged(nameof(IsOpen));
         }
 
     }
