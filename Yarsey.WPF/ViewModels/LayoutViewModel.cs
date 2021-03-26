@@ -13,7 +13,7 @@ namespace Yarsey.WPF.ViewModels
         public LayoutViewModel(NavigationBarViewModel navigationBarViewModel,ViewModelBase contentViewModel)
         {
             NavigationBarViewModel = navigationBarViewModel;
-            contentViewModel = contentViewModel;
+            ContentViewModel = contentViewModel;
         }
 
         public override void Dispose()

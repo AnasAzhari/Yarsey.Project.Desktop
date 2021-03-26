@@ -22,13 +22,13 @@
                 <!--|||||||||||||||||||||||||||||||||-->
                 <!--Navigation buttons-->
              
-                <!--<local:NavigationBar DataContext="{Binding NavigationBarViewModel}"/>-->
+                <local:NavigationBar DataContext="{Binding NavigationBarViewModel}"/>
 
             </Grid>
             <Grid Grid.Column="1" >
                 <!--|||||||||||||||||||||||||||||||||||||||||||||||||||||-->
                 <!--Content view model-->
-
+                <ContentControl Content="{Binding ContentViewModel}" />
             </Grid>
         </Grid>
 

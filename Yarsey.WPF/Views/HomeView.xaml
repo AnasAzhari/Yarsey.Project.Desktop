@@ -9,7 +9,7 @@
     <Grid>
         <StackPanel Orientation="Horizontal">
             <Label Content="HOME VIEW"/>
-            <Button Height="50" Content="Navigate Customer" Command="{Binding NavigateCustomerCommand}"/>
+            <!--<Button Height="50" Content="Navigate Customer" Command="{Binding NavigateCustomerCommand}"/>-->
         </StackPanel>
         
 

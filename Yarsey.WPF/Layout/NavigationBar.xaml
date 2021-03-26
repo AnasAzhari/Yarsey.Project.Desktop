@@ -7,6 +7,9 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-            
+        <StackPanel Orientation="Vertical" >
+            <ToggleButton Height="30"      Content="Show Selection" Command="{Binding NavigateHomeCommand}"/>
+            <ToggleButton Height="30"  Content="Show Customer" Command="{Binding NavigateCustomerCommand}" />
+        </StackPanel>
     </Grid>
 </UserControl>

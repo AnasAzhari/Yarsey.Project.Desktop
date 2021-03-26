@@ -34,7 +34,7 @@ namespace Yarsey.WPF.ViewModels
             this._customerDataService = customerDataService;
             this._modalNavigationStore = modalNavigationStore;
             this.CustomerCollection = GetCustomerCollection().Result;
-            Console.WriteLine("Testing");
+            //Console.WriteLine("Testing");
         }
 
         public  async Task<ObservableCollection<Customer>> GetCustomerCollection()

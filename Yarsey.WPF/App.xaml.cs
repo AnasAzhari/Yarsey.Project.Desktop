@@ -13,6 +13,7 @@ using Yarsey.WPF.HostBuilder;
 using Yarsey.EntityFramework;
 using Yarsey.WPF.ViewModels;
 using Yarsey.WPF.Stores;
+using Yarsey.WPF.Services;
 
 namespace Yarsey.WPF
 {
@@ -49,11 +50,17 @@ namespace Yarsey.WPF
             {
                 context.Database.Migrate();
             }
-    
-            MainWindow mainWindow= _host.Services.GetRequiredService<MainWindow>();
-            NavigationStore navStore = _host.Services.GetRequiredService<NavigationStore>();
-            navStore.CurrentViewModel = _host.Services.GetRequiredService<CustomerViewModel>();
-            mainWindow.Show();
+
+            //MainWindow mainWindow= _host.Services.GetRequiredService<MainWindow>();
+            //NavigationStore navStore = _host.Services.GetRequiredService<NavigationStore>();
+            //navStore.CurrentViewModel = _host.Services.GetRequiredService<CustomerViewModel>();
+            //mainWindow.Show();
+            INavigationService initialNavigationService = _host.Services.GetRequiredService<INavigationService>();
+            initialNavigationService.Navigate();
+
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.Show();
+
 
             base.OnStartup(e);
         }
