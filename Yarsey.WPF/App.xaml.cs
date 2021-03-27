@@ -14,6 +14,7 @@ using Yarsey.EntityFramework;
 using Yarsey.WPF.ViewModels;
 using Yarsey.WPF.Stores;
 using Yarsey.WPF.Services;
+using Yarsey.WPF.Views;
 
 namespace Yarsey.WPF
 {
@@ -57,6 +58,9 @@ namespace Yarsey.WPF
             //mainWindow.Show();
             INavigationService initialNavigationService = _host.Services.GetRequiredService<INavigationService>();
             initialNavigationService.Navigate();
+
+            ViewModelBase customerviewmodel = _host.Services.GetRequiredService<CustomerViewModel>();
+            //var customerview = _host.Services.GetRequiredService<CustomerView>();
 
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
