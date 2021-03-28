@@ -7,6 +7,7 @@
         xmlns:viewmodels="clr-namespace:Yarsey.WPF.ViewModels"
          xmlns:layouts="clr-namespace:Yarsey.WPF.Layout"
         xmlns:views="clr-namespace:Yarsey.WPF.Views"
+        xmlns:modalviews="clr-namespace:Yarsey.WPF.Views.Modal"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
    
@@ -24,6 +25,9 @@
 
         </Grid.Resources>
 
+        <modalviews:CustomerDialogVer2 Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+            <ContentControl Content="{Binding CurrentModalViewModel}"/>
+        </modalviews:CustomerDialogVer2>
 
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
