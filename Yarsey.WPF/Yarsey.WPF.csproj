@@ -71,6 +71,5 @@
     <Folder Include="Resources\Icon\" />
     <Folder Include="Resources\ImageDictionary\" />
     <Folder Include="Resources\Styles\" />
-    <Folder Include="Views\Modal\" />
   </ItemGroup>
 </Project>
