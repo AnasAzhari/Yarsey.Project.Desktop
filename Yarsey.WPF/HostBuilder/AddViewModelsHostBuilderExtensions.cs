@@ -11,6 +11,7 @@ using Yarsey.WPF.Services;
 using Yarsey.WPF.ViewModels;
 using Yarsey.EntityFramework.Services;
 using Yarsey.WPF.Views;
+using Yarsey.WPF.ViewModels.Modal;
 
 namespace Yarsey.WPF.HostBuilder
 {
@@ -57,6 +58,14 @@ namespace Yarsey.WPF.HostBuilder
                     serviceProvider.GetRequiredService<NavigationStore>(),
                     () => serviceProvider.GetRequiredService<CustomerViewModel>(),
                     () => serviceProvider.GetRequiredService<NavigationBarViewModel>()
+                );
+        }
+
+        public static INavigationService CreateNewCustomerNavigationService(IServiceProvider serviceProvider)
+        {
+            return new ModalNavigationService<CustomerDialogViewModel>(
+                        serviceProvider.GetRequiredService<ModalNavigationStore>(),
+                        () => serviceProvider.GetRequiredService<CustomerDialogViewModel>()
                 );
         }
 
