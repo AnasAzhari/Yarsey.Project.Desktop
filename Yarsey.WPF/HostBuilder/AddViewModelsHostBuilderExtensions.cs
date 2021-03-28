@@ -28,9 +28,7 @@ namespace Yarsey.WPF.HostBuilder
                 services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<CustomerDataService>()));
                 services.AddTransient<NavigationBarViewModel>(CreateNavigationViewModel);
                 services.AddSingleton<MainViewModel>();
-               
 
-  
 
                 services.AddTransient<INavigationService>(s => CreateHomeNavigationService(s));
 
@@ -69,12 +67,12 @@ namespace Yarsey.WPF.HostBuilder
                 );
         }
 
-
         public static NavigationBarViewModel CreateNavigationViewModel(IServiceProvider serviceProvider)
         {
             return new NavigationBarViewModel(
                     CreateHomeNavigationService(serviceProvider),
-                    CreateCustomerNavigation(serviceProvider)
+                    CreateCustomerNavigation(serviceProvider),
+                    CreateNewCustomerNavigationService(serviceProvider)
                 );
 
         }    

@@ -14,10 +14,13 @@ namespace Yarsey.WPF.ViewModels
         public ICommand NavigateHomeCommand { get; }
         public ICommand NavigateCustomerCommand { get; }
 
-        public NavigationBarViewModel(INavigationService homeNavigationService,INavigationService customerNavigationService)
+        public ICommand NavigateCustomerDialogCommand { get; }
+
+        public NavigationBarViewModel(INavigationService homeNavigationService,INavigationService customerNavigationService,INavigationService customerModalNavigationService)
         {
             NavigateHomeCommand = new NavigateCommand(homeNavigationService);
             NavigateCustomerCommand = new NavigateCommand(customerNavigationService);
+            NavigateCustomerDialogCommand = new NavigateCommand(customerModalNavigationService);
         }
     }
 }

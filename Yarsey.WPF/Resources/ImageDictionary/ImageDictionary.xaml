@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <BitmapImage x:Key="CustomerIcon" UriSource="/Resources/Icon/customer_32px.png"/>
+    <BitmapImage x:Key="Phone" UriSource="/Resources/Icon/phone_32px.png"/>
+    <BitmapImage x:Key="Email" UriSource="/Resources/Icon/email_open_32px.png"/>
+    <BitmapImage x:Key="Adress" UriSource="/Resources/Icon/user_location_24px.png"/>
+
+</ResourceDictionary>

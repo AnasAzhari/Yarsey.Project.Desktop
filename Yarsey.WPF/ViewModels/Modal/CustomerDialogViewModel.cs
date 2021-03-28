@@ -44,7 +44,7 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         public void Cancel()
         {
-            CloseWindowCommand();
+           // CloseWindowCommand();
 
         }
 
@@ -64,8 +64,12 @@ namespace Yarsey.WPF.ViewModels.Modal
 
                 if (!this.HasErrors)
                 {
-                    _customerFactory.CreateNewCustomer(Name, Adress, Email, PhoneNo);
-                    AddedCustomer();
+                    //_customerFactory.CreateNewCustomer(Name, Adress, Email, PhoneNo);
+                    //AddedCustomer();
+
+
+
+
                 }
                 
 

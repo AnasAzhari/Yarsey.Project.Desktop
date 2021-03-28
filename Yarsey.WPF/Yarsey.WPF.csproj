@@ -44,13 +44,33 @@
     <Reference Include="Syncfusion.SfGridConverter.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfGridConverter.WPF.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.Shared.Base">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Shared.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Windows">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Shared.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Tools.MVVM.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Tools.MVVM.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Windows">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Tools.Windows.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Update="appsettings.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Converter\" />
+    <Folder Include="Resources\Common\" />
+    <Folder Include="Resources\Icon\" />
+    <Folder Include="Resources\ImageDictionary\" />
+    <Folder Include="Resources\Styles\" />
+    <Folder Include="Views\Modal\" />
   </ItemGroup>
 </Project>
