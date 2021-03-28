@@ -27,25 +27,20 @@ namespace Yarsey.WPF.ViewModels
         private readonly CustomerDataService _customerDataService;
         private readonly ModalNavigationStore _modalNavigationStore;
 
-        //public ICommand NavigateHomeCommand { get; }
+
+
         public  CustomerViewModel(NavigationStore navigationStore,ModalNavigationStore modalNavigationStore,CustomerDataService customerDataService)
         {
-            //NavigateHomeCommand = new NavigateCommand<HomeViewModel>(navigationStore, () => new HomeViewModel(navigationStore));
+         
             this._customerDataService = customerDataService;
             this._modalNavigationStore = modalNavigationStore;
             this.CustomerCollection = GetCustomerCollection().Result;
-            //Console.WriteLine("Testing");
+       
         }
 
         public  async Task<ObservableCollection<Customer>> GetCustomerCollection()
         {
-            //string dbLocation = ConfigurationManager.AppSettings.Get("dbLocation");
-
-            //IDataService<Customer> custService = new GenericDataService<Customer>(new YarseyDBContextFactory(dbLocation));
-            //var customers = custService.GetAll().Result.ToList();
-
-
-            //ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>();
+  
             IEnumerable<Customer> customerlist = await _customerDataService.GetAll();
             ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(customerlist);
 
