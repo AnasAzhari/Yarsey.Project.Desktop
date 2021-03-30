@@ -9,6 +9,7 @@ using Yarsey.WPF.Commands;
 using Yarsey.Domain.Models;
 using System.Collections.ObjectModel;
 using Yarsey.EntityFramework.Services;
+using Yarsey.WPF.Services;
 
 namespace Yarsey.WPF.ViewModels
 {
@@ -28,12 +29,15 @@ namespace Yarsey.WPF.ViewModels
         private readonly ModalNavigationStore _modalNavigationStore;
 
 
+        public ICommand CustomerModalNavigation { get; set; }
 
-        public  CustomerViewModel(NavigationStore navigationStore,ModalNavigationStore modalNavigationStore,CustomerDataService customerDataService)
+
+        public  CustomerViewModel(NavigationStore navigationStore,ModalNavigationStore modalNavigationStore,INavigationService customermodalnavigationservice,CustomerDataService customerDataService)
         {
          
             this._customerDataService = customerDataService;
             this._modalNavigationStore = modalNavigationStore;
+            this.CustomerModalNavigation = new NavigateCommand(customermodalnavigationservice);
             this.CustomerCollection = GetCustomerCollection().Result;
        
         }

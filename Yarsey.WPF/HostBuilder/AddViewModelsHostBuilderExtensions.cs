@@ -25,7 +25,7 @@ namespace Yarsey.WPF.HostBuilder
                // services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
                 services.AddSingleton<CloseNavigationService>();
                 services.AddSingleton<HomeViewModel>(s => new HomeViewModel(s.GetRequiredService<NavigationStore>()));
-                services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<CustomerDataService>()));
+                services.AddSingleton<CustomerViewModel>(s => new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<ModalNavigationStore>(), CreateCustomerNavigation(s), s.GetRequiredService<CustomerDataService>()));
                 services.AddTransient<NavigationBarViewModel>(CreateNavigationViewModel);
                 services.AddSingleton<MainViewModel>();
 

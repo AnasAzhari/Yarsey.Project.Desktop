@@ -28,7 +28,7 @@
                     <ColumnDefinition Width="5*"/>
                 </Grid.ColumnDefinitions>
                 <Grid Grid.Column="0">
-                    <!--<Button Content="New Customer" Command="{Binding CustomerDialog}"     />-->
+                    <Button Content="New Customer" Command="{Binding CustomerModalNavigation}"     />
                 </Grid>
                 <Grid Grid.Column="1">
                     <Button Content="Add"  />
