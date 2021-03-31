@@ -14,6 +14,7 @@ namespace Yarsey.WPF.Services
 
         private readonly Func<TViewModel> _createViewModel;
 
+
         public ModalNavigationService(ModalNavigationStore modalNavigationStore, Func<TViewModel> createViewModel)
         {
             _modalNavigationStore = modalNavigationStore;

@@ -239,7 +239,7 @@
                 HorizontalAlignment="Right"
                 Background="#90979b"
                 BorderThickness="0"
-                Command="{Binding ResetCommand}"
+                Command="{Binding CloseModalCommand}"
                 Content="Batal"
                 FontSize="16"
                 Foreground="White" />

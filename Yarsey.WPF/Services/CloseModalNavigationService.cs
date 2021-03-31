@@ -7,11 +7,11 @@ using Yarsey.WPF.Stores;
 
 namespace Yarsey.WPF.Services
 {
-    public class CloseNavigationService : INavigationService
+    public class CloseModalNavigationService : INavigationService
     {
         private readonly ModalNavigationStore _navigationStore;
 
-        public CloseNavigationService(ModalNavigationStore navigationStore)
+        public CloseModalNavigationService(ModalNavigationStore navigationStore)
         {
             _navigationStore = navigationStore;
         }

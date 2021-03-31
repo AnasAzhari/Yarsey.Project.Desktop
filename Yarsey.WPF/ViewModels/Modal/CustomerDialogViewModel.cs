@@ -5,7 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using Yarsey.EntityFramework.Services;
+using Yarsey.WPF.Commands;
+using Yarsey.WPF.Services;
 
 namespace Yarsey.WPF.ViewModels.Modal
 {
@@ -33,9 +36,14 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         private readonly CustomerDataService _customerDataService;
 
-        public CustomerDialogViewModel(CustomerDataService customerDataService)
+        private readonly CloseModalNavigationService _closeModalNavigation;
+
+        public ICommand CloseModalCommand { get; set; }
+
+        public CustomerDialogViewModel(CustomerDataService customerDataService,CloseModalNavigationService closeModalNavigationService)
         {
             _customerDataService = customerDataService;
+            CloseModalCommand = new NavigateCommand(closeModalNavigationService);
         }
 
       
