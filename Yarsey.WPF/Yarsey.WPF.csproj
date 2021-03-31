@@ -6,6 +6,12 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\Icon\customer_32px.png" />
+    <None Remove="Resources\Icon\email_open_32px.png" />
+    <None Remove="Resources\Icon\phone_32px.png" />
+    <None Remove="Resources\Icon\user_location_24px.png" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="5.0.4">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -68,8 +74,13 @@
   <ItemGroup>
     <Folder Include="Converter\" />
     <Folder Include="Resources\Common\" />
-    <Folder Include="Resources\Icon\" />
     <Folder Include="Resources\ImageDictionary\" />
     <Folder Include="Resources\Styles\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Icon\customer_32px.png" />
+    <Resource Include="Resources\Icon\email_open_32px.png" />
+    <Resource Include="Resources\Icon\phone_32px.png" />
+    <Resource Include="Resources\Icon\user_location_24px.png" />
   </ItemGroup>
 </Project>

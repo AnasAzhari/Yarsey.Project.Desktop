@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.WPF.ViewModels.Modal
 {
@@ -30,11 +31,14 @@ namespace Yarsey.WPF.ViewModels.Modal
         string _phoneNo;
         string _notes;
 
+        private readonly CustomerDataService _customerDataService;
 
-        public CustomerDialogViewModel()
+        public CustomerDialogViewModel(CustomerDataService customerDataService)
         {
-
+            _customerDataService = customerDataService;
         }
+
+      
 
         private bool canValidateForErrors;
 
