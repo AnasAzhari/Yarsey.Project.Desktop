@@ -100,10 +100,8 @@
                             Grid.Row="2"
                             NumericButtonCount="10"
                             PageSize="10"
-                            Source="{Binding CustomerCollection}"
-                            
-                    
-                    
+                            Source="{Binding CustomerCollection,Mode=TwoWay}"
+
                     />
 
             </Grid>

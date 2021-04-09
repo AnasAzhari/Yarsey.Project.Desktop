@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
 using Yarsey.WPF.Commands;
 using Yarsey.WPF.Services;
@@ -36,22 +37,24 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         private readonly CustomerDataService _customerDataService;
 
+        public CustomerDataService CustomerDataService { get { return _customerDataService; } }
+
         private readonly CloseModalNavigationService _closeModalNavigation;
 
         public ICommand CloseModalCommand { get; set; }
+
+        public AsyncRelayCommand CreateCustomerCommand { get; set; }
 
         public CustomerDialogViewModel(CustomerDataService customerDataService,CloseModalNavigationService closeModalNavigationService)
         {
             _customerDataService = customerDataService;
             CloseModalCommand = new NavigateCommand(closeModalNavigationService);
+            CreateCustomerCommand = new AsyncRelayCommand(Create, (e) => { });  // exception happens what next ?
         }
 
       
 
         private bool canValidateForErrors;
-
-
-
 
 
         public void Cancel()
@@ -60,7 +63,7 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         }
 
-        public void Create()
+        private async Task Create()
         {
             try
             {
@@ -78,6 +81,9 @@ namespace Yarsey.WPF.ViewModels.Modal
                 {
                     //_customerFactory.CreateNewCustomer(Name, Adress, Email, PhoneNo);
                     //AddedCustomer();
+                    Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
+
+                    await  CustomerDataService.Create(customer);
 
 
 
@@ -163,23 +169,9 @@ namespace Yarsey.WPF.ViewModels.Modal
                 }
             }
 
-
-
-            //if (string.IsNullOrEmpty(columnName) || columnName == "Adress")
-            //{
-            //    if (string.IsNullOrEmpty(Adress))
-            //        result.Add("Enter your address");
-            //}
-
-
-
             return result;
         }
 
-        //public IEnumerable GetErrors(string propertyName)
-        //{
-        //    return OnValidate(propertyName);
-        //}
 
         System.Collections.IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
         {
