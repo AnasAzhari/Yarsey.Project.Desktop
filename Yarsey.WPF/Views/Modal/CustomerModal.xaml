@@ -167,7 +167,7 @@
 
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="1">
-                            <TextBox Text="{Binding Email ,ValidatesOnNotifyDataErrors=True}"  VerticalAlignment="Bottom"/>
+                            <TextBox Text="{Binding NameCompany ,ValidatesOnNotifyDataErrors=True}"  VerticalAlignment="Bottom"/>
 
                         </Grid>
                     </Grid>
@@ -200,9 +200,6 @@
                         </Grid>
                     </Grid>
                 </Grid>
-
-
-
             </Grid>
 
         </Grid>

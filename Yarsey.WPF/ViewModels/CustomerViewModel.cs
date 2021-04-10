@@ -31,7 +31,6 @@ namespace Yarsey.WPF.ViewModels
 
         public ICommand CustomerModalNavigation { get; set; }
 
-
         public  CustomerViewModel(NavigationStore navigationStore,ModalNavigationStore modalNavigationStore,INavigationService customermodalnavigationservice,CustomerDataService customerDataService)
         {
          
@@ -39,10 +38,17 @@ namespace Yarsey.WPF.ViewModels
             this._modalNavigationStore = modalNavigationStore;
             this.CustomerModalNavigation = new NavigateCommand(customermodalnavigationservice);
             this.CustomerCollection = GetCustomerCollection().Result;
-       
+
+           
         }
 
-        public  async Task<ObservableCollection<Customer>> GetCustomerCollection()
+        public async Task OnObjectCreated()
+        {
+            this.CustomerCollection = await GetCustomerCollection();
+        }
+
+
+        private  async Task<ObservableCollection<Customer>> GetCustomerCollection()
         {
   
             IEnumerable<Customer> customerlist = await _customerDataService.GetAll();

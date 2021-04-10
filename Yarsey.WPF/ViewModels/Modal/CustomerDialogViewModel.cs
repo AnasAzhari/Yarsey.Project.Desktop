@@ -45,11 +45,11 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         public AsyncRelayCommand CreateCustomerCommand { get; set; }
 
-        public CustomerDialogViewModel(CustomerDataService customerDataService,CloseModalNavigationService closeModalNavigationService)
+        public CustomerDialogViewModel(CustomerDataService customerDataService,CustomerViewModel customerViewModel,CloseModalNavigationService closeModalNavigationService)
         {
             _customerDataService = customerDataService;
             CloseModalCommand = new NavigateCommand(closeModalNavigationService);
-            CreateCustomerCommand = new AsyncRelayCommand(Create, (e) => { });  // exception happens what next ?
+            CreateCustomerCommand = new AsyncRelayCommand(Create,customerViewModel.OnObjectCreated, (e) => { });  // exception happens what next ?
         }
 
       
@@ -62,6 +62,8 @@ namespace Yarsey.WPF.ViewModels.Modal
            // CloseWindowCommand();
 
         }
+
+        
 
         private async Task Create()
         {
@@ -84,9 +86,6 @@ namespace Yarsey.WPF.ViewModels.Modal
                     Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
 
                     await  CustomerDataService.Create(customer);
-
-
-
 
                 }
                 

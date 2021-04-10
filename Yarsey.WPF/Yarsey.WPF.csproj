@@ -76,6 +76,7 @@
     <Folder Include="Resources\Common\" />
     <Folder Include="Resources\ImageDictionary\" />
     <Folder Include="Resources\Styles\" />
+    <Folder Include="ViewModels\Modal\Message\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Icon\customer_32px.png" />

@@ -11,8 +11,6 @@ namespace Yarsey.WPF.Commands
     {
         private readonly Action<Exception> _onException;
 
-        private readonly Action<Task> _onSuccess;
-
         private bool _isExecuting;
 
         public bool IsExecuting 
@@ -56,6 +54,7 @@ namespace Yarsey.WPF.Commands
         public AsyncCommandBase(Action<Exception> onException)
         {
             _onException = onException;
+            
         }
     }
 }
