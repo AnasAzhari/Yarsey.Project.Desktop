@@ -26,13 +26,18 @@ namespace Yarsey.WPF.Services
             _modalNavigationStore.CurrentViewModel = _createViewModel();
         }
 
-        public void NavigateOnException()
+        public void NavigateClose()
         {
-
+            _modalNavigationStore.Close();
         }
-        public void NavigateOnSuccess()
-        {
 
+        public void NavigateException(string message)
+        {
+            _modalNavigationStore.ShowErrorMessage(message);
+        }
+        public void NavigateSuccess(string message)
+        {
+            _modalNavigationStore.ShowSuccessMessage(message);
         }
     }
 }

@@ -45,10 +45,11 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         public AsyncRelayCommand CreateCustomerCommand { get; set; }
 
-        public CustomerDialogViewModel(CustomerDataService customerDataService,CustomerViewModel customerViewModel,CloseModalNavigationService closeModalNavigationService)
+        public CustomerDialogViewModel(CustomerDataService customerDataService,CustomerViewModel customerViewModel,ModalNavigationService closeModalNavigationService)
         {
             _customerDataService = customerDataService;
-            CloseModalCommand = new NavigateCommand(closeModalNavigationService);
+            //CloseModalCommand = new NavigateCommand(closeModalNavigationService);
+           CloseModalCommand = new AsyncRelayCommand(()=>new Task(()=> { })
             CreateCustomerCommand = new AsyncRelayCommand(Create,customerViewModel.OnObjectCreated, (e) => { });  // exception happens what next ?
         }
 
@@ -63,6 +64,7 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         }
 
+        
         
 
         private async Task Create()

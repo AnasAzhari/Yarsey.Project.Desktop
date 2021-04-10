@@ -53,6 +53,7 @@ namespace Yarsey.WPF.Stores
         public void Close()
         {
             CurrentViewModel = null;
+            _previousVM = null;
         }
 
         private void OnCurrentViewModelChanged()

@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Yarsey.WPF.Stores;
+using Yarsey.WPF.ViewModels;
 
 namespace Yarsey.WPF.HostBuilder
 {
@@ -18,7 +19,9 @@ namespace Yarsey.WPF.HostBuilder
             {
 
                 services.AddSingleton<NavigationStore>();
-                services.AddSingleton<ModalNavigationStore>();
+                services.AddSingleton<ErrorMessageViewModel>();
+                services.AddSingleton<SuccessMessageViewModel>();
+                services.AddSingleton<ModalNavigationStore>(s=>new ModalNavigationStore(s.GetRequiredService<ErrorMessageViewModel>(),s.GetRequiredService<SuccessMessageViewModel>()));
 
             });
 
