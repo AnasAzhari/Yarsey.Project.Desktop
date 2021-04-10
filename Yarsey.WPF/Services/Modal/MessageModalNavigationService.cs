@@ -6,7 +6,13 @@ using System.Threading.Tasks;
 
 namespace Yarsey.WPF.Services
 {
-    class MessageModalNavigationService
+    public class MessageModalNavigationService : INavigationService
     {
+
+
+        public void Navigate()
+        {
+           
+        }
     }
 }

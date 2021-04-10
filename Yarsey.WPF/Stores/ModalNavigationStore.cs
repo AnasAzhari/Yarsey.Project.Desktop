@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Yarsey.WPF.ViewModels;
 
 namespace Yarsey.WPF.Stores
 {
@@ -19,9 +20,35 @@ namespace Yarsey.WPF.Stores
                 OnCurrentViewModelChanged();
             }
         }
+
+        private ViewModelBase _previousVM;
+
+        private ViewModelBase _errorMessageVM;
+
+        private ViewModelBase _successMessageVM;
+
+        public ModalNavigationStore(ErrorMessageViewModel errorMessageViewModel,SuccessMessageViewModel successMessageViewModel)
+        {
+            _errorMessageVM=errorMessageViewModel;
+            _successMessageVM = successMessageViewModel;
+
+        }
+
         public bool IsOpen => CurrentViewModel != null;
 
         public event Action CurrentViewModelChanged;
+
+        public void ShowErrorMessage(string error)
+        {
+            _previousVM = CurrentViewModel;
+            CurrentViewModel = _errorMessageVM;
+        }
+
+        public void ShowSuccessMessage(string success)
+        {
+            _previousVM = CurrentViewModel;
+            CurrentViewModel = _successMessageVM;
+        }
 
         public void Close()
         {
