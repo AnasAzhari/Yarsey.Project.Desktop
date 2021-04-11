@@ -23,14 +23,23 @@ namespace Yarsey.WPF.Stores
 
         private ViewModelBase _previousVM;
 
-        private ViewModelBase _errorMessageVM;
+        public ViewModelBase PreviousVm { get { return _previousVM; } }
 
-        private ViewModelBase _successMessageVM;
+        private ErrorMessageViewModel _errorMessageVM;
 
-        public ModalNavigationStore(ErrorMessageViewModel errorMessageViewModel,SuccessMessageViewModel successMessageViewModel)
+        private SuccessMessageViewModel _successMessageVM;
+
+        //public ModalNavigationStore(ErrorMessageViewModel errorMessageViewModel,SuccessMessageViewModel successMessageViewModel)
+        //{
+        //    _errorMessageVM=errorMessageViewModel;
+        //    _successMessageVM = successMessageViewModel;
+
+        //}
+
+        public ModalNavigationStore()
         {
-            _errorMessageVM=errorMessageViewModel;
-            _successMessageVM = successMessageViewModel;
+            //_errorMessageVM = errorMessageViewModel;
+            //_successMessageVM = successMessageViewModel;
 
         }
 
@@ -38,17 +47,31 @@ namespace Yarsey.WPF.Stores
 
         public event Action CurrentViewModelChanged;
 
-        public void ShowErrorMessage(string error)
-        {
-            _previousVM = CurrentViewModel;
-            CurrentViewModel = _errorMessageVM;
-        }
+        //public void ShowErrorMessage(string error)
+        //{
+        //    _previousVM = CurrentViewModel;
+        //    CurrentViewModel = _errorMessageVM;
+        //    _errorMessageVM.ErrorMessage = error;
+        //}
 
-        public void ShowSuccessMessage(string success)
-        {
-            _previousVM = CurrentViewModel;
-            CurrentViewModel = _successMessageVM;
-        }
+        //public void ShowSuccessMessage(string success)
+        //{
+        //    _previousVM = CurrentViewModel;
+        //    CurrentViewModel = _successMessageVM;
+        //    _successMessageVM.SuccessMessage = success;
+        //}
+
+        //public void Return()
+        //{
+        //    if (_previousVM != null)
+        //    {
+        //        CurrentViewModel = _previousVM;
+        //    }
+        //    else
+        //    {
+        //        Close();
+        //    }
+        //}
 
         public void Close()
         {
@@ -58,6 +81,7 @@ namespace Yarsey.WPF.Stores
 
         private void OnCurrentViewModelChanged()
         {
+
             CurrentViewModelChanged?.Invoke();
         }
     }

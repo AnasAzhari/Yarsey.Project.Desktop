@@ -30,7 +30,7 @@ namespace Yarsey.WPF.HostBuilder
                 new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<ModalNavigationStore>()
                                                                              , CreateNewCustomerNavigationService(s)
                                                                              , s.GetRequiredService<CustomerDataService>()));
-                services.AddSingleton<CustomerDialogViewModel>(s => new CustomerDialogViewModel(s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<CustomerViewModel>(), s.GetRequiredService<CloseModalNavigationService>()));
+                services.AddSingleton<CustomerDialogViewModel>(s => new CustomerDialogViewModel(s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<CustomerViewModel>(), CreateModalNavigationService(s)));
                 services.AddTransient<NavigationBarViewModel>(CreateNavigationViewModel);
                 services.AddSingleton<MainViewModel>();
 
@@ -70,6 +70,14 @@ namespace Yarsey.WPF.HostBuilder
                         () => serviceProvider.GetRequiredService<CustomerDialogViewModel>()
                      
                 );
+        }
+        public static ModalNavigationService<CustomerDialogViewModel> CreateModalNavigationService(IServiceProvider serviceProvider)
+        {
+            return new ModalNavigationService<CustomerDialogViewModel>(
+                      serviceProvider.GetRequiredService<ModalNavigationStore>(),
+                      () => serviceProvider.GetRequiredService<CustomerDialogViewModel>()
+
+              );
         }
 
         public static NavigationBarViewModel CreateNavigationViewModel(IServiceProvider serviceProvider)

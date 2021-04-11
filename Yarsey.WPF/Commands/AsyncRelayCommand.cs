@@ -13,7 +13,7 @@ namespace Yarsey.WPF.Commands
 
         private readonly Func<Task> _callbackOnSuccess;
 
-        public AsyncRelayCommand(Func<Task> callback,Func<Task> callbackOnSuccess,Action<Exception> onException): base(onException)
+        public AsyncRelayCommand(Func<Task> callback,Func<Task> callbackOnSuccess=null,Action<Exception> onException=null): base(onException)
         {
             _callback = callback;
             _callbackOnSuccess = callbackOnSuccess;
@@ -21,7 +21,15 @@ namespace Yarsey.WPF.Commands
 
         protected override async Task ExecuteAsync(object parameter)
         {
-            await _callback().ContinueWith((s)=>_callbackOnSuccess());
+             await _callback().ContinueWith((j)=> {
+
+                 if (j.IsCompletedSuccessfully)
+                 {
+                      _callbackOnSuccess?.Invoke();
+
+                 }
+             
+             });
         }
     }
 }

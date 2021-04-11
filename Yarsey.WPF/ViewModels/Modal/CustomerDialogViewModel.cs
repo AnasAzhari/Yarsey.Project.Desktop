@@ -45,12 +45,19 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         public AsyncRelayCommand CreateCustomerCommand { get; set; }
 
-        public CustomerDialogViewModel(CustomerDataService customerDataService,CustomerViewModel customerViewModel,ModalNavigationService closeModalNavigationService)
+        private ModalNavigationService<CustomerDialogViewModel> _modalNavigationService;
+
+        private CustomerViewModel _customerViewModel;
+
+        public CustomerDialogViewModel(CustomerDataService customerDataService,CustomerViewModel customerViewModel,ModalNavigationService<CustomerDialogViewModel> modalNavigationService)
         {
             _customerDataService = customerDataService;
+            _customerViewModel = customerViewModel;
+            _modalNavigationService = modalNavigationService;
             //CloseModalCommand = new NavigateCommand(closeModalNavigationService);
-           CloseModalCommand = new AsyncRelayCommand(()=>new Task(()=> { })
-            CreateCustomerCommand = new AsyncRelayCommand(Create,customerViewModel.OnObjectCreated, (e) => { });  // exception happens what next ?
+            CloseModalCommand = new AsyncRelayCommand(Close);
+            
+             CreateCustomerCommand = new AsyncRelayCommand(Create,Success, (e) => { _modalNavigationService.NavigateException(e.Message); });  // exception happens what next ?
         }
 
       
@@ -64,8 +71,16 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         }
 
-        
-        
+        private async Task Close()
+        {
+            
+            await Task.Run(() => { _modalNavigationService.NavigateClose(); });
+        }
+        private async Task Success()
+        {
+            _modalNavigationService.NavigateSuccess("Successfully created Customer");
+            await _customerViewModel.OnObjectCreated();
+        }
 
         private async Task Create()
         {
@@ -88,7 +103,7 @@ namespace Yarsey.WPF.ViewModels.Modal
                     Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
 
                     await  CustomerDataService.Create(customer);
-
+                  
                 }
                 
 

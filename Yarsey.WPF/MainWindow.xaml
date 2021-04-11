@@ -10,6 +10,7 @@
         xmlns:modal="clr-namespace:Yarsey.WPF.CustomControl"
         xmlns:modalviews="clr-namespace:Yarsey.WPF.Views.Modal"
         xmlns:modalviewmodels="clr-namespace:Yarsey.WPF.ViewModels.Modal"
+        xmlns:modalMessageviews="clr-namespace:Yarsey.WPF.Views.Modal.Message"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
    
@@ -26,6 +27,12 @@
             </DataTemplate>
             <DataTemplate DataType="{x:Type modalviewmodels:CustomerDialogViewModel}">
                 <modalviews:CustomerModal/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:SuccessMessageViewModel}">
+                <modalMessageviews:SuccessMessage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:ErrorMessageViewModel}">
+                <modalMessageviews:ErrorMessage/>
             </DataTemplate>
 
         </Grid.Resources>
