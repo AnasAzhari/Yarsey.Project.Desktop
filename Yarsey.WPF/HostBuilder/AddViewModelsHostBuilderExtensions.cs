@@ -22,7 +22,8 @@ namespace Yarsey.WPF.HostBuilder
         {
             host.ConfigureServices(services =>
             {
-               // services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
+                // services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
+                services.AddSingleton<GeneralModalNavigationService>(s => new GeneralModalNavigationService(s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<ErrorMessageViewModel>(), s.GetRequiredService<SuccessMessageViewModel>()));
                 services.AddSingleton<CloseModalNavigationService>();
                 services.AddSingleton<HomeViewModel>(s => new HomeViewModel(s.GetRequiredService<NavigationStore>()));
                 
@@ -30,7 +31,7 @@ namespace Yarsey.WPF.HostBuilder
                 new CustomerViewModel(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<ModalNavigationStore>()
                                                                              , CreateNewCustomerNavigationService(s)
                                                                              , s.GetRequiredService<CustomerDataService>()));
-                services.AddSingleton<CustomerDialogViewModel>(s => new CustomerDialogViewModel(s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<CustomerViewModel>(), CreateModalNavigationService(s)));
+                services.AddSingleton<CustomerDialogViewModel>(s => new CustomerDialogViewModel(s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<CustomerViewModel>(), CreateModalNavigationService(s),s.GetRequiredService<GeneralModalNavigationService>()));
                 services.AddTransient<NavigationBarViewModel>(CreateNavigationViewModel);
                 services.AddSingleton<MainViewModel>();
 

@@ -15,7 +15,9 @@ namespace Yarsey.WPF.Stores
             get => _currentViewModel;
             set
             {
-                _currentViewModel?.Dispose();
+                _previousVM?.Dispose();
+                _previousVM = _currentViewModel;
+                //_currentViewModel?.Dispose();
                 _currentViewModel = value;
                 OnCurrentViewModelChanged();
             }
@@ -29,49 +31,17 @@ namespace Yarsey.WPF.Stores
 
         private SuccessMessageViewModel _successMessageVM;
 
-        //public ModalNavigationStore(ErrorMessageViewModel errorMessageViewModel,SuccessMessageViewModel successMessageViewModel)
-        //{
-        //    _errorMessageVM=errorMessageViewModel;
-        //    _successMessageVM = successMessageViewModel;
-
-        //}
+   
 
         public ModalNavigationStore()
         {
-            //_errorMessageVM = errorMessageViewModel;
-            //_successMessageVM = successMessageViewModel;
+        
 
         }
 
         public bool IsOpen => CurrentViewModel != null;
 
         public event Action CurrentViewModelChanged;
-
-        //public void ShowErrorMessage(string error)
-        //{
-        //    _previousVM = CurrentViewModel;
-        //    CurrentViewModel = _errorMessageVM;
-        //    _errorMessageVM.ErrorMessage = error;
-        //}
-
-        //public void ShowSuccessMessage(string success)
-        //{
-        //    _previousVM = CurrentViewModel;
-        //    CurrentViewModel = _successMessageVM;
-        //    _successMessageVM.SuccessMessage = success;
-        //}
-
-        //public void Return()
-        //{
-        //    if (_previousVM != null)
-        //    {
-        //        CurrentViewModel = _previousVM;
-        //    }
-        //    else
-        //    {
-        //        Close();
-        //    }
-        //}
 
         public void Close()
         {

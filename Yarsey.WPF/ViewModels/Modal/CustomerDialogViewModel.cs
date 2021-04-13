@@ -47,17 +47,20 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         private ModalNavigationService<CustomerDialogViewModel> _modalNavigationService;
 
+        private GeneralModalNavigationService _generalModalNavigationService;
+
         private CustomerViewModel _customerViewModel;
 
-        public CustomerDialogViewModel(CustomerDataService customerDataService,CustomerViewModel customerViewModel,ModalNavigationService<CustomerDialogViewModel> modalNavigationService)
+        public CustomerDialogViewModel(CustomerDataService customerDataService,CustomerViewModel customerViewModel,ModalNavigationService<CustomerDialogViewModel> modalNavigationService,GeneralModalNavigationService generalModalNavigationService)
         {
             _customerDataService = customerDataService;
             _customerViewModel = customerViewModel;
             _modalNavigationService = modalNavigationService;
+            _generalModalNavigationService = generalModalNavigationService;
             //CloseModalCommand = new NavigateCommand(closeModalNavigationService);
             CloseModalCommand = new AsyncRelayCommand(Close);
             
-             CreateCustomerCommand = new AsyncRelayCommand(Create,Success, (e) => { _modalNavigationService.NavigateException(e.Message); });  // exception happens what next ?
+             CreateCustomerCommand = new AsyncRelayCommand(Create,Success, (e) => { _generalModalNavigationService.NavigateOnEception(e.Message); });  // exception happens what next ?
         }
 
       
@@ -67,7 +70,7 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         public void Cancel()
         {
-           // CloseWindowCommand();
+        
 
         }
 
@@ -78,7 +81,7 @@ namespace Yarsey.WPF.ViewModels.Modal
         }
         private async Task Success()
         {
-            _modalNavigationService.NavigateSuccess("Successfully created Customer");
+            _generalModalNavigationService.NavigationOnSuccess("Successfully created Customer");
             await _customerViewModel.OnObjectCreated();
         }
 
@@ -98,8 +101,7 @@ namespace Yarsey.WPF.ViewModels.Modal
 
                 if (!this.HasErrors)
                 {
-                    //_customerFactory.CreateNewCustomer(Name, Adress, Email, PhoneNo);
-                    //AddedCustomer();
+
                     Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
 
                     await  CustomerDataService.Create(customer);

@@ -41,7 +41,7 @@ namespace Yarsey.WPF.ViewModels
 
         private async Task Return()
         {
-            await Task.Run(() => { _modalNavigationStore.Return(); });
+            await Task.Run(() => { _modalNavigationStore.CurrentViewModel = _modalNavigationStore.PreviousVm; });
         }
     }
 }

@@ -19,10 +19,12 @@ namespace Yarsey.WPF.HostBuilder
             {
 
                 services.AddSingleton<NavigationStore>();
+          
+                services.AddSingleton<ModalNavigationStore>();
                 services.AddSingleton<ErrorMessageViewModel>(s => new ErrorMessageViewModel(s.GetRequiredService<ModalNavigationStore>()));
-                services.AddSingleton<SuccessMessageViewModel>(s=>new SuccessMessageViewModel(s.GetRequiredService<ModalNavigationStore>()));
-                services.AddSingleton<ModalNavigationStore>(s=>new ModalNavigationStore(s.GetRequiredService<ErrorMessageViewModel>(),s.GetRequiredService<SuccessMessageViewModel>()));
+                services.AddSingleton<SuccessMessageViewModel>(s => new SuccessMessageViewModel(s.GetRequiredService<ModalNavigationStore>()));
 
+              
             });
 
             return host;

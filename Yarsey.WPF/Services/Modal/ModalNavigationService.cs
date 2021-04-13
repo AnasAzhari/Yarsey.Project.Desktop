@@ -31,13 +31,13 @@ namespace Yarsey.WPF.Services
             _modalNavigationStore.Close();
         }
 
-        public void NavigateException(string message)
-        {
-            _modalNavigationStore.ShowErrorMessage(message);
-        }
-        public void NavigateSuccess(string message)
-        {
-            _modalNavigationStore.ShowSuccessMessage(message);
-        }
+        //public void NavigateException(string message)
+        //{
+        //    _modalNavigationStore.ShowErrorMessage(message);
+        //}
+        //public void NavigateSuccess(string message)
+        //{
+        //    _modalNavigationStore.ShowSuccessMessage(message);
+        //}
     }
 }

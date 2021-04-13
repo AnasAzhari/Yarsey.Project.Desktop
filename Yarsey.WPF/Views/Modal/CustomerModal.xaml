@@ -79,7 +79,7 @@
 
                         </Grid>
                         <Grid Grid.Row="1" Grid.Column="1">
-                            <TextBox FontSize="16" Text="{Binding Name,ValidatesOnNotifyDataErrors=True}" MaxLength="10"  VerticalAlignment="Bottom"/>
+                            <TextBox FontSize="16" Text="{Binding Name,ValidatesOnNotifyDataErrors=True}"  VerticalAlignment="Bottom"/>
 
                         </Grid>
                     </Grid>
