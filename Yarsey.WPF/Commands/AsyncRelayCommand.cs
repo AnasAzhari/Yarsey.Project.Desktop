@@ -9,27 +9,34 @@ namespace Yarsey.WPF.Commands
     public class AsyncRelayCommand : AsyncCommandBase
     {
         // task to be executed
-        private readonly Func<Task> _callback;
+        private readonly Func<Task<bool>> _callbackOnValidation;
 
         private readonly Func<Task> _callbackOnSuccess;
 
-        public AsyncRelayCommand(Func<Task> callback,Func<Task> callbackOnSuccess=null,Action<Exception> onException=null): base(onException)
+        public AsyncRelayCommand(Func<Task<bool>> callback,Func<Task> callbackOnSuccess=null,Action<Exception> onException=null): base(onException)
         {
-            _callback = callback;
+            _callbackOnValidation = callback;
             _callbackOnSuccess = callbackOnSuccess;
         }
 
         protected override async Task ExecuteAsync(object parameter)
         {
-             await _callback().ContinueWith((j)=> {
+            //await _callbackOnValidation().ContinueWith((j)=> {
 
-                 if (j.IsCompletedSuccessfully)
-                 {
-                      _callbackOnSuccess?.Invoke();
+            //    if (j.IsCompletedSuccessfully )
+            //    {
+            //         _callbackOnSuccess?.Invoke();
 
-                 }
-             
-             });
+            //    }
+
+            //});
+
+            var res=await _callbackOnValidation();
+
+            if (res == true)
+            {
+                _callbackOnSuccess?.Invoke();
+            }
         }
     }
 }

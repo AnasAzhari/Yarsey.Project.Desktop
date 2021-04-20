@@ -26,7 +26,7 @@
                 <layouts:Layout/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type modalviewmodels:CustomerDialogViewModel}">
-                <modalviews:CustomerModal/>
+                <modalviews:CustomerModalTextInputLayout/>
             </DataTemplate>
             <DataTemplate DataType="{x:Type viewmodels:SuccessMessageViewModel}">
                 <modalMessageviews:SuccessMessage/>

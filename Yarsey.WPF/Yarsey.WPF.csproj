@@ -50,6 +50,9 @@
     <Reference Include="Syncfusion.SfGridConverter.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfGridConverter.WPF.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.SfTextInputLayout.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.SfTextInputLayout.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Shared.Base">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\18.4.0.30\precompiledassemblies\net5.0\Syncfusion.Shared.Base.dll</HintPath>
     </Reference>

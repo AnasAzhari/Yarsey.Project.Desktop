@@ -14,6 +14,38 @@
                 <Setter Property="FontSize" Value="16"></Setter>
             </Style>
 
+
+            <converters:EmptyCollectionToObjectConverter x:Key="EmptyCollectionToObjectConverter" EmptyValue="False" NotEmptyValue="True"/>
+            <converters:ErrorConverter x:Key="ErrorConverter"/>
+            <!--<Style TargetType="TextBox">
+                <Setter Property="FontSize" Value="25"/>
+                <Setter Property="Validation.ErrorTemplate">
+                    <Setter.Value>
+                        <ControlTemplate x:Name="TextErrorTemplate">
+                            <StackPanel>
+                                <AdornedElementPlaceholder />
+                                <ItemsControl Margin="0 5 0 0"
+                                    FontSize="12"
+                                    ItemsSource="{Binding}">
+                                    <ItemsControl.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Foreground="Red" Text="{Binding ErrorContent}" />
+                                        </DataTemplate>
+                                    </ItemsControl.ItemTemplate>
+                                </ItemsControl>
+                            </StackPanel>
+                        </ControlTemplate>
+                    </Setter.Value>
+
+                </Setter>
+                <Style.Triggers>
+                    <Trigger Property="Validation.HasError" Value="True">
+                        <Setter Property="ToolTip"
+                            Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"></Setter>
+                    </Trigger>
+                </Style.Triggers>
+
+            </Style>-->
         </Grid.Resources>
 
 
@@ -133,11 +165,11 @@
                             <Label FontSize="12" Content="Email" VerticalAlignment="Center"/>
                         </Grid>
 
-                        <Grid Grid.Row="1" Grid.Column="0">
+                        <Grid Grid.Column="0" Margin="0,27,0,0" Grid.RowSpan="2">
                             <Image Margin="0,0,0,0"  Source="{StaticResource Email}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
                         </Grid>
-                        <Grid Grid.Row="1" Grid.Column="1">
+                        <Grid Grid.Column="1" Margin="0,27,0,0" Grid.RowSpan="2">
                             <TextBox Text="{Binding Email ,ValidatesOnNotifyDataErrors=True}"  VerticalAlignment="Bottom"/>
 
                         </Grid>
@@ -182,7 +214,7 @@
                             <RowDefinition Height="2*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="80.8"/>
+                            <ColumnDefinition Width="66"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
 
@@ -207,13 +239,13 @@
         <Grid Grid.Row="2">
             <StackPanel Orientation="Horizontal">
                 <Button
-                    Margin="4,4,4,4"
+                    Margin="66,4,4,4"
                 Width="150"
                 Height="35"
                 HorizontalAlignment="Center"
                 Background="#0d5fa3"
                 BorderThickness="0"
-                Command="{Binding CreateCustomerCommand}"
+                Command="{Binding GeneralCommand}"
                 Content="Submit"
                 FontSize="16"
                 Foreground="White" />

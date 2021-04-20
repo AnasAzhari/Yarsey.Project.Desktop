@@ -28,8 +28,8 @@ namespace Yarsey.WPF.ViewModels
         public ErrorMessageViewModel(ModalNavigationStore store)
         {
             _modalNavigationStore = store;
-            CloseCommand = new AsyncRelayCommand(Close);
-            ReturnCommand = new AsyncRelayCommand(Return);
+            CloseCommand = new AsyncRelayCommand(CanClose,Close);
+            ReturnCommand = new AsyncRelayCommand(CanReturn,Return);
         }
 
 
@@ -37,6 +37,16 @@ namespace Yarsey.WPF.ViewModels
         {
 
             await Task.Run(() => { _modalNavigationStore.Close(); });
+        }
+
+        private async Task<bool> CanClose()
+        {
+            return true;
+        }
+
+        private async Task<bool> CanReturn()
+        {
+            return true;
         }
 
         private async Task Return()

@@ -45,6 +45,8 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         public AsyncRelayCommand CreateCustomerCommand { get; set; }
 
+        public RelayCommand GeneralCommand { get; set; }
+
         private ModalNavigationService<CustomerDialogViewModel> _modalNavigationService;
 
         private GeneralModalNavigationService _generalModalNavigationService;
@@ -58,12 +60,12 @@ namespace Yarsey.WPF.ViewModels.Modal
             _modalNavigationService = modalNavigationService;
             _generalModalNavigationService = generalModalNavigationService;
             //CloseModalCommand = new NavigateCommand(closeModalNavigationService);
-            CloseModalCommand = new AsyncRelayCommand(Close);
-            
-             CreateCustomerCommand = new AsyncRelayCommand(Create,Success, (e) => { _generalModalNavigationService.NavigateOnEception(e.Message); });  // exception happens what next ?
-        }
+            CloseModalCommand = new AsyncRelayCommand(ValidationClose,Close);
 
-      
+            CreateCustomerCommand = new AsyncRelayCommand(ValidateAsync,Success, (e) => { _generalModalNavigationService.NavigateOnEception(e.Message); });  // exception happens what next ?
+
+           // GeneralCommand = new RelayCommand(Create);
+        }
 
         private bool canValidateForErrors;
 
@@ -74,18 +76,7 @@ namespace Yarsey.WPF.ViewModels.Modal
 
         }
 
-        private async Task Close()
-        {
-            
-            await Task.Run(() => { _modalNavigationService.NavigateClose(); });
-        }
-        private async Task Success()
-        {
-            _generalModalNavigationService.NavigationOnSuccess("Successfully created Customer");
-            await _customerViewModel.OnObjectCreated();
-        }
-
-        private async Task Create()
+        private void Create()
         {
             try
             {
@@ -102,12 +93,10 @@ namespace Yarsey.WPF.ViewModels.Modal
                 if (!this.HasErrors)
                 {
 
-                    Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
+                    var customer = new Customer() { Name = Name, PhoneNo = PhoneNo };
 
-                    await  CustomerDataService.Create(customer);
-                  
                 }
-                
+
 
             }
             catch (Exception ex)
@@ -115,6 +104,66 @@ namespace Yarsey.WPF.ViewModels.Modal
 
                 throw;
             }
+
+        }
+
+        private async Task<bool> ValidationClose()
+        {
+            
+           
+            return true;
+        }
+        private async Task Close()
+        {
+            await Task.Run(() => { _modalNavigationService.NavigateClose(); });
+        }
+        private async Task Success()
+        {
+            Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
+
+            await CustomerDataService.Create(customer);
+            _generalModalNavigationService.NavigationOnSuccess("Successfully created Customer");
+            await _customerViewModel.OnObjectCreated();
+        }
+
+        private async Task<bool> ValidateAsync()
+        {
+    
+                canValidateForErrors = true;
+                if (this.ErrorsChanged != null)
+                {
+                    this.RaiseErrorsChanged("Name");
+                    this.RaiseErrorsChanged("PhoneNo");
+                    this.RaiseErrorsChanged("Adress");
+                    this.RaiseErrorsChanged("Email");
+
+
+                    if (!this.HasErrors)
+                    {
+                        return true;
+
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
+                else
+                {
+                    if (!this.HasErrors)
+                    {
+                        return true;
+
+
+                    }
+                    else
+                    {
+                        return false;
+                    }
+
+                }
 
         }
 

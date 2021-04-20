@@ -29,10 +29,18 @@ namespace Yarsey.WPF.ViewModels
         public SuccessMessageViewModel(ModalNavigationStore store)
         {
             _modalNavigationStore = store;
-            CloseCommand = new AsyncRelayCommand(Close);
-            ReturnCommand = new AsyncRelayCommand(Return);
+            CloseCommand = new AsyncRelayCommand(CanClose,Close);
+            ReturnCommand = new AsyncRelayCommand(CanReturn,Return);
+        }
+        private async Task<bool> CanClose()
+        {
+            return true;
         }
 
+        private async Task<bool> CanReturn()
+        {
+            return true;
+        }
         private async Task Close()
         {
 
