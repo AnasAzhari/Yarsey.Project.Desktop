@@ -15,6 +15,7 @@ using Yarsey.WPF.ViewModels;
 using Yarsey.WPF.Stores;
 using Yarsey.WPF.Services;
 using Yarsey.WPF.Views;
+using Syncfusion.SfSkinManager;
 
 namespace Yarsey.WPF
 {
@@ -30,6 +31,7 @@ namespace Yarsey.WPF
         public App()
         {
             _host = CreateHostBuilder().Build();
+
         }
 
         public static IHostBuilder CreateHostBuilder(string[] args = null)

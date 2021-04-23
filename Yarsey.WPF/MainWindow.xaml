@@ -4,6 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yarsey.WPF"
+        xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+        xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+        syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
         xmlns:viewmodels="clr-namespace:Yarsey.WPF.ViewModels"
          xmlns:layouts="clr-namespace:Yarsey.WPF.Layout"
         xmlns:views="clr-namespace:Yarsey.WPF.Views"
@@ -14,7 +17,7 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800" WindowState="Maximized">
    
-    <Grid RenderOptions.EdgeMode="Aliased">
+    <Grid>
         <Grid.Resources>
             <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
                 <views:HomeView/>
@@ -40,9 +43,12 @@
         <!--<modalviews:CustomerDialogVer2 Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModalViewModel}"/>
         </modalviews:CustomerDialogVer2>-->
-        <modal:ModalControl Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+        <!--<modal:ModalControl Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModalViewModel}"/>
-        </modal:ModalControl>
+        </modal:ModalControl>-->
+        <modalviews:ChromelessWindow1 Panel.ZIndex="1">
+            <ContentControl Content="{Binding CurrentModalViewModel}"/>
+        </modalviews:ChromelessWindow1>
 
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>

@@ -5,7 +5,10 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Yarsey.WPF.Views.Modal"
              mc:Ignorable="d" 
-              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+              
+               xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+            xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+            syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
              xmlns:converters="clr-namespace:Yarsey.WPF.Converter"
               UseLayoutRounding="True"
                 Width="auto"

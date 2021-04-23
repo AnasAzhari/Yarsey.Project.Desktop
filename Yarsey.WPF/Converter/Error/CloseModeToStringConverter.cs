@@ -6,7 +6,8 @@
 // applicable laws. 
 #endregion
 using Syncfusion.Windows;
-using Syncfusion.Windows.Shared;
+//using Syncfusion.Windows.Shared;
+using Syncfusion.Windows.Tools.Controls;
 using System;
 using System.Windows.Data;
 
