@@ -36,7 +36,7 @@ namespace Yarsey.WPF.Services
         public void NavigationOnSuccess(string message)
         {
             _modaNavigationStore.CurrentViewModel = _successMessageViewModel;
-            _successMessageViewModel.SuccessMessage = message;
+            _successMessageViewModel.SuccessMessage = message; 
         }
     }
 }

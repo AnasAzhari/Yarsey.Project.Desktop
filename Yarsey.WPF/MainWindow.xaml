@@ -43,12 +43,12 @@
         <!--<modalviews:CustomerDialogVer2 Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModalViewModel}"/>
         </modalviews:CustomerDialogVer2>-->
-        <!--<modal:ModalControl Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+        <modal:ModalControl Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModalViewModel}"/>
-        </modal:ModalControl>-->
-        <modalviews:ChromelessWindow1 Panel.ZIndex="1">
+        </modal:ModalControl>
+        <!--<modalviews:ChromelessWindow1 Panel.ZIndex="1">
             <ContentControl Content="{Binding CurrentModalViewModel}"/>
-        </modalviews:ChromelessWindow1>
+        </modalviews:ChromelessWindow1>-->
 
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>
