@@ -36,6 +36,11 @@ namespace Yarsey.WPF.HostBuilder
             return host;
         }
 
+        //public static INavigationService CreateNavigationDrawerLayoutService(IServiceProvider serviceProvider)
+        //{
+
+        //}
+
       
     }
 }
