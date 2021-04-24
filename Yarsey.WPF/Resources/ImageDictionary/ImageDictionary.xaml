@@ -6,5 +6,9 @@
     <BitmapImage x:Key="Email" UriSource="/Resources/Icon/email_open_32px.png"/>
     <BitmapImage x:Key="Adress" UriSource="/Resources/Icon/user_location_24px.png"/>
     <BitmapImage x:Key="Home" UriSource="/Resources/Icon/icons8_home_64.png"/>
+    <BitmapImage x:Key="AddCustomer" UriSource="/Resources/Icon/add_user_group_man_man_240px.png"/>
+    <BitmapImage x:Key="Supplier" UriSource="/Resources/Icon/truck_200px.png"/>
+    <BitmapImage x:Key="Home240px" UriSource="/Resources/Icon/home_240px.png"/>
+    <BitmapImage x:Key="Buy" UriSource="/Resources/Icon/buy_60px.png"/>
 
 </ResourceDictionary>

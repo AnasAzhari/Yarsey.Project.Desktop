@@ -6,11 +6,15 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
   <ItemGroup>
+    <None Remove="Resources\Icon\add_user_group_man_man_240px.png" />
+    <None Remove="Resources\Icon\buy_60px.png" />
     <None Remove="Resources\Icon\customer_32px.png" />
     <None Remove="Resources\Icon\email_open_32px.png" />
+    <None Remove="Resources\Icon\home_240px.png" />
     <None Remove="Resources\Icon\icons8_home.ico" />
     <None Remove="Resources\Icon\icons8_home_64.png" />
     <None Remove="Resources\Icon\phone_32px.png" />
+    <None Remove="Resources\Icon\truck_200px.png" />
     <None Remove="Resources\Icon\user_location_24px.png" />
   </ItemGroup>
   <ItemGroup>
@@ -114,12 +118,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="Resources\Icon\add_user_group_man_man_240px.png" />
+    <Resource Include="Resources\Icon\buy_60px.png" />
     <Resource Include="Resources\Icon\customer_32px.png" />
     <Resource Include="Resources\Icon\email_open_32px.png" />
+    <Resource Include="Resources\Icon\home_240px.png" />
     <Resource Include="Resources\Icon\icons8_home_64.png">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icon\phone_32px.png" />
+    <Resource Include="Resources\Icon\truck_200px.png" />
     <Resource Include="Resources\Icon\user_location_24px.png" />
   </ItemGroup>
 </Project>
