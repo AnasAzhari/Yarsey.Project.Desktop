@@ -40,7 +40,8 @@ namespace Yarsey.WPF
                 .AddConfiguration()
                 .AddStores()
                 .AddServices()
-                .AddViewModels()
+                //.AddViewModels()
+                .AddViewModelsV2()
                 .AddDbContext(); 
                 
         }
@@ -61,7 +62,7 @@ namespace Yarsey.WPF
             INavigationService initialNavigationService = _host.Services.GetRequiredService<INavigationService>();
             initialNavigationService.Navigate();
 
-            ViewModelBase customerviewmodel = _host.Services.GetRequiredService<CustomerViewModel>();
+           // ViewModelBase customerviewmodel = _host.Services.GetRequiredService<CustomerViewModel>();
             //var customerview = _host.Services.GetRequiredService<CustomerView>();
 
             MainWindow = _host.Services.GetRequiredService<MainWindow>();

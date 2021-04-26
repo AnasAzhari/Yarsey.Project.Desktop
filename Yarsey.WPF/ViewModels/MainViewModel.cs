@@ -15,23 +15,28 @@ namespace Yarsey.WPF.ViewModels
 
         private readonly ModalNavigationStore _modalNavigationStore;
 
-        public ViewModelBase CurrentViewModel => _navigationStore.CurrentViewModel;
+        private readonly NavigationDrawerStore _navigationDrawerStore;
+
+        public ViewModelBase CurrentViewModel => _navigationStore.CurrentLayoutViewModel;
 
         public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
+
+        public ViewModelBase CurrentNavigationDrawerContentViewModel => _navigationDrawerStore.CurrentContentViewModel;
 
         public bool IsOpen => _modalNavigationStore.IsOpen;
 
         public ICommand NavigateCustomerCommand { get; }
         public ICommand NavigateHomeCommand { get; }
 
-        public MainViewModel(NavigationStore navigationStore,ModalNavigationStore modalNavigationStore)
+        public MainViewModel(NavigationStore navigationStore,ModalNavigationStore modalNavigationStore,NavigationDrawerStore navigationDrawerStore)
         {
             _navigationStore = navigationStore;
             _modalNavigationStore = modalNavigationStore;
+            _navigationDrawerStore = navigationDrawerStore;
+
             _navigationStore.CurrentViewModelChanged += OnCurrentViewModelChanged;
             _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
-
-        
+            _navigationDrawerStore.CurrentContentViewModelChanged += OnCurrentNavigationContentViewModelChanged;
         }
 
         private void OnCurrentViewModelChanged()
@@ -42,6 +47,11 @@ namespace Yarsey.WPF.ViewModels
         {
             OnPropertyChanged(nameof(CurrentModalViewModel));
             OnPropertyChanged(nameof(IsOpen));
+        }
+
+        private void OnCurrentNavigationContentViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentNavigationDrawerContentViewModel));
         }
 
     }

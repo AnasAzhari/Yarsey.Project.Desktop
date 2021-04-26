@@ -6,18 +6,19 @@ using System.Threading.Tasks;
 
 namespace Yarsey.WPF.Stores
 {
-    public class NavigationStore
+    public class NavigationStore 
     {
         public event Action CurrentViewModelChanged;
 
-        private ViewModelBase _currentViewModel { get; set; }
+        private ViewModelBase _currentLayoutViewModel { get; set; } 
 
-        public ViewModelBase CurrentViewModel {
+        // this are all Layouts only
+        public ViewModelBase CurrentLayoutViewModel {
 
-            get => _currentViewModel;
+            get => _currentLayoutViewModel;
             set
             {
-                _currentViewModel = value;
+                _currentLayoutViewModel = value;
                 OnCurrentViewModelChanged();
             }
         

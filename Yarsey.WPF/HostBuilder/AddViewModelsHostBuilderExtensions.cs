@@ -35,7 +35,7 @@ namespace Yarsey.WPF.HostBuilder
                 services.AddTransient<NavigationBarViewModel>(CreateNavigationViewModel);
                 services.AddSingleton<MainViewModel>();
 
-                services.AddTransient<INavigationService>(s => CreateHomeNavigationService(s));
+                services.AddTransient<INavigationService>(s => CreateHomeNavigationService(s)); // transient because wanna switch type of layout
 
                 services.AddSingleton<MainWindow>(s => new MainWindow() { DataContext = s.GetRequiredService<MainViewModel>() });
                 services.AddSingleton<CustomerView>();

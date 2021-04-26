@@ -21,13 +21,16 @@ namespace Yarsey.WPF.HostBuilder
         {
             host.ConfigureServices(services =>
             {
+
                 // services.AddSingleton<INavigationService>(s => CreateHomeNavigationService(s));
                 services.AddSingleton<GeneralModalNavigationService>(s => new GeneralModalNavigationService(s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<ErrorMessageViewModel>(), s.GetRequiredService<SuccessMessageViewModel>()));
                 services.AddSingleton<CloseModalNavigationService>();
-             
 
-
-
+                services.AddSingleton<HomeViewModel>(s => new HomeViewModel(s.GetRequiredService<NavigationStore>()));
+                services.AddSingleton<CustomerViewModelV2>(s => new CustomerViewModelV2(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<CustomerDataService>()));
+           
+                services.AddTransient<INavigationService>(s => CreateNavigationDrawerLayoutService(s)); // transient because wanna switch type of layout
+                services.AddSingleton<MainViewModel>();
                 services.AddSingleton<MainWindow>(s => new MainWindow() { DataContext = s.GetRequiredService<MainViewModel>() });
                 services.AddSingleton<CustomerView>();
 
@@ -36,11 +39,27 @@ namespace Yarsey.WPF.HostBuilder
             return host;
         }
 
-        //public static INavigationService CreateNavigationDrawerLayoutService(IServiceProvider serviceProvider)
-        //{
+        public static INavigationService CreateNavigationDrawerLayoutService(IServiceProvider serviceProvider)
+        {
+            return new LayoutNavigationDrawerService(
 
-        //}
+                serviceProvider.GetRequiredService<NavigationStore>(),
 
-      
+                new List<ViewModelBase>()
+                {
+                    serviceProvider.GetRequiredService<HomeViewModel>(),
+                    serviceProvider.GetRequiredService<CustomerViewModelV2>()
+
+                },
+                serviceProvider.GetRequiredService<NavigationDrawerStore>()
+
+            ) ;
+
+        }
+    
+        
+
+
+
     }
 }

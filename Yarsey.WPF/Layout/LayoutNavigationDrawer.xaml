@@ -3,10 +3,10 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:Yarsey.WPF.Layout"
-             xmlns:behaviour="clr-namespace:Yarsey.WPF.Behaviour"
+             
+             
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-             xmlns:interaction="http://schemas.microsoft.com/xaml/behaviors"
+          
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -16,7 +16,8 @@
     <Grid>
         <syncfusion:SfNavigationDrawer x:Name="NavigationDrawer"
             DisplayMode="Expanded">
-            <syncfusion:NavigationItem Header="Home">
+            <syncfusion:NavigationItem Header="Home" Command="{Binding HomeNavigateCommand}"
+                                        >
                 <syncfusion:NavigationItem.Icon>
                
                     <Image Source="{StaticResource Home}"/>
@@ -32,7 +33,9 @@
            
                     <Image Source="{StaticResource Buy}"/>
                 </syncfusion:NavigationItem.Icon>
-                <syncfusion:NavigationItem Header="Customer">
+                <syncfusion:NavigationItem Header="Customer" Command="{Binding CustomerNavigateCommand}" 
+                    
+                                           >
                     <syncfusion:NavigationItem.Icon>
                         <Image Source="{StaticResource CustomerIcon}"/>
                     </syncfusion:NavigationItem.Icon>
@@ -41,21 +44,10 @@
             </syncfusion:NavigationItem>
 
             <syncfusion:SfNavigationDrawer.ContentView>
-                <Grid x:Name="contentViewGrid">
-                    <!--<Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <UserControl>
-                        <TextBlock
-                            Margin="10"
-                            FontFamily="SegoeUI-Semibold"
-                            FontSize="14"
-                            FontWeight="Medium"
-                            Text="Account" />
-                    </UserControl>
-                    <UserControl x:Name="contentView" Grid.Row="1" />-->
-                    <ContentControl Content="{Binding ContentViewModel}" />
+                <Grid x:Name="contentViewGrid" Margin="5,5,5,5">
+
+                    <!--<ContentControl Content="{Binding CurrentContentViewModel}" />-->
+                    <Label Content="{Binding Tester}"/>
                 </Grid>
             </syncfusion:SfNavigationDrawer.ContentView>
         </syncfusion:SfNavigationDrawer>

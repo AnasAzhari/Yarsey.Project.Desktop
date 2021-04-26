@@ -13,16 +13,16 @@ namespace Yarsey.WPF.Services
 
         private readonly NavigationStore _navigationStore;
 
-        private readonly Func<T> _createViewModel;
+        private readonly Func<T> _createContentViewModel;
 
         private readonly Func<NavigationBarViewModel> _createNavigationBarViewModel;
 
 
 
-        public LayoutNavigationService(NavigationStore navigationStore,Func<T> createViewModel,Func<NavigationBarViewModel> createnavigationViewmodel)
+        public LayoutNavigationService(NavigationStore navigationStore,Func<T> creteContentViewModel,Func<NavigationBarViewModel> createnavigationViewmodel)
         {
             _navigationStore = navigationStore;
-            _createViewModel = createViewModel;
+            _createContentViewModel = creteContentViewModel;
             _createNavigationBarViewModel = createnavigationViewmodel;
      
 
@@ -30,7 +30,7 @@ namespace Yarsey.WPF.Services
 
         public void Navigate()
         {
-            _navigationStore.CurrentViewModel = new LayoutViewModel(_createNavigationBarViewModel(), _createViewModel());
+            _navigationStore.CurrentLayoutViewModel = new LayoutViewModel(_createNavigationBarViewModel(), _createContentViewModel());
         }
     }
 }

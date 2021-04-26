@@ -25,9 +25,17 @@
             <DataTemplate DataType="{x:Type viewmodels:CustomerViewModel}">
                 <views:CustomerView/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:CustomerViewModelV2}">
+                <views:CustomerView/>
+            </DataTemplate>
+            
             <DataTemplate DataType="{x:Type viewmodels:LayoutViewModel}">
+                <layouts:Layout/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type viewmodels:LayoutNavigationDrawerViewModel}">
                 <layouts:LayoutNavigationDrawer/>
             </DataTemplate>
+            
             <DataTemplate DataType="{x:Type modalviewmodels:CustomerDialogViewModel}">
                 <modalviews:CustomerModalTextInputLayout/>
             </DataTemplate>
@@ -46,9 +54,7 @@
         <modal:ModalControl Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
             <ContentControl Content="{Binding CurrentModalViewModel}"/>
         </modal:ModalControl>
-        <!--<modalviews:ChromelessWindow1 Panel.ZIndex="1">
-            <ContentControl Content="{Binding CurrentModalViewModel}"/>
-        </modalviews:ChromelessWindow1>-->
+   
 
         <ContentControl Content="{Binding CurrentViewModel}"/>
     </Grid>

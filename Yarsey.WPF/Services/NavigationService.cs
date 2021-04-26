@@ -18,10 +18,9 @@ namespace Yarsey.WPF.Services
             _createViewModel = createviewmodel;
         }
 
-
         public void Navigate()
         {
-            _navigationStore.CurrentViewModel = _createViewModel();
+            _navigationStore.CurrentLayoutViewModel = _createViewModel();
         }
     }
 }
