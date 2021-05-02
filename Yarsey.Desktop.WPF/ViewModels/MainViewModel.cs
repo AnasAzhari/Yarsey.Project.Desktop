@@ -25,17 +25,17 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public NavationItemClickedAction navationItemClickedAction { get; set; }
 
 
-        public MainViewModel()
+        public MainViewModel(NavigationDrawerStore navigationDrawerStore, List<ViewModelBase> vMList)
         {
 
-            //_navigationDrawerStore = navigationDrawerStore;
+            _navigationDrawerStore = navigationDrawerStore;
             // _navigationDrawerStore.CurrentContentViewModelChanged += OnCurrentNavigationContentViewModelChanged;
 
-            //var homeVM = vMList.Where(s => s.GetType() == typeof(HomeViewModel)).FirstOrDefault();
-            //var custVm = vMList.Where(s => s.GetType() == typeof(CustomerViewModel)).FirstOrDefault();
-            navationItemClickedAction = new NavationItemClickedAction();
-            var homeVM = new HomeViewModel();
-            var custVm = new CustomerViewModel();
+            var homeVM = vMList.Where(s => s.GetType() == typeof(HomeViewModel)).FirstOrDefault();
+            var custVm = vMList.Where(s => s.GetType() == typeof(CustomerViewModel)).FirstOrDefault();
+            //navationItemClickedAction = new NavationItemClickedAction();
+            //var homeVM = new HomeViewModel();
+            //var custVm = new CustomerViewModel();
 
             if (homeVM != null)
             {

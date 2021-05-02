@@ -23,14 +23,14 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
 
 
-                //services.AddSingleton<MainViewModel>(s => new MainViewModel(s.GetRequiredService<NavigationDrawerStore>(), new List<ViewModelBase>()
-                //{
-                //    s.GetRequiredService<HomeViewModel>(),
-                //    s.GetRequiredService<CustomerViewModel>()
+                services.AddSingleton<MainViewModel>(s => new MainViewModel(s.GetRequiredService<NavigationDrawerStore>(), new List<ViewModelBase>()
+                {
+                    s.GetRequiredService<HomeViewModel>(),
+                    s.GetRequiredService<CustomerViewModel>()
 
-                //}));
+                }));
 
-                services.AddSingleton<MainViewModel>(s => new MainViewModel());
+                //services.AddSingleton<MainViewModel>(s => new MainViewModel());
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); ; ;
                 services.AddSingleton<HomeView>();
                 services.AddSingleton<CustomerView>(s=>new CustomerView() {DataContext= s.GetRequiredService<CustomerViewModel>() });
