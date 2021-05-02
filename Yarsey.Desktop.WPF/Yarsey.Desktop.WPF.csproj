@@ -1,0 +1,140 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net5.0-windows</TargetFramework>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Folder Include="Converter\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.5" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Toolkit.Mvvm" Version="7.0.1" />
+    <PackageReference Include="Microsoft.Xaml.Behaviors.Wpf" Version="1.1.31" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Yarsey.Domain\Yarsey.Domain.csproj" />
+    <ProjectReference Include="..\Yarsey.EntityFramework\Yarsey.EntityFramework.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Syncfusion.Data.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Data.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Gantt.MVVM.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Gantt.MVVM.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Gantt.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Gantt.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Grid.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Grid.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridCommon.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.GridCommon.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.GridConverter.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.GridConverter.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Licensing">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Licensing.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.PropertyGrid.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.PropertyGrid.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfAccordion.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfAccordion.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfBulletGraph.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfBulletGraph.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfBusyIndicator.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfBusyIndicator.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChart.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfChart.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfChromelessWindow.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfChromelessWindow.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfDiagram.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfDiagram.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfGauge.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfGauge.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfGrid.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfGrid.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfGridCommon.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfGridCommon.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfGridConverter.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfGridConverter.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfInput.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfInput.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfNavigationDrawer.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfNavigationDrawer.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfProgressBar.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfProgressBar.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfSchedule.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfSchedule.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfScheduler.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfScheduler.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfShared.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfShared.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.SfSkinManager.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.SfSkinManager.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Base">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Shared.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.MVVM.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Shared.MVVM.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.Windows">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Shared.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Shared.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Shared.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.FluentDark.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Themes.FluentDark.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.FluentDarkTurq.WPF">
+      <HintPath>..\..\..\..\Desktop\FluentTheme\bin\Release\net5.0-windows\Syncfusion.Themes.FluentDarkTurq.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Themes.FluentLight.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Themes.FluentLight.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.MVVM.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Tools.MVVM.WPF.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Windows">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Tools.Windows.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Tools.Wpf">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Tools.WPF.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="AppSettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

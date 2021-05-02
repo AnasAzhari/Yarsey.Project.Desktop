@@ -8,26 +8,25 @@ using Yarsey.WPF.ViewModels;
 
 namespace Yarsey.WPF.Services
 {
-    public class LayoutNavigationDrawerService:INavigationService
+    public class LayoutNavigationDrawerService<T> : INavigationService where T : ViewModelBase
     {
         private readonly NavigationStore _navigationStore;
 
         private readonly NavigationDrawerStore _navigationDrawerStore;
 
-        private readonly List<ViewModelBase> ContentViewModels;
-
-        private readonly INavigationService _navigationService;
-        public LayoutNavigationDrawerService(NavigationStore navigationStore,List<ViewModelBase> contentViewModels,NavigationDrawerStore navigationDrawerStore)
+        private readonly Func<T> _contentViewModel;
+        
+        public LayoutNavigationDrawerService(NavigationStore navigationStore,Func<T> contentViewModels)
         {
             _navigationStore = navigationStore;
-            ContentViewModels = contentViewModels;
-            _navigationDrawerStore = navigationDrawerStore;
+            _contentViewModel = contentViewModels;
+            //_navigationDrawerStore = navigationDrawerStore;
          
         }
 
         public void Navigate()
         {
-            _navigationStore.CurrentLayoutViewModel = new LayoutNavigationDrawerViewModel(ContentViewModels,_navigationDrawerStore);
+            _navigationStore.CurrentLayoutViewModel = new LayoutNavigationDrawerViewModel(_contentViewModel(), _navigationDrawerStore);
         }
     }
 }

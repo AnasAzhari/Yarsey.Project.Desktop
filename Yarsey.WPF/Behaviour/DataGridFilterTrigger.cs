@@ -24,7 +24,7 @@ namespace Yarsey.WPF.Behaviour
     {
         protected override void Invoke(object parameter)
         {
-            var viewModel = this.Target.DataContext as CustomerViewModel;
+            var viewModel = this.Target.DataContext as CustomerViewModelV2;
             viewModel.filterChanged += OnFilterChanged;
         }
 
@@ -33,7 +33,7 @@ namespace Yarsey.WPF.Behaviour
         /// </summary>
         private void OnFilterChanged()
         {
-            var viewModel = this.Target.DataContext as CustomerViewModel;
+            var viewModel = this.Target.DataContext as CustomerViewModelV2;
             if (this.Target.View != null)
             {
                 this.Target.View.Filter = viewModel.FilerRecords;

@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yarsey.EntityFramework", "Y
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yarsey.WPF", "Yarsey.WPF\Yarsey.WPF.csproj", "{13F5A387-E222-4A56-9561-25FE2FABB383}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Yarsey.Desktop.WPF", "Yarsey.Desktop.WPF\Yarsey.Desktop.WPF.csproj", "{03BD77AB-E2A9-41F0-AD03-28E9724F048C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{13F5A387-E222-4A56-9561-25FE2FABB383}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{13F5A387-E222-4A56-9561-25FE2FABB383}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{13F5A387-E222-4A56-9561-25FE2FABB383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{03BD77AB-E2A9-41F0-AD03-28E9724F048C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{03BD77AB-E2A9-41F0-AD03-28E9724F048C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{03BD77AB-E2A9-41F0-AD03-28E9724F048C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{03BD77AB-E2A9-41F0-AD03-28E9724F048C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

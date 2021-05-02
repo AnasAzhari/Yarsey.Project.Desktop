@@ -29,7 +29,7 @@ namespace Yarsey.WPF.HostBuilder
                 services.AddSingleton<HomeViewModel>(s => new HomeViewModel(s.GetRequiredService<NavigationStore>()));
                 services.AddSingleton<CustomerViewModelV2>(s => new CustomerViewModelV2(s.GetRequiredService<NavigationStore>(), s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<CustomerDataService>()));
            
-                services.AddTransient<INavigationService>(s => CreateNavigationDrawerLayoutService(s)); // transient because wanna switch type of layout
+                services.AddTransient<INavigationService>(s => CreateHomeNavigationDrawerLayoutService(s)); // transient because wanna switch type of layout
                 services.AddSingleton<MainViewModel>();
                 services.AddSingleton<MainWindow>(s => new MainWindow() { DataContext = s.GetRequiredService<MainViewModel>() });
                 services.AddSingleton<CustomerView>();
@@ -39,25 +39,46 @@ namespace Yarsey.WPF.HostBuilder
             return host;
         }
 
-        public static INavigationService CreateNavigationDrawerLayoutService(IServiceProvider serviceProvider)
+        public static INavigationService CreateHomeNavigationDrawerLayoutService(IServiceProvider serviceProvider)
         {
-            return new LayoutNavigationDrawerService(
+            return new LayoutNavigationDrawerService<HomeViewModel>(
 
                 serviceProvider.GetRequiredService<NavigationStore>(),
 
-                new List<ViewModelBase>()
-                {
-                    serviceProvider.GetRequiredService<HomeViewModel>(),
-                    serviceProvider.GetRequiredService<CustomerViewModelV2>()
+                ()=>serviceProvider.GetRequiredService<HomeViewModel>()
 
-                },
-                serviceProvider.GetRequiredService<NavigationDrawerStore>()
+            //new List<ViewModelBase>()
+            //{
+            //    serviceProvider.GetRequiredService<HomeViewModel>(),
+            //    serviceProvider.GetRequiredService<CustomerViewModelV2>()
 
-            ) ;
+            //}
+
+
+            );
 
         }
-    
-        
+        public static INavigationService CreateCustomerNavigationDrawerLayoutService(IServiceProvider serviceProvider)
+        {
+            return new LayoutNavigationDrawerService<CustomerViewModelV2>(
+
+                serviceProvider.GetRequiredService<NavigationStore>(),
+
+                () => serviceProvider.GetRequiredService<CustomerViewModelV2>()
+
+            //new List<ViewModelBase>()
+            //{
+            //    serviceProvider.GetRequiredService<HomeViewModel>(),
+            //    serviceProvider.GetRequiredService<CustomerViewModelV2>()
+
+            //}
+
+
+            );
+
+        }
+
+
 
 
 

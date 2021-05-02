@@ -3,8 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             
-             
+               xmlns:views="clr-namespace:Yarsey.WPF.Views"
+             xmlns:viewmodels="clr-namespace:Yarsey.WPF.ViewModels"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
           
              mc:Ignorable="d" 
@@ -14,6 +14,12 @@
      
     </UserControl.Resources>
     <Grid>
+        <Grid.Resources>
+            <DataTemplate DataType="{x:Type viewmodels:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
+
+        </Grid.Resources>
         <syncfusion:SfNavigationDrawer x:Name="NavigationDrawer"
             DisplayMode="Expanded">
             <syncfusion:NavigationItem Header="Home" Command="{Binding HomeNavigateCommand}"
@@ -46,8 +52,8 @@
             <syncfusion:SfNavigationDrawer.ContentView>
                 <Grid x:Name="contentViewGrid" Margin="5,5,5,5">
 
-                    <!--<ContentControl Content="{Binding CurrentContentViewModel}" />-->
-                    <Label Content="{Binding Tester}"/>
+                    <ContentControl Content="{Binding ContentViewModel}" />
+                    <!--<Label Content="{Binding Tester}"/>-->
                 </Grid>
             </syncfusion:SfNavigationDrawer.ContentView>
         </syncfusion:SfNavigationDrawer>

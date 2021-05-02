@@ -59,6 +59,11 @@ namespace Yarsey.WPF
             //NavigationStore navStore = _host.Services.GetRequiredService<NavigationStore>();
             //navStore.CurrentViewModel = _host.Services.GetRequiredService<CustomerViewModel>();
             //mainWindow.Show();
+
+            //HomeViewModel hvm = _host.Services.GetRequiredService<HomeViewModel>();
+            //NavigationDrawerStore navigationDrawerStore = _host.Services.GetRequiredService<NavigationDrawerStore>();
+            //navigationDrawerStore.CurrentContentViewModel = hvm;
+
             INavigationService initialNavigationService = _host.Services.GetRequiredService<INavigationService>();
             initialNavigationService.Navigate();
 
