@@ -4,23 +4,19 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using Yarsey.Desktop.WPF.ViewModels;
+using Yarsey.Desktop.WPF.Services;
 
 namespace Yarsey.Desktop.WPF.Commands
 {
-    public class NavigateDrawerCommand : ICommand
+    public class NavigationDrawerCommand : ICommand
     {
         public event EventHandler CanExecuteChanged;
 
-        private readonly MainViewModel _mainViewModel;
+        private readonly INavigationService _navigationService;
 
-        ViewModelBase _vm;
-
-        public NavigateDrawerCommand(MainViewModel mainViewModel,ViewModelBase vm)
+        public NavigationDrawerCommand(INavigationService navigationService)
         {
-            _mainViewModel = mainViewModel;
-            _vm = vm;
-
+            _navigationService = navigationService;
         }
 
         public bool CanExecute(object parameter)
@@ -30,7 +26,7 @@ namespace Yarsey.Desktop.WPF.Commands
 
         public void Execute(object parameter)
         {
-          //  _mainViewModel.CurrentNavigationDrawerContentViewModel = _vm;
+            _navigationService.Navigate();
         }
     }
 }

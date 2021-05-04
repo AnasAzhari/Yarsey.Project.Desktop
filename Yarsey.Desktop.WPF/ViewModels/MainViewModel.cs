@@ -16,8 +16,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
     {
         private readonly NavigationDrawerStore _navigationDrawerStore;
 
-        private ViewModelBase _currentNavigationVM;
-        public ViewModelBase CurrentNavigationDrawerContentViewModel { get { return _currentNavigationVM; } set { SetProperty(ref _currentNavigationVM, value); } }
+        public ViewModelBase CurrentNavigationDrawerContentViewModel => _navigationDrawerStore.CurrentContentViewModel;
 
         public ICommand NavigateHomeCommand { get; set; }
         public ICommand NavigateCustomerCommand { get; set; }
@@ -25,33 +24,30 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public NavationItemClickedAction navationItemClickedAction { get; set; }
 
 
-        public MainViewModel(NavigationDrawerStore navigationDrawerStore, List<ViewModelBase> vMList)
+        public MainViewModel(
+
+            NavigationDrawerStore navigationDrawerStore, 
+            List<ViewModelBase> vMList,
+            INavigationService homeNavigationService,
+            INavigationService custNavService
+            
+            )
         {
 
             _navigationDrawerStore = navigationDrawerStore;
-            // _navigationDrawerStore.CurrentContentViewModelChanged += OnCurrentNavigationContentViewModelChanged;
 
-            var homeVM = vMList.Where(s => s.GetType() == typeof(HomeViewModel)).FirstOrDefault();
-            var custVm = vMList.Where(s => s.GetType() == typeof(CustomerViewModel)).FirstOrDefault();
-            //navationItemClickedAction = new NavationItemClickedAction();
-            //var homeVM = new HomeViewModel();
-            //var custVm = new CustomerViewModel();
-
-            if (homeVM != null)
-            {
-                // NavigateHomeCommand = new NavigateCommand(new NavigationDrawerService<HomeViewModel>(_navigationDrawerStore, () => (HomeViewModel)homeVM));
-                NavigateHomeCommand = new NavigateDrawerCommand(this, homeVM);
-            }
-            if (custVm != null)
-            {
-                NavigateCustomerCommand = new NavigateDrawerCommand(this, custVm);
-               // NavigateCustomerCommand = new NavigateCommand(new NavigationDrawerService<CustomerViewModel>(_navigationDrawerStore, () => (CustomerViewModel)homeVM));
-            }
-
+            _navigationDrawerStore.CurrentContentViewModelChanged += OnCurrentContentViewModel;
+ 
+            NavigateHomeCommand = new NavigationDrawerCommand(homeNavigationService);
+            NavigateCustomerCommand = new NavigationDrawerCommand(custNavService);
 
         }
- 
-   
+        private void OnCurrentContentViewModel()
+        {
+            OnPropertyChanged(nameof(CurrentNavigationDrawerContentViewModel));
+        }
+
+
 
 
 

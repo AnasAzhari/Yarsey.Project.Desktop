@@ -8,6 +8,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Yarsey.Desktop.WPF.ViewModels;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Desktop.WPF.View;
+using Yarsey.Desktop.WPF.Services;
+using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.HostBuilder
 {
@@ -18,31 +20,70 @@ namespace Yarsey.Desktop.WPF.HostBuilder
         {
             host.ConfigureServices(services =>
             {
-                services.AddSingleton<CustomerViewModel>();
+                services.AddSingleton<CustomerViewModel>(s=>new CustomerViewModel(CreateNewCustomerNavigationDraweService(s),s.GetRequiredService<CustomerDataService>()));
                 services.AddSingleton<HomeViewModel>();
-
-
-
-                services.AddSingleton<MainViewModel>(s => new MainViewModel(s.GetRequiredService<NavigationDrawerStore>(), new List<ViewModelBase>()
-                {
+                services.AddSingleton<MainViewModel>(s => new MainViewModel(
+                    
+                    s.GetRequiredService<NavigationDrawerStore>(), new List<ViewModelBase>()
+                    {
                     s.GetRequiredService<HomeViewModel>(),
-                    s.GetRequiredService<CustomerViewModel>()
+                    s.GetRequiredService<CustomerViewModel>(),
+                  
+                    },
+                    CreateHomeNavigationDrawerService(s),
+                    CreateCustomerNavigationDrawerService(s)
 
-                }));
+
+                ));
 
                 //services.AddSingleton<MainViewModel>(s => new MainViewModel());
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); ; ;
                 services.AddSingleton<HomeView>();
                 services.AddSingleton<CustomerView>(s=>new CustomerView() {DataContext= s.GetRequiredService<CustomerViewModel>() });
+                services.AddTransient<NewCustomerViewModel>(services => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(services)));
             });
 
             return host;
         }
 
-        // create layout for HomeViewModel
-   
-      
+        #region Services
+
+        public static INavigationService CreateHomeNavigationDrawerService(IServiceProvider serviceProvider)
+        {
+            return new NavigationDrawerService<HomeViewModel>(
+
+                serviceProvider.GetRequiredService<NavigationDrawerStore>(),
+
+                () => serviceProvider.GetRequiredService<HomeViewModel>()
+
+            );
+        }
+
+        public static INavigationService CreateCustomerNavigationDrawerService(IServiceProvider serviceProvider)
+        {
+            return new NavigationDrawerService<CustomerViewModel>(
+
+                serviceProvider.GetRequiredService<NavigationDrawerStore>(),
+
+                () => serviceProvider.GetRequiredService<CustomerViewModel>()
+
+            );
+
+        }
+        public static INavigationService CreateNewCustomerNavigationDraweService(IServiceProvider serviceProvider)
+        {
+            return new NavigationDrawerService<NewCustomerViewModel>(
+
+                serviceProvider.GetRequiredService<NavigationDrawerStore>(),
+
+                () => serviceProvider.GetRequiredService<NewCustomerViewModel>()
+
+            );
+
+        }
 
 
+
+        #endregion
     }
 }

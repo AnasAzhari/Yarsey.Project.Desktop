@@ -5,19 +5,133 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Yarsey.Desktop.WPF.View"
              xmlns:ViewModels="clr-namespace:Yarsey.Desktop.WPF.ViewModels"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
+              xmlns:behaviorCustom="clr-namespace:Yarsey.Desktop.WPF.Behaviour"
+             xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:datapager="clr-namespace:Syncfusion.UI.Xaml.Controls.DataPager;assembly=Syncfusion.SfGrid.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <!--<UserControl.DataContext>
         <ViewModels:CustomerViewModel/>
     </UserControl.DataContext>-->
     <Grid>
-        <StackPanel>
-            <Label Content="CustomerView" FontSize="30" Foreground="Aquamarine">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
 
-            </Label>
-            <Label Content="{Binding VMString}" FontSize="25" Foreground="Red"/>
-        </StackPanel>
+        <Grid Grid.Row="0">
+            <Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
+              FontWeight="DemiBold"  Content="Senarai Pelanggan"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <!--table-->
+                <Grid Grid.Column="0">
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <Label Content="Cari :" VerticalAlignment="Center"/>
+                                <TextBox
+                                x:Name="FilterBox"
+                                Width="182"
+                   
+                                Margin="3"
+                                VerticalAlignment="Center"
+                                 Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
+                                <Button Content="New Customer"  Command="{Binding NavigateNewCustomer}"
+                                        HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="50,0,0,0"    />
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="3,3,3,15">
+                            <syncfusion:SfDataGrid
+                            Grid.Row="1"
+                            x:Name="sfDataGrid"
+                            Margin="5"
+                            AllowFiltering="True"
+                            AutoGenerateColumns="False"
+                            ColumnSizer="Star"
+                           
+                            ItemsSource="{Binding ElementName=sfDataPager,Path=PagedSource, Mode=TwoWay}"
+                            NavigationMode="Row">
+                                <syncfusion:SfDataGrid.Columns>
+                                    <!--<syncfusion:GridTextColumn HeaderText="Customer ID" MappingName="Id" />-->
+                                    <syncfusion:GridTextColumn HeaderText="Name" MappingName="Name" />
+                                    <syncfusion:GridTextColumn HeaderText="Adress" MappingName="Adress" />
+                                    <syncfusion:GridTextColumn HeaderText="Email" MappingName="Email" />
+                                    <syncfusion:GridTextColumn HeaderText="Phone No" MappingName="PhoneNo" />
+                                    <syncfusion:GridTextColumn HeaderText="Created At" MappingName="Created_at" />
+                                </syncfusion:SfDataGrid.Columns>
+                                <behavior:Interaction.Triggers>
+                                    <behavior:EventTrigger EventName="Loaded">
+                                        <behaviorCustom:DataGridFilterTrigger/>
+                                    </behavior:EventTrigger>
+                                </behavior:Interaction.Triggers>
+
+                            </syncfusion:SfDataGrid>
+
+                            <datapager:SfDataPager
+                            x:Name="sfDataPager"
+                            Height="30"
+                            HorizontalAlignment="Left"
+                            RenderOptions.EdgeMode="Aliased"
+                            RenderOptions.BitmapScalingMode="HighQuality"
+                            
+                            VerticalAlignment="Bottom"
+                            Grid.Row="2"
+                            NumericButtonCount="10"
+                            PageSize="10"
+                            Source="{Binding CustomerCollection,Mode=TwoWay}"
+
+                            />
+
+
+                        </Grid>
+                        
+                        
+                        
+                        
+                    </Grid>
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </Grid>
+
+                 <!--customer detail-->
+                <Grid Grid.Column="1">
+                    
+                    
+                    
+                    
+                    
+                    
+                    
+                </Grid>
+                
+                
+            </Grid>
+            
+        </Grid>
+      
+          
+          
        
+
+      
 
     </Grid>
 </UserControl>
