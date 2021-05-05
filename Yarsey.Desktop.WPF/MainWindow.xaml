@@ -39,10 +39,15 @@
                 </interaction:EventTrigger>
             </interaction:Interaction.Triggers>-->
             <syncfusion:NavigationItem Header="Home" Command="{Binding NavigateHomeCommand}" IsSelected="True">
+                <syncfusion:NavigationItem.Icon>
 
+                    <Image Source="{StaticResource Home}"/>
+                </syncfusion:NavigationItem.Icon>
             </syncfusion:NavigationItem>
             <syncfusion:NavigationItem Header="Customer" Command="{Binding NavigateCustomerCommand}"  >
-                
+                <syncfusion:NavigationItem.Icon>
+                    <Image Source="{StaticResource  CustomerIcon}"/>
+                </syncfusion:NavigationItem.Icon>
             </syncfusion:NavigationItem>
 
             <syncfusion:SfNavigationDrawer.ContentView>
