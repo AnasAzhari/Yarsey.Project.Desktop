@@ -6,6 +6,8 @@
              xmlns:local="clr-namespace:Yarsey.Desktop.WPF.View"
               xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              xmlns:converters="clr-namespace:Yarsey.Desktop.WPF.Converter"
+              xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+        syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
 
@@ -17,7 +19,7 @@
         <converters:EmptyCollectionToObjectConverter x:Key="EmptyCollectionToObjectConverter" EmptyValue="False" NotEmptyValue="True"/>
         <converters:ErrorConverter x:Key="ErrorConverter"/>
 
-        <Style TargetType="TextBox">
+        <!--<Style TargetType="TextBox">
             <Setter Property="FontSize" Value="25"/>
             <Setter Property="Validation.ErrorTemplate">
                 <Setter.Value>
@@ -44,7 +46,7 @@
                             Value="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"></Setter>
                 </Trigger>
             </Style.Triggers>
-        </Style>
+        </Style>-->
     </UserControl.Resources>
   
     
@@ -59,12 +61,12 @@
         </Grid>
         <Grid Grid.Row="1" Margin="5,5,5,5">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
+                <ColumnDefinition Width="2*" />
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
 
             <Grid Grid.Column="0">
-                <Grid Grid.Row="1" Margin="5,5,20,5">
+                <Grid Grid.Row="1"  VerticalAlignment="Top" Margin="5,5,20,5">
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition/>
@@ -79,154 +81,100 @@
                             <RowDefinition/>
 
 
-
                         </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="0" Grid.Column="0" >
+                        <!--<syncfusion:SfTextInputLayout
+                            x:Name="firstNameInputLayout"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HelperText="Masukkan nama pelanggan"
+                            
+                            Hint="Nama">
 
+                                        <syncfusion:SfTextInputLayout.LeadingView>
+                                            
+                                            <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
+                                        </syncfusion:SfTextInputLayout.LeadingView>
 
+                                        <TextBox
+                                Foreground="{Binding Foreground, ElementName=firstNameInputLayout, Mode=TwoWay}"
+                                MaxLength="15"
+                                Text="{Binding Name}" />
+                        </syncfusion:SfTextInputLayout>-->
+                        <syncfusion:SfTextInputLayout Hint="Name"
+                                                      Margin="2,2,2,2"
+                                                      x:Name="nameInputLayout"
+                                                      HelperText="Masukkan Nama Pelanggan" Grid.Column="0" Grid.Row="0">
+                            <syncfusion:SfTextInputLayout.LeadingView>
 
-                            <Grid >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="6*"/>
-                                    <RowDefinition Height="2*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                </Grid.ColumnDefinitions>
+                                <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
+                            </syncfusion:SfTextInputLayout.LeadingView>
+                            <TextBox
+                            Foreground="{Binding Foreground, ElementName=nameInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding PhoneNo}" />
+                        </syncfusion:SfTextInputLayout>
+                        
+                        <syncfusion:SfTextInputLayout Hint="Name"
+                                                      x:Name="phoneInputLayout"
+                                                      Grid.Column="1" Grid.Row="0">
+                            <syncfusion:SfTextInputLayout.LeadingView>
 
-                                <Grid Grid.Row="0" Grid.Column="1">
-                                    <Label FontSize="12" Content="Nama" VerticalAlignment="Center"/>
-                                </Grid>
+                                <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
+                            </syncfusion:SfTextInputLayout.LeadingView>
+                            <TextBox
+                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding PhoneNo}" />
+                        </syncfusion:SfTextInputLayout>
 
-                                <Grid Grid.Row="1" Grid.Column="0">
-                                    <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <syncfusion:SfTextInputLayout Hint="Email"
+                                                      Margin="4,4,4,4"
+                                                      x:Name="emailInputLayout"
+                                                      Grid.Column="0" Grid.Row="1">
+                            <syncfusion:SfTextInputLayout.LeadingView>
 
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1">
-                                    <TextBox Text="{Binding Name,ValidatesOnNotifyDataErrors=True}" MaxLength="10"  VerticalAlignment="Bottom"/>
+                                <Image Margin="0,0,0,0"  Source="{StaticResource Email}" />
+                            </syncfusion:SfTextInputLayout.LeadingView>
+                            <TextBox
+                             Foreground="{Binding Foreground, ElementName=emailInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding PhoneNo}" />
+                        </syncfusion:SfTextInputLayout>
+                        
+                        <syncfusion:SfTextInputLayout Hint="Alamat"
+                                                      x:Name="alamatInputLayout"
+                                                      Grid.Column="1" Grid.Row="1">
+                            <syncfusion:SfTextInputLayout.LeadingView>
 
-                                </Grid>
-                            </Grid>
+                                <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
+                            </syncfusion:SfTextInputLayout.LeadingView>
+                            <TextBox
+                             Foreground="{Binding Foreground, ElementName=emailInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding PhoneNo}" />
+                        </syncfusion:SfTextInputLayout>
 
+                        <syncfusion:SfTextInputLayout
+                        x:Name="noteInputLayout"
+                        Grid.Row="2"
+                        Grid.ColumnSpan="2"
+                            ContainerType="Outlined"
+                        
+                        HelperText="Masukkan Nota"
+                        Hint="Nota">
 
+                            <syncfusion:SfTextInputLayout.LeadingView>
+                                <!--<Label x:Name="firstNameLeadingView" Content="&#xe72a;" Foreground="{Binding Foreground, ElementName=firstNameInputLayout, Mode=TwoWay}" />-->
+                                <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
+                            </syncfusion:SfTextInputLayout.LeadingView>
 
+                            <TextBox
+                    Foreground="{Binding Foreground, ElementName=noteInputLayout, Mode=TwoWay}"
+                    MaxLength="15"
+                    Text="{Binding Notes}" />
+                        </syncfusion:SfTextInputLayout>
 
-
-                        </Grid>
-                        <Grid Grid.Row="0" Grid.Column="1">
-                            <Grid >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="6*"/>
-                                    <RowDefinition Height="2*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Row="0" Grid.Column="1">
-                                    <Label Content="No Telefon"  VerticalAlignment="Bottom"/>
-                                </Grid>
-
-                                <Grid Grid.Row="1" Grid.Column="0">
-                                    <Image Margin="0,0,0,0"  Source="{StaticResource Phone}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1">
-                                    <TextBox Text="{Binding PhoneNo,ValidatesOnNotifyDataErrors=True}"  VerticalAlignment="Bottom"/>
-                                </Grid>
-                            </Grid>
-
-
-                        </Grid>
-                        <Grid Grid.Row="1" Grid.Column="0">
-
-                            <Grid >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="6*"/>
-                                    <RowDefinition Height="2*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Row="0" Grid.Column="1">
-                                    <Label FontSize="12" Content="Email" VerticalAlignment="Center"/>
-                                </Grid>
-
-                                <Grid Grid.Row="1" Grid.Column="0">
-                                    <Image Margin="0,0,0,0"  Source="{StaticResource Email}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1">
-                                    <TextBox Text="{Binding Email ,ValidatesOnNotifyDataErrors=True}"  VerticalAlignment="Bottom"/>
-
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
-
-                        <Grid Grid.Row="1" Grid.Column="1">
-
-                            <Grid >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="6*"/>
-                                    <RowDefinition Height="2*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="2*"/>
-                                    <ColumnDefinition Width="10*"/>
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Row="0" Grid.Column="1">
-                                    <Label FontSize="12" Content="Nama Syarikat" VerticalAlignment="Center"/>
-                                </Grid>
-
-                                <Grid Grid.Row="1" Grid.Column="0">
-                                    <Image Margin="0,0,0,0"  Source="{StaticResource Adress}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1">
-                                    <TextBox Text="{Binding Email ,ValidatesOnNotifyDataErrors=True}"  VerticalAlignment="Bottom"/>
-
-                                </Grid>
-                            </Grid>
-                        </Grid>
-
-                        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
-
-                            <Grid  >
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="4*"/>
-                                    <RowDefinition Height="6*"/>
-                                    <RowDefinition Height="2*"/>
-                                </Grid.RowDefinitions>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="80.8"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Row="0" Grid.Column="1" Margin="3,0,0,0">
-                                    <Label FontSize="12" Content="Alamat" VerticalAlignment="Center"/>
-                                </Grid>
-
-                                <Grid Grid.Row="1" Grid.Column="0" Margin="0,0,4,12" Grid.RowSpan="2">
-                                    <Image Margin="0,0,0,0"  Source="{StaticResource Adress}"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1" Margin="3,0,0,12" Grid.RowSpan="2">
-                                    <TextBox Text="{Binding Adress ,ValidatesOnNotifyDataErrors=True}"  VerticalAlignment="Bottom"/>
-
-                                </Grid>
-                            </Grid>
-                        </Grid>
 
 
 
