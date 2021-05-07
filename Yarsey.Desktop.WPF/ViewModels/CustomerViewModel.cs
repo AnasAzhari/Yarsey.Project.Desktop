@@ -112,27 +112,34 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 {
                     if (checkNumeric && !FilterOption.Equals("All Columns"))
                     {
-                        //if (FilterCondition == null || FilterCondition.Equals("Contains") || FilterCondition.Equals("StartsWith") || FilterCondition.Equals("EndsWith"))
-                        //    FilterCondition = "Equals";
-                        //bool result = MakeNumericFilter(item, FilterOption, FilterCondition);
-                        //return result;
+                     
                     }
                     else if (FilterOption.Equals("All Columns"))
                     {
-                        if (item.Name.ToLower().Contains(FilterText.ToLower()) ||
-                            item.PhoneNo.ToLower().Contains(FilterText.ToLower()) ||
-                            item.Email.ToLower().Contains(FilterText.ToLower()) ||
-                            
-                            item.Adress.ToLower().Contains(FilterText.ToLower()))
+                        if (item.Name.ToLower().Contains(FilterText.ToLower())){
                             return true;
-                        return false;
+                          //  item.PhoneNo.ToLower().Contains(FilterText.ToLower()) ||
+                          //item.Email.ToLower().Contains(FilterText.ToLower()) ||
+
+                          //item.Adress.ToLower().Contains(FilterText.ToLower()))
+                        }else if(string.IsNullOrEmpty(item.PhoneNo) && item.PhoneNo.ToLower().Contains(FilterText.ToLower())){
+                            return true;
+                        }else if(string.IsNullOrEmpty(item.Email)&& item.Email.ToLower().Contains(FilterText.ToLower()))
+                        {
+                            return true;
+                        }else if(string.IsNullOrEmpty(item.Adress)&& item.Adress.ToLower().Contains(FilterText.ToLower())){
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }                          
+                            
+                        
                     }
                     else
                     {
-                        //if (FilterCondition == null || FilterCondition.Equals("Equals") || FilterCondition.Equals("LessThan") || FilterCondition.Equals("GreaterThan") || FilterCondition.Equals("NotEquals"))
-                        //    FilterCondition = "Contains";
-                        //bool result = MakeStringFilter(item, FilterOption, FilterCondition);
-                        //return result;
+                     
                     }
                 }
             }
