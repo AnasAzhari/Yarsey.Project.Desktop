@@ -105,6 +105,8 @@
                         <syncfusion:SfTextInputLayout Hint="Name"
                                                       Margin="2,2,2,2"
                                                       x:Name="nameInputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
                                                       Grid.Column="0" Grid.Row="0">
                             <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -115,12 +117,14 @@
                             MaxLength="15"
                             Text="{Binding Name}" />
                         </syncfusion:SfTextInputLayout>
-                        
-                        
-                        
-                        
+
+
+
+
                         <syncfusion:SfTextInputLayout Hint="No Telefon"
                                                       x:Name="phoneInputLayout"
+                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
                                                       Grid.Column="1" Grid.Row="0">
                             <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -131,14 +135,16 @@
                             MaxLength="15"
                             Text="{Binding PhoneNo}" />
                         </syncfusion:SfTextInputLayout>
-                        
-                        
-                        
-                        
+
+
+
+
 
                         <syncfusion:SfTextInputLayout Hint="Email"
                                                       Margin="4,4,4,4"
                                                       x:Name="emailInputLayout"
+                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
                                                       Grid.Column="0" Grid.Row="1">
                             <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -149,15 +155,17 @@
                             MaxLength="15"
                             Text="{Binding Email}" />
                         </syncfusion:SfTextInputLayout>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
+
+
                         <syncfusion:SfTextInputLayout Hint="Alamat"
                                                       x:Name="alamatInputLayout"
+                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
                                                       Grid.Column="1" Grid.Row="1">
                             <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -168,18 +176,20 @@
                             MaxLength="15"
                             Text="{Binding Adress}" />
                         </syncfusion:SfTextInputLayout>
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
 
                         <syncfusion:SfTextInputLayout
                         x:Name="noteInputLayout"
                         Grid.Row="2"
                         Grid.ColumnSpan="2"
+                            
                             ContainerType="Outlined"
-
+ ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
                         Hint="Nota">
 
                             <syncfusion:SfTextInputLayout.LeadingView>
@@ -215,19 +225,16 @@
                     </Grid>
 
                 </Grid>
-
-
             </Grid>
-           
-            
+
         </Grid>
 
-        <!--<Grid Grid.Row="2" Margin="35,5,5,5">
+        <Grid Grid.Row="2" Margin="35,5,5,5">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Simpan" Height="50" Width="200" />
+                <Button Content="Simpan" Command="{Binding CreateCustomerCommand}" Height="50" Width="200" />
                 <Button Content="Batal" Command="{Binding NavigateCustomerCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
             </StackPanel>
-        </Grid>-->
+        </Grid>
 
 
 

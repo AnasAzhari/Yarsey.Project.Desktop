@@ -10,6 +10,7 @@ using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.Domain.Models;
+using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -39,14 +40,31 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand NavigateCustomerCommand { get; set; }
 
+        public ICommand CreateCustomerCommand { get; set; }
+
         private bool canValidateForErrors;
 
-        public NewCustomerViewModel(INavigationService navigationService)
+        private CustomerDataService _customerDataService;
+
+        private INavigationService _customerVMNavigationService;
+
+        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService)
         {
+            _customerVMNavigationService = navigationService;
+            _customerDataService = customerService;
             NavigateCustomerCommand = new NavigationDrawerCommand(navigationService);
+            CreateCustomerCommand = new AsyncRelayCommand(ValidateAsync, Success);
         }
 
+        private async Task Success()
+        {
+            Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
 
+            await _customerDataService.Create(customer).ContinueWith((customer)=> { _customerVMNavigationService.Navigate(); });
+
+            
+        
+        }
         private void Create()
         {
             try

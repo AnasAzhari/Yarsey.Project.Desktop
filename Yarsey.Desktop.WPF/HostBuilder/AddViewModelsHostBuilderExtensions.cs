@@ -40,7 +40,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); ; ;
                 services.AddSingleton<HomeView>();
                 services.AddSingleton<CustomerView>(s=>new CustomerView() {DataContext= s.GetRequiredService<CustomerViewModel>() });
-                services.AddTransient<NewCustomerViewModel>(services => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(services)));
+                services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s),s.GetRequiredService<CustomerDataService>()));
             });
 
             return host;

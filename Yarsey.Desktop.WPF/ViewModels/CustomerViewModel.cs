@@ -122,7 +122,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
                         if (item.Name.ToLower().Contains(FilterText.ToLower()) ||
                             item.PhoneNo.ToLower().Contains(FilterText.ToLower()) ||
                             item.Email.ToLower().Contains(FilterText.ToLower()) ||
-                            //item.Salary.ToString().ToLower().Contains(FilterText.ToLower()) || item.EmployeeID.ToString().ToLower().Contains(FilterText.ToLower()) ||
+                            
                             item.Adress.ToLower().Contains(FilterText.ToLower()))
                             return true;
                         return false;
