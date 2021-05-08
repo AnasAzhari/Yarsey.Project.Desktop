@@ -36,8 +36,10 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 ));
 
+                services.AddSingleton<WindowSetupCompany>(s => new WindowSetupCompany());
+
                 //services.AddSingleton<MainViewModel>(s => new MainViewModel());
-                services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); ; ;
+                services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); ; 
                 services.AddSingleton<HomeView>();
                 services.AddSingleton<CustomerView>(s=>new CustomerView() {DataContext= s.GetRequiredService<CustomerViewModel>() });
                 services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s),s.GetRequiredService<CustomerDataService>()));

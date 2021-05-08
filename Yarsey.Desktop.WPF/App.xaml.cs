@@ -52,8 +52,8 @@ namespace Yarsey.Desktop.WPF
                 context.Database.Migrate();
             }
         
-            MainWindow = _host.Services.GetRequiredService<MainWindow>();
-            
+            //MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow = _host.Services.GetRequiredService<WindowSetupCompany>();
            
             MainWindow.Show();
             InitialView();

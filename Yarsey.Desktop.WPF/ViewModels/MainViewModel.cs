@@ -23,6 +23,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public NavationItemClickedAction navationItemClickedAction { get; set; }
 
+        public ViewModelBase CurrentLayout { get; set; }
+
 
         public MainViewModel(
 

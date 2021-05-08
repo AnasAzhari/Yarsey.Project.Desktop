@@ -45,7 +45,7 @@
                                 <TextBox
                                 x:Name="FilterBox"
                                 Width="182"
-                   
+                                Height="23"
                                 Margin="3"
                                 VerticalAlignment="Center"
                                  Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
@@ -97,10 +97,7 @@
 
 
                         </Grid>
-                        
-                        
-                        
-                        
+
                     </Grid>
                     
                     

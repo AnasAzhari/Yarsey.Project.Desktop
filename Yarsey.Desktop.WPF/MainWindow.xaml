@@ -52,7 +52,6 @@
 
             <syncfusion:SfNavigationDrawer.ContentView>
                 <ContentControl Margin="5,5,5,5" Content="{Binding CurrentNavigationDrawerContentViewModel}" />
-       
             </syncfusion:SfNavigationDrawer.ContentView>
 
         </syncfusion:SfNavigationDrawer>

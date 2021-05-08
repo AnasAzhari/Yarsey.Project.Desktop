@@ -116,24 +116,21 @@ namespace Yarsey.Desktop.WPF.ViewModels
                     }
                     else if (FilterOption.Equals("All Columns"))
                     {
-                        if (item.Name.ToLower().Contains(FilterText.ToLower())){
+                        if (item.Name.ToLower().Contains(FilterText.ToLower()))
                             return true;
-                          //  item.PhoneNo.ToLower().Contains(FilterText.ToLower()) ||
-                          //item.Email.ToLower().Contains(FilterText.ToLower()) ||
-
-                          //item.Adress.ToLower().Contains(FilterText.ToLower()))
-                        }else if(string.IsNullOrEmpty(item.PhoneNo) && item.PhoneNo.ToLower().Contains(FilterText.ToLower())){
-                            return true;
-                        }else if(string.IsNullOrEmpty(item.Email)&& item.Email.ToLower().Contains(FilterText.ToLower()))
-                        {
-                            return true;
-                        }else if(string.IsNullOrEmpty(item.Adress)&& item.Adress.ToLower().Contains(FilterText.ToLower())){
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }                          
+                     
+                        //if(!string.IsNullOrEmpty(item.PhoneNo))
+                        //    return item.PhoneNo.ToLower().Contains(FilterText.ToLower());
+                        
+                        //if(!string.IsNullOrEmpty(item.Email))
+                        //    return item.Email.ToLower().Contains(FilterText.ToLower());
+                        
+                        //if(!string.IsNullOrEmpty(item.Adress))
+                        //    item.Adress.ToLower().Contains(FilterText.ToLower());
+                        
+                       
+                        return false;
+                                                 
                             
                         
                     }
