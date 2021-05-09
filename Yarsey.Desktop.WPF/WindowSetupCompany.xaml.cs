@@ -19,7 +19,7 @@ namespace Yarsey.Desktop.WPF
     /// </summary>
     public partial class WindowSetupCompany : Window
     {
-        public WindowSetupCompany(MainWindow mainWindow)
+        public WindowSetupCompany()
         {
             InitializeComponent();
         }

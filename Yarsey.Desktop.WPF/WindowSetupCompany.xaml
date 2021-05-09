@@ -10,6 +10,14 @@
         mc:Ignorable="d"
         Title="WindowSetupCompany" Height="450" Width="800">
     <Grid>
-        <syncfusion:WizardControl Name="wizardControl"/>
+        <syncfusion:WizardControl Name="wizardControl" NextVisible="False" >
+            <syncfusion:WizardPage Name="Welcome" >
+                <Label Content="Page 1"/>
+            </syncfusion:WizardPage>
+            <syncfusion:WizardPage Name="ConfigureCompany">
+                <Label Content="Page 2"/>
+            </syncfusion:WizardPage>
+
+        </syncfusion:WizardControl>
     </Grid>
 </Window>
