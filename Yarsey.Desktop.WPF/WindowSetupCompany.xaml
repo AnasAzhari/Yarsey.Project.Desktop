@@ -8,15 +8,27 @@
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
         mc:Ignorable="d"
-        Title="WindowSetupCompany" Height="450" Width="800">
+        Title="WindowSetupCompany" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    
+    
+    <Window.Resources>
+        <Style x:Key="WizardPageStyle" TargetType="syncfusion:WizardPage">
+            <Setter Property="Title" Value="{Binding Title}"/>
+            <Setter Property="PageType" Value="Exterior"/>
+            
+        </Style>
+    </Window.Resources>
+    
     <Grid>
-        <syncfusion:WizardControl Name="wizardControl" NextVisible="False" >
-            <syncfusion:WizardPage Name="Welcome" >
-                <Label Content="Page 1"/>
-            </syncfusion:WizardPage>
-            <syncfusion:WizardPage Name="ConfigureCompany">
-                <Label Content="Page 2"/>
-            </syncfusion:WizardPage>
+        <syncfusion:WizardControl Name="wizardControl" NextVisible="True" BackVisible="False" 
+                                 ItemContainerStyle="{StaticResource WizardPageStyle}" ItemsSource="{Binding Pages}"
+                                  CancelVisible="False" NextText="Continue" FinishVisible="False"
+                                  HelpVisible="False">
+            <syncfusion:WizardControl.ItemTemplate>
+                <DataTemplate>
+                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
+                </DataTemplate>
+            </syncfusion:WizardControl.ItemTemplate>
 
         </syncfusion:WizardControl>
     </Grid>
