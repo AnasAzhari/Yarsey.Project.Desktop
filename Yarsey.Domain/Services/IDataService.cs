@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Yarsey.Domain.Services
 {
-    public interface IDataService<T>
+     public interface IDataService<T>
     {
         Task<IEnumerable<T>> GetAll();
 

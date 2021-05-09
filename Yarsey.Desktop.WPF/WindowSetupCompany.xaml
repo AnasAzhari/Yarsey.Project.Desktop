@@ -8,7 +8,7 @@
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
         mc:Ignorable="d"
-        Title="WindowSetupCompany" Height="450" Width="800">
+        Title="Yarsey Desktop Akaun" Height="800" Width="1000" WindowStartupLocation="CenterScreen">
     <Grid>
         <syncfusion:WizardControl Name="wizardControl"/>
     </Grid>
