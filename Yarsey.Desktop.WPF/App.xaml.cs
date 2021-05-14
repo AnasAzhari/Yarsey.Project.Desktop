@@ -54,8 +54,10 @@ namespace Yarsey.Desktop.WPF
         
             //MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow = _host.Services.GetRequiredService<WindowSetupCompany>();
-           
+            var mainwindowsetup = _host.Services.GetRequiredService<MainWindowSetupViewModel>();
+            
             MainWindow.Show();
+            mainwindowsetup.PopulatePages();
             InitialView();
 
 
