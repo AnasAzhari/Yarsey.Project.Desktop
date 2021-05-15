@@ -42,7 +42,7 @@
                     <interactivity:InvokeCommandAction Command="{Binding FinishCommand}" CommandParameter="{Binding ElementName=mainWindowSetup}" />
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
-            <syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
+            <!--<syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
                                    BannerImageHeight="200"
                                    FinishVisible="False" >
                 <StackPanel Orientation="Vertical">
@@ -52,7 +52,7 @@
                 </StackPanel>
                
                 
-            </syncfusion:WizardPage>
+            </syncfusion:WizardPage>-->
             <syncfusion:WizardPage Name="Page2" >
                 <Grid>
                     <Grid.ColumnDefinitions>
@@ -83,78 +83,80 @@
 
 
 
-                    <syncfusion:SfTextInputLayout Hint="No Telefon"
-                                                      x:Name="phoneInputLayout"
+                    <syncfusion:SfTextInputLayout Hint="No Daftar Syarikat"
+                                                      x:Name="regNoInputLayout"
                                   
                                                       Grid.Column="1" Grid.Row="0">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Registration2 }" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=regNoInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding RegistrationNo}" />
+                    </syncfusion:SfTextInputLayout>
+
+                    <syncfusion:SfTextInputLayout Hint="No Telefon"
+                                                      Margin="2,2,2,2"
+                                                      x:Name="phoneinputLayout"
+                                                      Grid.Column="0" Grid.Row="1">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
                             <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
+                            Foreground="{Binding Foreground, ElementName=phoneinputLayout, Mode=TwoWay}"
                             MaxLength="15"
                             Text="{Binding PhoneNo}" />
                     </syncfusion:SfTextInputLayout>
 
-                    <syncfusion:SfTextInputLayout Hint="Name"
-                                                      Margin="2,2,2,2"
-                                                      x:Name="phoneinput"
-                                                      Grid.Column="0" Grid.Row="1">
-                        <syncfusion:SfTextInputLayout.LeadingView>
-
-                            <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
-                        </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
-                            Foreground="{Binding Foreground, ElementName=nameInputLayout, Mode=TwoWay}"
-                            MaxLength="15"
-                            Text="{Binding Name}" />
-                    </syncfusion:SfTextInputLayout>
 
 
 
-
-                    <syncfusion:SfTextInputLayout Hint="No Telefon"
-                                                      x:Name="fds"
+                    <syncfusion:SfTextInputLayout Hint="Email"
+                                                      x:Name="emailInputLayout"
                                   
                                                       Grid.Column="1" Grid.Row="1">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
-                            <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
+                            <Image Margin="0,0,0,0"  Source="{StaticResource  Email}" />
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
+                            Foreground="{Binding Foreground, ElementName=emailInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding PhoneNo}" />
+                            Text="{Binding Email}" />
                     </syncfusion:SfTextInputLayout>
 
-                    <syncfusion:SfTextInputLayout Hint="No Telefon"
-                                                      x:Name="jks"
-                                  
-                                                      Grid.Column="1" Grid.Row="2">
-                        <syncfusion:SfTextInputLayout.LeadingView>
-
-                            <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
-                        </syncfusion:SfTextInputLayout.LeadingView>
-                        <TextBox
-                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
-                            MaxLength="15"
-                            Text="{Binding PhoneNo}" />
-                    </syncfusion:SfTextInputLayout>
-                    
-                    <syncfusion:SfTextInputLayout Hint="No Telefon"
-                                                      x:Name="eww"
+                    <syncfusion:SfTextInputLayout Hint="Alamat"
+                                                      x:Name="adressInputLayout"
                                   
                                                       Grid.Column="0" Grid.Row="2">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
-                            <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
                         </syncfusion:SfTextInputLayout.LeadingView>
                         <TextBox
-                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
+                            Foreground="{Binding Foreground, ElementName=adressInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding PhoneNo}" />
+                            Text="{Binding Adress}" />
                     </syncfusion:SfTextInputLayout>
+
+                    <syncfusion:SfTextInputLayout Hint="Logo"
+                                                      x:Name="logoInputLayout"
+                                  
+                                                      Grid.Column="1" Grid.Row="2">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=logoInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding FileLocation}" />
+                    </syncfusion:SfTextInputLayout>
+                    
+             
 
                 </Grid>
                 

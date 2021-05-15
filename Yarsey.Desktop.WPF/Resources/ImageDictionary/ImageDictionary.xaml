@@ -10,5 +10,7 @@
     <BitmapImage x:Key="Supplier" UriSource="/Resources/Icon/truck_200px.png"/>
     <BitmapImage x:Key="Home240px" UriSource="/Resources/Icon/home_240px.png"/>
     <BitmapImage x:Key="Buy" UriSource="/Resources/Icon/buy_60px.png"/>
+    <BitmapImage x:Key="Registration" UriSource="/Resources/Icon/licence_100px.png"/>
+    <BitmapImage x:Key="Registration2" UriSource="/Resources/Icon/licence2_100px.png"/>
 
 </ResourceDictionary>

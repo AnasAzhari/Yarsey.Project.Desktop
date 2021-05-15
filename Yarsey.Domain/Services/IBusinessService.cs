@@ -9,6 +9,6 @@ namespace Yarsey.Domain.Services
 {
     public  interface IBusinessService:IDataService<Business>
     {
-        Task<Customer> GetBusinessByName(string name);
+        Task<Business> GetBusinessByName(string name);
     }
 }
