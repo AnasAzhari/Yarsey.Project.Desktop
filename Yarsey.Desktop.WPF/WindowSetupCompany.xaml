@@ -5,6 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yarsey.Desktop.WPF"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+          xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
+        x:Name="mainWindowSetup"
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
         mc:Ignorable="d"
@@ -34,7 +36,12 @@
             
 
         </syncfusion:WizardControl>-->
-        <syncfusion:WizardControl Finish="{Binding }">
+        <syncfusion:WizardControl>
+            <interactivity:Interaction.Triggers>
+                <interactivity:EventTrigger EventName="Finish">
+                    <interactivity:InvokeCommandAction Command="{Binding FinishCommand}" CommandParameter="{Binding ElementName=mainWindowSetup}" />
+                </interactivity:EventTrigger>
+            </interactivity:Interaction.Triggers>
             <syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
                                    BannerImageHeight="200"
                                    FinishVisible="False" >

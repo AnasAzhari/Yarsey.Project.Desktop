@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Input;
-
+using Yarsey.Desktop.WPF.Commands;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -16,6 +16,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ObservableCollection<PageModel> Pages{ get { return _pages; } set { SetProperty(ref _pages, value); } }
 
+        public ICommand FinishCommand { get; set; }
 
         private PageModel _businessPage;
 
@@ -25,14 +26,19 @@ namespace Yarsey.Desktop.WPF.ViewModels
             set { SetProperty(ref _businessPage, value); }
         }
 
-
-
         private PageModel _welcomePage;
         public PageModel WelcomePage { get { return _welcomePage; } set { SetProperty(ref _welcomePage, value); } } 
 
         public MainWindowSetupViewModel()
         {
             PopulatePages();
+            FinishCommand = new DelegateCommand<object>(Finish);
+           
+        }
+
+        public void Finish(object param)
+        {
+            Console.WriteLine(" Finish Command");
         }
 
         public void PopulatePages()  

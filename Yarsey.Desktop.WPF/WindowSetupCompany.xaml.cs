@@ -23,5 +23,7 @@ namespace Yarsey.Desktop.WPF
         {
             InitializeComponent();
         }
+
+ 
     }
 }
