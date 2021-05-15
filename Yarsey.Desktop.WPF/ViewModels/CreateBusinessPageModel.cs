@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
@@ -80,9 +81,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         private async Task Success()
         {
-            Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
+            Business customer = new Business() { BusinessName = Name,RegistrationNo=RegistrationNo ,Adresss = Adress, Email = Email, PhoneNo = PhoneNo,Image=Image };
 
-            await _customerDataService.Create(customer).ContinueWith((customer) => { _customerVMNavigationService.Navigate(); });
+            await _businessDataService.Create(customer).ContinueWith((customer) => {});
 
 
 

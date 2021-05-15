@@ -17,8 +17,8 @@ namespace Yarsey.Desktop.WPF.HostBuilder
         {
             host.ConfigureServices(services =>
             {
-                services.AddSingleton<CustomerDataService>(s => new CustomerDataService(s.GetRequiredService<YarseyDbContextFactory>()));
-
+                services.AddTransient<CustomerDataService>(s => new CustomerDataService(s.GetRequiredService<YarseyDbContextFactory>()));
+                services.AddTransient<BusinessDataService>(s => new BusinessDataService(s.GetRequiredService<YarseyDbContextFactory>()));
 
             });
 

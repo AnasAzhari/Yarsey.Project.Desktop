@@ -26,16 +26,15 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                     
                     s.GetRequiredService<NavigationDrawerStore>(), new List<ViewModelBase>()
                     {
-                    s.GetRequiredService<HomeViewModel>(),
-                    s.GetRequiredService<CustomerViewModel>(),
+                        s.GetRequiredService<HomeViewModel>(),
+                        s.GetRequiredService<CustomerViewModel>(),
                   
                     },
                     CreateHomeNavigationDrawerService(s),
                     CreateCustomerNavigationDrawerService(s)
 
-
                 ));
-                services.AddSingleton<MainWindowSetupViewModel>();
+                services.AddSingleton<MainWindowSetupViewModel>(s=>new MainWindowSetupViewModel(s.GetRequiredService<BusinessDataService>()));
                 services.AddSingleton<WindowSetupCompany>(s => new WindowSetupCompany() { DataContext=s.GetRequiredService<MainWindowSetupViewModel>()});
 
                 //services.AddSingleton<MainViewModel>(s => new MainViewModel());
