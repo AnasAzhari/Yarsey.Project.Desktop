@@ -8,19 +8,20 @@
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
         mc:Ignorable="d"
-        Title="WindowSetupCompany" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="Yarsey Desktop Akaun" Height="750" Width="1000" WindowStartupLocation="CenterScreen">
     
     
     <Window.Resources>
-        <Style x:Key="WizardPageStyle" TargetType="syncfusion:WizardPage">
+        <!--<Style x:Key="WizardPageStyle" TargetType="syncfusion:WizardPage">
             <Setter Property="Title" Value="{Binding Title}"/>
             <Setter Property="PageType" Value="Exterior"/>
             
-        </Style>
+        </Style>-->
     </Window.Resources>
     
+    
     <Grid>
-        <syncfusion:WizardControl Name="wizardControl" NextVisible="True" BackVisible="False" 
+        <!--<syncfusion:WizardControl Name="wizardControl" NextVisible="True" BackVisible="False" 
                                  ItemContainerStyle="{StaticResource WizardPageStyle}" ItemsSource="{Binding Pages}"
                                   CancelVisible="False" NextText="Continue" FinishVisible="False"
                                   HelpVisible="False">
@@ -29,7 +30,130 @@
                     <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
                 </DataTemplate>
             </syncfusion:WizardControl.ItemTemplate>
+            
+            
 
+        </syncfusion:WizardControl>-->
+        <syncfusion:WizardControl Finish="{Binding }">
+            <syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
+                                   BannerImageHeight="200"
+                                   FinishVisible="False" >
+                <StackPanel Orientation="Vertical">
+                    <Label Content="{Binding WelcomePage.Title}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="25"/>
+                    <Label Margin="0,60,0,0" Content="{Binding WelcomePage.Content}" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="18"/>
+
+                </StackPanel>
+               
+                
+            </syncfusion:WizardPage>
+            <syncfusion:WizardPage Name="Page2" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <syncfusion:SfTextInputLayout Hint="Name"
+                                                      Margin="2,2,2,2"
+                                                      x:Name="nameInputLayout"
+                                                      Grid.Column="0" Grid.Row="0">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=nameInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding Name}" />
+                    </syncfusion:SfTextInputLayout>
+
+
+
+
+                    <syncfusion:SfTextInputLayout Hint="No Telefon"
+                                                      x:Name="phoneInputLayout"
+                                  
+                                                      Grid.Column="1" Grid.Row="0">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding PhoneNo}" />
+                    </syncfusion:SfTextInputLayout>
+
+                    <syncfusion:SfTextInputLayout Hint="Name"
+                                                      Margin="2,2,2,2"
+                                                      x:Name="phoneinput"
+                                                      Grid.Column="0" Grid.Row="1">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=nameInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding Name}" />
+                    </syncfusion:SfTextInputLayout>
+
+
+
+
+                    <syncfusion:SfTextInputLayout Hint="No Telefon"
+                                                      x:Name="fds"
+                                  
+                                                      Grid.Column="1" Grid.Row="1">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding PhoneNo}" />
+                    </syncfusion:SfTextInputLayout>
+
+                    <syncfusion:SfTextInputLayout Hint="No Telefon"
+                                                      x:Name="jks"
+                                  
+                                                      Grid.Column="1" Grid.Row="2">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding PhoneNo}" />
+                    </syncfusion:SfTextInputLayout>
+                    
+                    <syncfusion:SfTextInputLayout Hint="No Telefon"
+                                                      x:Name="eww"
+                                  
+                                                      Grid.Column="0" Grid.Row="2">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=phoneInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding PhoneNo}" />
+                    </syncfusion:SfTextInputLayout>
+
+                </Grid>
+                
+            </syncfusion:WizardPage>
         </syncfusion:WizardControl>
+        
+        
     </Grid>
 </Window>
