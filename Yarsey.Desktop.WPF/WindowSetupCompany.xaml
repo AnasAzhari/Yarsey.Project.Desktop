@@ -15,11 +15,7 @@
     
     
     <Window.Resources>
-        <!--<Style x:Key="WizardPageStyle" TargetType="syncfusion:WizardPage">
-            <Setter Property="Title" Value="{Binding Title}"/>
-            <Setter Property="PageType" Value="Exterior"/>
-            
-        </Style>-->
+     
         <Style TargetType="Image">
             <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
         </Style>
@@ -29,26 +25,14 @@
     
     
     <Grid>
-        <!--<syncfusion:WizardControl Name="wizardControl" NextVisible="True" BackVisible="False" 
-                                 ItemContainerStyle="{StaticResource WizardPageStyle}" ItemsSource="{Binding Pages}"
-                                  CancelVisible="False" NextText="Continue" FinishVisible="False"
-                                  HelpVisible="False">
-            <syncfusion:WizardControl.ItemTemplate>
-                <DataTemplate>
-                    <TextBlock Text="{Binding Title}" TextWrapping="Wrap"/>
-                </DataTemplate>
-            </syncfusion:WizardControl.ItemTemplate>
-            
-            
-
-        </syncfusion:WizardControl>-->
+    
         <syncfusion:WizardControl>
             <interactivity:Interaction.Triggers>
                 <interactivity:EventTrigger EventName="Finish">
                     <interactivity:InvokeCommandAction Command="{Binding BusinessPage.CreateBusinessCommand}" CommandParameter="{Binding ElementName=mainWindowSetup}" />
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
-            <!--<syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
+            <syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
                                    BannerImageHeight="200"
                                    FinishVisible="False" >
                 <StackPanel Orientation="Vertical">
@@ -58,8 +42,8 @@
                 </StackPanel>
                
                 
-            </syncfusion:WizardPage>-->
-            <syncfusion:WizardPage Name="Page2" >
+            </syncfusion:WizardPage>
+            <syncfusion:WizardPage Name="Page2" NextVisible="False" HelpVisible="False" BackVisible="False"  >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -87,9 +71,6 @@
                             MaxLength="15"
                             Text="{Binding BusinessPage.Name}" />
                     </syncfusion:SfTextInputLayout>
-
-
-
 
                     <syncfusion:SfTextInputLayout Hint="No Daftar Syarikat"
                                                       x:Name="regNoInputLayout"

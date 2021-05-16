@@ -134,6 +134,11 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         }
 
+        private async void RedirectToMainWindow(Business business)
+        {
+
+        }
+
 
         #region Validation
 

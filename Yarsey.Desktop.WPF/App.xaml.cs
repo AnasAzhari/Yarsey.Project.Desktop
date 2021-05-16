@@ -58,13 +58,13 @@ namespace Yarsey.Desktop.WPF
            
             MainWindow.Show();
             //mainwindowsetup.PopulatePages();
-            InitialView();
+            ConfigureMainWindow();
 
 
             base.OnStartup(e);
         }
 
-        private void InitialView()
+        private void ConfigureMainWindow()
         {
             var homeVM = _host.Services.GetRequiredService<HomeViewModel>();
             var navDrawerStore = _host.Services.GetRequiredService<NavigationDrawerStore>();
