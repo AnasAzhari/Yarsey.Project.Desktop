@@ -7,6 +7,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
+using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
 
@@ -76,14 +77,15 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public CreateBusinessPageModel(BusinessDataService businessDataService)
         {
             _businessDataService = businessDataService;
+            CreateBusinessCommand = new AsyncRelayCommand(ValidateAsync, Success);
         }
 
 
         private async Task Success()
         {
-            Business customer = new Business() { BusinessName = Name,RegistrationNo=RegistrationNo ,Adresss = Adress, Email = Email, PhoneNo = PhoneNo,Image=Image };
+            Business business = new Business() { BusinessName = Name,RegistrationNo=RegistrationNo ,Adresss = Adress, Email = Email, PhoneNo = PhoneNo,Image=Image };
 
-            await _businessDataService.Create(customer).ContinueWith((customer) => {});
+            await _businessDataService.Create(business).ContinueWith((business) => {});
 
 
 
@@ -100,7 +102,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 this.RaiseErrorsChanged("PhoneNo");
                 this.RaiseErrorsChanged("Adress");
                 this.RaiseErrorsChanged("Email");
-
+                this.RaiseErrorsChanged("RegistrationNo");
+                this.RaiseErrorsChanged("FileLocation");
 
                 if (!this.HasErrors)
                 {

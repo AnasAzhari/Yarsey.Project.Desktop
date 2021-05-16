@@ -7,6 +7,7 @@
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
           xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
         x:Name="mainWindowSetup"
+        xmlns:converters="clr-namespace:Yarsey.Desktop.WPF.Converter"
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
         mc:Ignorable="d"
@@ -19,6 +20,11 @@
             <Setter Property="PageType" Value="Exterior"/>
             
         </Style>-->
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+        <converters:EmptyCollectionToObjectConverter x:Key="EmptyCollectionToObjectConverter" EmptyValue="False" NotEmptyValue="True"/>
+        <converters:ErrorConverter x:Key="ErrorConverter"/>
     </Window.Resources>
     
     
@@ -39,7 +45,7 @@
         <syncfusion:WizardControl>
             <interactivity:Interaction.Triggers>
                 <interactivity:EventTrigger EventName="Finish">
-                    <interactivity:InvokeCommandAction Command="{Binding FinishCommand}" CommandParameter="{Binding ElementName=mainWindowSetup}" />
+                    <interactivity:InvokeCommandAction Command="{Binding BusinessPage.CreateBusinessCommand}" CommandParameter="{Binding ElementName=mainWindowSetup}" />
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
             <!--<syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
@@ -69,6 +75,8 @@
                     <syncfusion:SfTextInputLayout Hint="Name"
                                                       Margin="2,2,2,2"
                                                       x:Name="nameInputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
                                                       Grid.Column="0" Grid.Row="0">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -77,7 +85,7 @@
                         <TextBox
                             Foreground="{Binding Foreground, ElementName=nameInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding Name}" />
+                            Text="{Binding BusinessPage.Name}" />
                     </syncfusion:SfTextInputLayout>
 
 
@@ -85,7 +93,8 @@
 
                     <syncfusion:SfTextInputLayout Hint="No Daftar Syarikat"
                                                       x:Name="regNoInputLayout"
-                                  
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
                                                       Grid.Column="1" Grid.Row="0">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -94,12 +103,14 @@
                         <TextBox
                             Foreground="{Binding Foreground, ElementName=regNoInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding RegistrationNo}" />
+                            Text="{Binding BusinessPage.RegistrationNo}" />
                     </syncfusion:SfTextInputLayout>
 
                     <syncfusion:SfTextInputLayout Hint="No Telefon"
                                                       Margin="2,2,2,2"
                                                       x:Name="phoneinputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
                                                       Grid.Column="0" Grid.Row="1">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -108,7 +119,7 @@
                         <TextBox
                             Foreground="{Binding Foreground, ElementName=phoneinputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding PhoneNo}" />
+                            Text="{Binding BusinessPage.PhoneNo}" />
                     </syncfusion:SfTextInputLayout>
 
 
@@ -116,7 +127,8 @@
 
                     <syncfusion:SfTextInputLayout Hint="Email"
                                                       x:Name="emailInputLayout"
-                                  
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
                                                       Grid.Column="1" Grid.Row="1">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -125,12 +137,13 @@
                         <TextBox
                             Foreground="{Binding Foreground, ElementName=emailInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding Email}" />
+                            Text="{Binding BusinessPage.Email}" />
                     </syncfusion:SfTextInputLayout>
 
                     <syncfusion:SfTextInputLayout Hint="Alamat"
                                                       x:Name="adressInputLayout"
-                                  
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
                                                       Grid.Column="0" Grid.Row="2">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -139,12 +152,13 @@
                         <TextBox
                             Foreground="{Binding Foreground, ElementName=adressInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding Adress}" />
+                            Text="{Binding BusinessPage.Adress}" />
                     </syncfusion:SfTextInputLayout>
 
                     <syncfusion:SfTextInputLayout Hint="Logo"
                                                       x:Name="logoInputLayout"
-                                  
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
                                                       Grid.Column="1" Grid.Row="2">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
@@ -153,7 +167,7 @@
                         <TextBox
                             Foreground="{Binding Foreground, ElementName=logoInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding FileLocation}" />
+                            Text="{Binding BusinessPage.FileLocation}" />
                     </syncfusion:SfTextInputLayout>
                     
              
