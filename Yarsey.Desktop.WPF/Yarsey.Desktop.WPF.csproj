@@ -13,6 +13,7 @@
     <None Remove="Resources\Icon\email_open_32px.png" />
     <None Remove="Resources\Icon\home_240px.png" />
     <None Remove="Resources\Icon\icons8_home_64.png" />
+    <None Remove="Resources\Icon\image_240px.png" />
     <None Remove="Resources\Icon\licence2_100px.png" />
     <None Remove="Resources\Icon\licence_100px.png" />
     <None Remove="Resources\Icon\phone_32px.png" />
@@ -170,6 +171,7 @@
     <Resource Include="Resources\Icon\icons8_home_64.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Resources\Icon\image_240px.png" />
     <Resource Include="Resources\Icon\licence2_100px.png" />
     <Resource Include="Resources\Icon\licence_100px.png" />
     <Resource Include="Resources\Icon\phone_32px.png">
