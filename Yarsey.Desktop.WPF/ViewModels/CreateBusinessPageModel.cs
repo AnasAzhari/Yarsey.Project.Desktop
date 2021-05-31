@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -10,6 +11,9 @@ using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
+using System.Windows.Forms;
+using Microsoft.Toolkit.Mvvm.Input;
+using AsyncRelayCommand = Yarsey.Desktop.WPF.Commands.AsyncRelayCommand;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -71,6 +75,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         #endregion
 
         public ICommand CreateBusinessCommand { get; set; }
+        public ICommand BrowseImage { get; set; }
 
         BusinessDataService _businessDataService;
 
@@ -78,6 +83,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             _businessDataService = businessDataService;
             CreateBusinessCommand = new AsyncRelayCommand(ValidateAsync, Success);
+            BrowseImage = new RelayCommand(SearchImage);
         }
 
 
@@ -86,8 +92,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
             Business business = new Business() { BusinessName = Name,RegistrationNo=RegistrationNo ,Adresss = Adress, Email = Email, PhoneNo = PhoneNo,Image=Image };
 
             await _businessDataService.Create(business).ContinueWith((business) => {});
-
-
 
         }
 
@@ -132,6 +136,23 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
             }
 
+        }
+
+        public void SearchImage()
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.AddExtension = true;
+            ofd.Filter = "Image files (*.png)|*.jpeg";
+            DialogResult ret = ofd.ShowDialog();
+
+            if (ret == DialogResult.OK)
+            {
+                string filename = ofd.FileName;
+                FileLocation = filename;
+                Console.WriteLine(filename);
+            }
+
+             
         }
 
         private async void RedirectToMainWindow(Business business)
@@ -207,6 +228,22 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
 
 
+
+        #endregion
+
+        #region helper
+
+        //private DialogResult STAShowDialog(FolderBrowserDialog dialog)
+        //{
+        //    DialogState state = new DialogState();
+        //    state.dialog = dialog;
+        //    System.Threading.Thread t = new System.Threading.Thread(state.ThreadProcShowDialog);
+
+        //    t.SetApartmentState(System.Threading.ApartmentState.STA);
+        //    t.Start();
+        //    t.Join();
+        //    return state.result;
+        //}
 
         #endregion
     }

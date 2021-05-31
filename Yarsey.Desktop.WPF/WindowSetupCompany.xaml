@@ -8,6 +8,7 @@
           xmlns:interactivity="http://schemas.microsoft.com/xaml/behaviors"
         x:Name="mainWindowSetup"
         xmlns:converters="clr-namespace:Yarsey.Desktop.WPF.Converter"
+        xmlns:validation="clr-namespace:Yarsey.Desktop.WPF.Validation"
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
         mc:Ignorable="d"
@@ -21,6 +22,25 @@
         </Style>
         <converters:EmptyCollectionToObjectConverter x:Key="EmptyCollectionToObjectConverter" EmptyValue="False" NotEmptyValue="True"/>
         <converters:ErrorConverter x:Key="ErrorConverter"/>
+
+
+        <ControlTemplate x:Key="validationTemplate">
+            <DockPanel>
+                <TextBlock Foreground="Red" FontSize="20">!</TextBlock>
+                <AdornedElementPlaceholder/>
+            </DockPanel>
+        </ControlTemplate>
+
+        <Style x:Key="textBoxInError" TargetType="{x:Type TextBox}">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                        Path=(Validation.Errors)/ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
     </Window.Resources>
     
     
@@ -32,7 +52,7 @@
                     <interactivity:InvokeCommandAction Command="{Binding BusinessPage.CreateBusinessCommand}" CommandParameter="{Binding ElementName=mainWindowSetup}" />
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
-            <syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
+            <!--<syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
                                    BannerImageHeight="200"
                                    FinishVisible="False" >
                 <StackPanel Orientation="Vertical">
@@ -42,26 +62,60 @@
                 </StackPanel>
                
                 
-            </syncfusion:WizardPage>
-            <syncfusion:WizardPage Name="Page2" NextVisible="False" HelpVisible="False" BackVisible="False"  >
+            </syncfusion:WizardPage>-->
+            
+            
+            <syncfusion:WizardPage Name="Page2" NextVisible="False" HelpVisible="False" BackVisible="False" >
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
                         <ColumnDefinition/>
                     </Grid.ColumnDefinitions>
                     <Grid.RowDefinitions>
-                        <RowDefinition/>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="0.2*"/>
                         <RowDefinition/>
                         <RowDefinition/>
                         <RowDefinition/>
                     </Grid.RowDefinitions>
+
+                    <Grid Grid.ColumnSpan="2" Grid.Row="0" MinHeight="150">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Logo Syarikat" HorizontalAlignment="Center" FontSize="16"/>
+                            
+                            <Image Source="{StaticResource Home240px}" Width="80" Height="80" />
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Browse" Width="100" Command="{Binding BusinessPage.BrowseImage}"/>
+                                <TextBox  IsReadOnly="True" Name="textBox1" 
+                                         Width="300" Margin="5,0,0,0"
+                                         Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                                         Style="{StaticResource textBoxInError}"
+                                         >
+                                    <Binding Path="BusinessPage.FileLocation" 
+                                         UpdateSourceTrigger="PropertyChanged" >
+                                        <Binding.ValidationRules>
+                                            <validation:ImageValidationRule MaxSize="5"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+
+
+                                </TextBox>
+
+                            </StackPanel>
+                        </StackPanel>
+                        
+                    </Grid>
+                    <Grid Height="5"  Grid.Row="1" Grid.ColumnSpan="2">
+                        <Label Content="Butiran Perniagaan"/>
+                    </Grid>
 
                     <syncfusion:SfTextInputLayout Hint="Name"
                                                       Margin="2,2,2,2"
                                                       x:Name="nameInputLayout"
                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
-                                                      Grid.Column="0" Grid.Row="0">
+                                                      Grid.Column="0" Grid.Row="2">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
                             <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
@@ -76,7 +130,7 @@
                                                       x:Name="regNoInputLayout"
                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
-                                                      Grid.Column="1" Grid.Row="0">
+                                                      Grid.Column="1" Grid.Row="2">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
                             <Image Margin="0,0,0,0"  Source="{StaticResource Registration2 }" />
@@ -92,7 +146,7 @@
                                                       x:Name="phoneinputLayout"
                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
-                                                      Grid.Column="0" Grid.Row="1">
+                                                      Grid.Column="0" Grid.Row="3">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
                             <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
@@ -110,7 +164,7 @@
                                                       x:Name="emailInputLayout"
                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
-                                                      Grid.Column="1" Grid.Row="1">
+                                                      Grid.Column="1" Grid.Row="3">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
                             <Image Margin="0,0,0,0"  Source="{StaticResource  Email}" />
@@ -125,7 +179,7 @@
                                                       x:Name="adressInputLayout"
                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
-                                                      Grid.Column="0" Grid.Row="2">
+                                                      Grid.Column="0" Grid.Row="4">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
                             <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
@@ -136,11 +190,11 @@
                             Text="{Binding BusinessPage.Adress}" />
                     </syncfusion:SfTextInputLayout>
 
-                    <syncfusion:SfTextInputLayout Hint="Logo"
+                    <!--<syncfusion:SfTextInputLayout Hint="Logo"
                                                       x:Name="logoInputLayout"
                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
-                                                      Grid.Column="1" Grid.Row="2">
+                                                      Grid.Column="1" Grid.Row="4">
                         <syncfusion:SfTextInputLayout.LeadingView>
 
                             <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
@@ -149,7 +203,7 @@
                             Foreground="{Binding Foreground, ElementName=logoInputLayout, Mode=TwoWay}"
                             MaxLength="15"
                             Text="{Binding BusinessPage.FileLocation}" />
-                    </syncfusion:SfTextInputLayout>
+                    </syncfusion:SfTextInputLayout>-->
                     
              
 
