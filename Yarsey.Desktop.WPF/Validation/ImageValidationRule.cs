@@ -13,6 +13,10 @@ namespace Yarsey.Desktop.WPF.Validation
 {
     public class ImageValidationRule : ValidationRule
     {
+        public ImageValidationRule()
+        {
+
+        }
         public int MaxSize { get; set; }
         public override ValidationResult Validate(object value, CultureInfo cultureInfo)
         {
@@ -42,7 +46,7 @@ namespace Yarsey.Desktop.WPF.Validation
             }
 
 
-            return ValidationResult.ValidResult;
+            return new ValidationResult(false, "salah salah salah");
 
         }
     }

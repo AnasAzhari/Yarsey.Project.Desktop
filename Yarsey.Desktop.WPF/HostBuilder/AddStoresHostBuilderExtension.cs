@@ -17,6 +17,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
             host.ConfigureServices(services =>
             {
                 services.AddSingleton<NavigationDrawerStore>();
+                services.AddSingleton<BusinessStore>();
 
 
 

@@ -14,6 +14,9 @@ using Yarsey.EntityFramework.Services;
 using System.Windows.Forms;
 using Microsoft.Toolkit.Mvvm.Input;
 using AsyncRelayCommand = Yarsey.Desktop.WPF.Commands.AsyncRelayCommand;
+using System.Drawing;
+using System.Windows.Media.Imaging;
+using System.IO;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -64,7 +67,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public string FileLocation
         {
             get { return _fileLocation; }
-            set { SetProperty(ref _fileLocation, value); }
+            set {
+                
+                    SetProperty(ref _fileLocation, value); 
+                    
+                    
+
+                }
         }
 
         public byte[] Image
@@ -72,6 +81,18 @@ namespace Yarsey.Desktop.WPF.ViewModels
             get { return _img; }
             set { SetProperty(ref _img, value); }
         }
+
+        private BitmapSource _bmpImage;
+        public BitmapSource BmpImage
+        {
+            get { return _bmpImage; }
+            set
+            {
+                SetProperty(ref _bmpImage, value);
+            }
+        }
+
+
         #endregion
 
         public ICommand CreateBusinessCommand { get; set; }
@@ -79,11 +100,27 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         BusinessDataService _businessDataService;
 
+        public Action<Business> ChangeMainWindow;
+
+        //public Action<Business> ChangeMainWindow { 
+        //    get { return _changeMainWindow; }
+        //    set
+        //    {
+        //        if (value != null)
+        //        {
+        //            _changeMainWindow = value;
+        //        }
+        //    }
+        //}
         public CreateBusinessPageModel(BusinessDataService businessDataService)
         {
+        
             _businessDataService = businessDataService;
             CreateBusinessCommand = new AsyncRelayCommand(ValidateAsync, Success);
             BrowseImage = new RelayCommand(SearchImage);
+            var imgHome = App.Current.TryFindResource("Home") as BitmapImage;
+
+            BmpImage = imgHome;
         }
 
 
@@ -91,8 +128,46 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             Business business = new Business() { BusinessName = Name,RegistrationNo=RegistrationNo ,Adresss = Adress, Email = Email, PhoneNo = PhoneNo,Image=Image };
 
-            await _businessDataService.Create(business).ContinueWith((business) => {});
+            await _businessDataService.Create(business) ;
+            ChangeMainWindow(business);
 
+        }
+
+        private bool ValidateFileLocation()
+        {
+            canValidateForErrors = true;
+            if (this.ErrorsChanged != null)
+            {
+         
+                this.RaiseErrorsChanged("FileLocation");
+                
+                if (OnValidate("FileLocation").Count==0)
+                {
+                    return true;
+
+
+
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+            else
+            {
+                if (OnValidate("FileLocation").Count == 0)
+                {
+                    return true;
+
+
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
         }
 
 
@@ -112,7 +187,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 if (!this.HasErrors)
                 {
                     return true;
-
 
                 }
                 else
@@ -138,28 +212,38 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         }
 
-        public void SearchImage()
+        public async void SearchImage()
         {
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.AddExtension = true;
-            ofd.Filter = "Image files (*.png)|*.jpeg";
+            ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png";
             DialogResult ret = ofd.ShowDialog();
 
             if (ret == DialogResult.OK)
             {
                 string filename = ofd.FileName;
                 FileLocation = filename;
-                Console.WriteLine(filename);
-            }
+                var isValid= ValidateFileLocation();
+                if (isValid)
+                {
+                    string filelocation = (string)FileLocation;
+                  
+                    BmpImage = Helper.Helper.ImageResizer(filelocation, 120) ; // set image
 
-             
+                    BitmapImage bmpOri = new BitmapImage(new Uri(filelocation));
+
+
+                    Image = Helper.Helper.ImageToByte(bmpOri);
+                   
+              
+                }
+            }     
         }
 
-        private async void RedirectToMainWindow(Business business)
+        public async void RedirectToMainWindow(Business business)
         {
 
         }
-
 
         #region Validation
 
@@ -176,6 +260,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 return OnValidate(string.Empty).Count > 0;
             }
         }
+
+       
         System.Collections.IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
         {
             return OnValidate(propertyName);
@@ -191,6 +277,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         private List<string> OnValidate(string columnName)
         {
+         
             List<string> result = new List<string>();
 
             if (!canValidateForErrors)
@@ -224,6 +311,39 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 }
             }
 
+            if(string.IsNullOrEmpty(columnName)|| columnName == "FileLocation")
+            {
+                if (string.IsNullOrEmpty(FileLocation))
+                {
+
+                }
+                else
+                {
+                    string filelocation = (string)FileLocation;
+                    var fileLength = new FileInfo(filelocation).Length;
+                    var fileLengthKb = (float)fileLength / (float)1024;
+                    var fileLengthMb = (float)fileLengthKb / (float)1024;
+
+
+                    if (fileLengthMb >= 5)
+                    {
+                        result.Add("File size is bigger than 5MB");
+                    }
+                    else
+                    {
+                        Image img = new Bitmap(filelocation);
+
+                        var ar = (float)img.Width / (float)img.Height;
+                        
+                        if(ar>=5 || ar <=0.1)
+                        {
+                            result.Add("Aspect ratio is too big or too low");
+                        }
+
+                    }
+                }
+            }
+
             return result;
         }
 
@@ -231,20 +351,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         #endregion
 
-        #region helper
+       
 
-        //private DialogResult STAShowDialog(FolderBrowserDialog dialog)
-        //{
-        //    DialogState state = new DialogState();
-        //    state.dialog = dialog;
-        //    System.Threading.Thread t = new System.Threading.Thread(state.ThreadProcShowDialog);
-
-        //    t.SetApartmentState(System.Threading.ApartmentState.STA);
-        //    t.Start();
-        //    t.Join();
-        //    return state.result;
-        //}
-
-        #endregion
+   
     }
 }

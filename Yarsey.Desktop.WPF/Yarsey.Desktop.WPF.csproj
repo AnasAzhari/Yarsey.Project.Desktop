@@ -137,7 +137,7 @@
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Themes.FluentDark.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Themes.FluentDarkTurq.WPF">
-      <HintPath>..\..\..\..\Desktop\FluentTheme\bin\Release\net5.0-windows\Syncfusion.Themes.FluentDarkTurq.WPF.dll</HintPath>
+      <HintPath>..\..\..\..\Documents\Syncfusion Themes\FluentDarkTurq\FluentTheme\FluentTheme\bin\Release\net5.0-windows\Syncfusion.Themes.FluentDarkTurq.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Themes.FluentLight.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.1.0.54\precompiledassemblies\net5.0\Syncfusion.Themes.FluentLight.WPF.dll</HintPath>

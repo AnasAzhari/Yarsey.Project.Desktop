@@ -9,15 +9,18 @@ using Yarsey.Desktop.WPF.Behaviour;
 using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.Desktop.WPF.Stores;
+using Yarsey.Domain.Models;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
     public class MainViewModel:ViewModelBase
     {
         private readonly NavigationDrawerStore _navigationDrawerStore;
+        private readonly BusinessStore _businessStore;
 
         public ViewModelBase CurrentNavigationDrawerContentViewModel => _navigationDrawerStore.CurrentContentViewModel;
 
+        public Business Business { get { return _businessStore.CurrentBusiness; } set { _businessStore.CurrentBusiness = value; } }
         public ICommand NavigateHomeCommand { get; set; }
         public ICommand NavigateCustomerCommand { get; set; }
 
@@ -31,13 +34,15 @@ namespace Yarsey.Desktop.WPF.ViewModels
             NavigationDrawerStore navigationDrawerStore, 
             List<ViewModelBase> vMList,
             INavigationService homeNavigationService,
-            INavigationService custNavService
+            INavigationService custNavService,
+            BusinessStore businessStore
             
             )
         {
 
             _navigationDrawerStore = navigationDrawerStore;
-
+            this._businessStore = businessStore;
+            this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
             _navigationDrawerStore.CurrentContentViewModelChanged += OnCurrentContentViewModel;
  
             NavigateHomeCommand = new NavigationDrawerCommand(homeNavigationService);
@@ -47,6 +52,11 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private void OnCurrentContentViewModel()
         {
             OnPropertyChanged(nameof(CurrentNavigationDrawerContentViewModel));
+        }
+
+        private void OnBusinessChanged()
+        {
+            OnPropertyChanged(nameof(Business));
         }
 
 

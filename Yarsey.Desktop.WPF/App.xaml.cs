@@ -13,6 +13,7 @@ using Yarsey.Desktop.WPF.Services;
 using Yarsey.EntityFramework;
 using Yarsey.Desktop.WPF.ViewModels;
 using Yarsey.Desktop.WPF.Stores;
+using Yarsey.Domain.Models;
 
 namespace Yarsey.Desktop.WPF
 {
@@ -45,23 +46,41 @@ namespace Yarsey.Desktop.WPF
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();
-            
+            Business business;
             YarseyDbContextFactory contextFactory = _host.Services.GetRequiredService<YarseyDbContextFactory>();
             using (YarseyDbContext context = contextFactory.CreateDbContext())
             {
                 context.Database.Migrate();
+                var biz=context.Businesses.FirstOrDefault();
+
+                business = biz;
+               
             }
-        
-            //MainWindow = _host.Services.GetRequiredService<MainWindow>();
-            MainWindow = _host.Services.GetRequiredService<WindowSetupCompany>();
-            var mainwindowsetup = _host.Services.GetRequiredService<MainWindowSetupViewModel>();
+
+
+            if (business != null)
+            {
+                MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            }
+            else
+            {
+                MainWindow = _host.Services.GetRequiredService<WindowSetupCompany>();
+            }
+          
            
             MainWindow.Show();
-            //mainwindowsetup.PopulatePages();
+           
             ConfigureMainWindow();
+            ConfigureSetupWindow();
 
 
             base.OnStartup(e);
+        }
+        protected override void OnExit(ExitEventArgs e)
+        {
+            DeConfigureSetupWindow();
+
+            base.OnExit(e);
         }
 
         private void ConfigureMainWindow()
@@ -71,6 +90,28 @@ namespace Yarsey.Desktop.WPF
             navDrawerStore.CurrentContentViewModel = homeVM;
 
         }
+
+        private void ConfigureSetupWindow()
+        {
+            var createBusinessPage = (CreateBusinessPageModel)_host.Services.GetRequiredService<MainWindowSetupViewModel>().BusinessPage;
+            createBusinessPage.ChangeMainWindow += ChangeSetupWindowtoMainwindow;
+        }
+
+        private void DeConfigureSetupWindow()
+        {
+            var createBusinessPage = (CreateBusinessPageModel)_host.Services.GetRequiredService<MainWindowSetupViewModel>().BusinessPage;
+            createBusinessPage.ChangeMainWindow -= ChangeSetupWindowtoMainwindow;
+        }
+
+        public void ChangeSetupWindowtoMainwindow(Business business)
+        {
+            MainWindow= _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.Show();
+            var mainwindowsetup = _host.Services.GetRequiredService<MainViewModel>();
+            mainwindowsetup.Business = business;
+            _host.Services.GetRequiredService<WindowSetupCompany>().Hide();
+        }
+
 
 
     }

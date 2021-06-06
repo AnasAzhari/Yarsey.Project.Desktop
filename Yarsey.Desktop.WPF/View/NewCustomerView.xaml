@@ -203,20 +203,14 @@
                         </syncfusion:SfTextInputLayout>
 
 
-
-
-
-
-
-
-                        <syncfusion:DateTimeEdit Grid.Column="0" Grid.Row="3"
+                        <!--<syncfusion:DateTimeEdit Grid.Column="0" Grid.Row="3"
                                                  Margin="47,5,5,5"
                                                  Height="50"
                     Name="validationDT"
                 
                  
                     MaxDateTime="{Binding MaximumValue}"
-                    MinDateTime="{Binding MinimumValue}" />
+                    MinDateTime="{Binding MinimumValue}" />-->
 
                     </Grid>
 

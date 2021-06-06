@@ -24,9 +24,13 @@
         <converters:ErrorConverter x:Key="ErrorConverter"/>
 
 
-        <ControlTemplate x:Key="validationTemplate">
+        <!--<ControlTemplate x:Key="validationTemplate">
             <DockPanel>
-                <TextBlock Foreground="Red" FontSize="20">!</TextBlock>
+                <TextBlock Foreground="Red"  DockPanel.Dock="Right"
+                           TextAlignment="Center"
+                           VerticalAlignment="Center"
+                           Margin="5,5,5,5"
+                           FontSize="20" HorizontalAlignment="Center">!</TextBlock>
                 <AdornedElementPlaceholder/>
             </DockPanel>
         </ControlTemplate>
@@ -35,11 +39,37 @@
             <Style.Triggers>
                 <Trigger Property="Validation.HasError" Value="true">
                     <Setter Property="ToolTip"
-        Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+                            Value="{Binding RelativeSource={x:Static RelativeSource.Self},
                         Path=(Validation.Errors)/ErrorContent}"/>
+                    <Setter Property="BorderThickness"  Value="2"/>
+                    <Setter Property="BorderBrush"   Value="Red"/>
                 </Trigger>
             </Style.Triggers>
+        </Style>-->
+
+        <Style x:Key="CustomTextBoxTextStyle" TargetType="TextBox">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type TextBox}">
+                        <Border x:Name="bg" BorderThickness="1" BorderBrush="LightGray">
+                            <ScrollViewer x:Name="PART_ContentHost" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+
+                            <Trigger Property="Validation.HasError" Value="True">
+                                <Trigger.Setters>
+                                    <Setter Property="ToolTip" Value="{Binding RelativeSource={RelativeSource Self},Path=(Validation.Errors)[0].ErrorContent}"/>
+                                    <Setter Property="BorderThickness" TargetName="bg" Value="2"/>
+                                    <Setter Property="BorderBrush" TargetName="bg" Value="Red"/>
+                                </Trigger.Setters>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
         </Style>
+
+
 
     </Window.Resources>
     
@@ -82,25 +112,58 @@
                     <Grid Grid.ColumnSpan="2" Grid.Row="0" MinHeight="150">
                         <StackPanel Orientation="Vertical">
                             <Label Content="Logo Syarikat" HorizontalAlignment="Center" FontSize="16"/>
-                            
-                            <Image Source="{StaticResource Home240px}" Width="80" Height="80" />
+
+                            <Image Source="{Binding BusinessPage.BmpImage}" Width="120" Height="120"  Margin="2,2,2,2"/>
 
                             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                                 <Button Content="Browse" Width="100" Command="{Binding BusinessPage.BrowseImage}"/>
-                                <TextBox  IsReadOnly="True" Name="textBox1" 
+                                <!--<TextBox  Name="textBox1" 
                                          Width="300" Margin="5,0,0,0"
-                                         Validation.ErrorTemplate="{StaticResource validationTemplate}"
+                                         BorderBrush="#FF825E5E"  BorderThickness="1"
+                                         Validation.ErrorTemplate="{DynamicResource validationTemplate}"
                                          Style="{StaticResource textBoxInError}"
                                          >
+                                    
                                     <Binding Path="BusinessPage.FileLocation" 
-                                         UpdateSourceTrigger="PropertyChanged" >
-                                        <Binding.ValidationRules>
+                                            UpdateSourceTrigger="PropertyChanged"
+                                         
+                                            ValidatesOnNotifyDataErrors="True" 
+                                            Mode="TwoWay"
+                                             
+                                            
+                                             >
+                                        --><!--<Binding.ValidationRules>
                                             <validation:ImageValidationRule MaxSize="5"/>
-                                        </Binding.ValidationRules>
+                                        </Binding.ValidationRules>--><!--
                                     </Binding>
 
 
+                                </TextBox>-->
+                                <TextBox Style="{StaticResource CustomTextBoxTextStyle}" FontSize="15"
+                                         Foreground="White" IsReadOnly="True"
+                                         Name="textBox1" Width="300" Margin="5,0,0,0">
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <DockPanel >
+                                                <TextBlock Foreground="Red" FontSize="20" Margin="5,0,0,0" DockPanel.Dock="Right">!</TextBlock>
+                                                <AdornedElementPlaceholder x:Name="ErrorAdorner"
+                                                    ></AdornedElementPlaceholder>
+                                            </DockPanel>
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+
+                                    <TextBox.Text>
+                                        <Binding Path="BusinessPage.FileLocation"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"
+                                                 ValidatesOnNotifyDataErrors="True">
+                                            <!--<Binding.ValidationRules>
+                                                <local:NameValidator></local:NameValidator>
+                                            </Binding.ValidationRules>-->
+                                        </Binding>
+                                    </TextBox.Text>
+
                                 </TextBox>
+                                
+                                
 
                             </StackPanel>
                         </StackPanel>

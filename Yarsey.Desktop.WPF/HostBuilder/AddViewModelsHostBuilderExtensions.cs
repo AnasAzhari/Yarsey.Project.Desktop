@@ -31,7 +31,8 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                   
                     },
                     CreateHomeNavigationDrawerService(s),
-                    CreateCustomerNavigationDrawerService(s)
+                    CreateCustomerNavigationDrawerService(s),
+                    s.GetRequiredService<BusinessStore>()
 
                 ));
                 services.AddSingleton<MainWindowSetupViewModel>(s=>new MainWindowSetupViewModel(s.GetRequiredService<BusinessDataService>()));
