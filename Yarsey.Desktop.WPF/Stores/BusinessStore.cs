@@ -27,5 +27,9 @@ namespace Yarsey.Desktop.WPF.Stores
         {
             CurrentBusinessChanged?.Invoke();
         }
+        public void ClearEvents()
+        {
+            CurrentBusinessChanged=null;
+        }
     }
 }

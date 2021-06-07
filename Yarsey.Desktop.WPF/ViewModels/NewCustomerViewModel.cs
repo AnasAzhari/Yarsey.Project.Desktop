@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
+using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
 
@@ -45,13 +46,16 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private bool canValidateForErrors;
 
         private CustomerDataService _customerDataService;
-
+        private readonly BusinessStore _businessStore;
+        private readonly BusinessDataService _businessDataService;
         private INavigationService _customerVMNavigationService;
 
-        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService)
+        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService,BusinessStore businessStore, BusinessDataService businessDataService)
         {
             _customerVMNavigationService = navigationService;
             _customerDataService = customerService;
+            this._businessStore = businessStore;
+            this._businessDataService = businessDataService;
             NavigateCustomerCommand = new NavigationDrawerCommand(navigationService);
             CreateCustomerCommand = new AsyncRelayCommand(ValidateAsync, Success);
         }
@@ -60,7 +64,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
 
-            await _customerDataService.Create(customer).ContinueWith((customer)=> { _customerVMNavigationService.Navigate(); });
+            await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id,customer).ContinueWith((customer)=> { _customerVMNavigationService.Navigate(); });
 
             
         

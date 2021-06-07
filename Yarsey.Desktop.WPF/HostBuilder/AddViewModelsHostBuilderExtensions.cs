@@ -20,7 +20,11 @@ namespace Yarsey.Desktop.WPF.HostBuilder
         {
             host.ConfigureServices(services =>
             {
-                services.AddTransient<CustomerViewModel>(s=>new CustomerViewModel(CreateNewCustomerNavigationDraweService(s),s.GetRequiredService<CustomerDataService>()));
+                services.AddSingleton<CustomerViewModel>(s=>new CustomerViewModel(CreateNewCustomerNavigationDraweService(s),s.GetRequiredService<CustomerDataService>(),
+                                                             s.GetRequiredService<BusinessStore>(),
+                                                             s.GetRequiredService<BusinessDataService>()
+
+                    ));
                 services.AddSingleton<HomeViewModel>();
                 services.AddSingleton<MainViewModel>(s => new MainViewModel(
                     
@@ -42,7 +46,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); ; 
                 services.AddSingleton<HomeView>();
                 services.AddSingleton<CustomerView>(s=>new CustomerView() {DataContext= s.GetRequiredService<CustomerViewModel>() });
-                services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s),s.GetRequiredService<CustomerDataService>()));
+                services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s),s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<BusinessStore>(), s.GetRequiredService<BusinessDataService>()));
             });
 
             return host;

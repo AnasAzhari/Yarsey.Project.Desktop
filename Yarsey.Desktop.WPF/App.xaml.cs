@@ -14,6 +14,7 @@ using Yarsey.EntityFramework;
 using Yarsey.Desktop.WPF.ViewModels;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
+using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF
 {
@@ -43,7 +44,7 @@ namespace Yarsey.Desktop.WPF
             
 
         }
-        protected override void OnStartup(StartupEventArgs e)
+        protected override async void OnStartup(StartupEventArgs e)
         {
             _host.Start();
             Business business;
@@ -66,12 +67,16 @@ namespace Yarsey.Desktop.WPF
             {
                 MainWindow = _host.Services.GetRequiredService<WindowSetupCompany>();
             }
-          
-           
-            MainWindow.Show();
-           
+
+
+            BusinessSelection();
             ConfigureMainWindow();
             ConfigureSetupWindow();
+          
+
+            MainWindow.Show();
+          
+           
 
 
             base.OnStartup(e);
@@ -79,6 +84,7 @@ namespace Yarsey.Desktop.WPF
         protected override void OnExit(ExitEventArgs e)
         {
             DeConfigureSetupWindow();
+            _host.Services.GetRequiredService<BusinessStore>().ClearEvents();
 
             base.OnExit(e);
         }
@@ -110,6 +116,15 @@ namespace Yarsey.Desktop.WPF
             var mainwindowsetup = _host.Services.GetRequiredService<MainViewModel>();
             mainwindowsetup.Business = business;
             _host.Services.GetRequiredService<WindowSetupCompany>().Hide();
+        }
+
+        //default business selection. Assuming only 1 business. To be changed later
+        private async void BusinessSelection()
+        {
+            Business biz = await _host.Services.GetRequiredService<BusinessDataService>().GetDefault();
+            BusinessStore bizStore = _host.Services.GetRequiredService<BusinessStore>();
+            bizStore.CurrentBusiness = biz;
+
         }
 
 

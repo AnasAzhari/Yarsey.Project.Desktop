@@ -82,7 +82,7 @@
                     <interactivity:InvokeCommandAction Command="{Binding BusinessPage.CreateBusinessCommand}" CommandParameter="{Binding ElementName=mainWindowSetup}" />
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
-            <!--<syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
+            <syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
                                    BannerImageHeight="200"
                                    FinishVisible="False" >
                 <StackPanel Orientation="Vertical">
@@ -92,7 +92,7 @@
                 </StackPanel>
                
                 
-            </syncfusion:WizardPage>-->
+            </syncfusion:WizardPage>
             
             
             <syncfusion:WizardPage Name="Page2" NextVisible="False" HelpVisible="False" BackVisible="False" >

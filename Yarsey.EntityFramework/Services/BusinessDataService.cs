@@ -32,11 +32,21 @@ namespace Yarsey.EntityFramework.Services
             return await _nonQueryDataService.Delete(id);
         }
 
+        public async Task<Business> GetDefault()
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                Business entity = await dbContext.Businesses.Include(c => c.Customers)
+                                        .FirstOrDefaultAsync();
+                return entity;
+            }
+        }
+
         public async Task<Business> Get(int id)
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business entity = await dbContext.Businesses
+                Business entity = await dbContext.Businesses.Include(c=>c.Customers)
                                         .FirstOrDefaultAsync((a) => a.Id == id);
                 return entity;
             }
@@ -67,5 +77,18 @@ namespace Yarsey.EntityFramework.Services
         {
             return await _nonQueryDataService.Update(id, entity);
         }
+
+        public async Task AddCustomer(int bizId,Customer customer)
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                Business businesses = await dbContext.Businesses.Include(p=>p.Customers).FirstOrDefaultAsync(x=>x.Id==bizId);
+
+                businesses.Customers.Add(customer);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+
     }
 }

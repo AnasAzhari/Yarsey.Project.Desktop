@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
+using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
 
@@ -15,39 +16,73 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
     public class CustomerViewModel:ViewModelBase
     {
-        private string _vmstring= "Doodle";
-        public string VMString { get { return _vmstring; } set { SetProperty(ref _vmstring, value); } }
+       
+        
 
-        private ObservableCollection<Customer> _customerCollection;
+        private ObservableCollection<Customer> _customerCollection=null;
 
         public ObservableCollection<Customer> CustomerCollection
         {
             get { return _customerCollection; }
-            set { SetProperty(ref _customerCollection, value); }
+            set {
+                SetProperty(ref _customerCollection, value); 
+            }
+
 
         }
 
         private readonly CustomerDataService _customerDataService;
+        private readonly BusinessStore _businessStore;
+        private readonly BusinessDataService _businessDataService;
 
         public ICommand NavigateNewCustomer { get; }
 
-        public CustomerViewModel(INavigationService newCustNavService, CustomerDataService customerDataService)
+        public CustomerViewModel(INavigationService newCustNavService, CustomerDataService customerDataService,BusinessStore businessStore,BusinessDataService businessDataService)
         {
             _customerDataService = customerDataService;
-            _vmstring = "Google";
+            this._businessStore = businessStore;
+            this._businessDataService = businessDataService;
+           
             NavigateNewCustomer = new NavigationDrawerCommand(newCustNavService);
-            this.CustomerCollection = GetCustomerCollection().Result;
-            
+
+           this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
+           // this.CustomerCollection = GetCollectionOri().Result;
         }
 
-        private async Task<ObservableCollection<Customer>> GetCustomerCollection()
-        {
 
+        public void OnBusinessChanged()
+        {
+            
+            var res = GetCustomerCollectionX().Result;
+            this.CustomerCollection = res;
+        }
+        private async Task<ObservableCollection<Customer>> GetCustomerCollectionX()
+        {
+            IEnumerable<Customer> cList = _businessStore.CurrentBusiness.Customers.ToList();
+           // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
+            ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(cList);
+
+            return custCollection;
+        }
+
+        private  ObservableCollection<Customer> GetCustomerCollection()
+        {
+           // IEnumerable<Customer> cList = _businessStore.CurrentBusiness.Customers.ToList();
+            IEnumerable<Customer> customerlist = _customerDataService.GetAll().Result;
+            ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(customerlist);
+            
+            return custCollection;
+        }
+
+        private async Task<ObservableCollection<Customer>> GetCollectionOri()
+        {
             IEnumerable<Customer> customerlist = await _customerDataService.GetAll();
             ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(customerlist);
 
             return custCollection;
         }
+
+
         #region -------------FILTERING-------------------
 
         private string _filterText = string.Empty;

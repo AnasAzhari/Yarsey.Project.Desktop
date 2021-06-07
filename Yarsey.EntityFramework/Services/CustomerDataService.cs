@@ -53,6 +53,17 @@ namespace Yarsey.EntityFramework.Services
             }
         }
 
+        public async Task<IEnumerable<Customer>> GetCustomersByBusineness(int id)
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                Business biz = await dbContext.Businesses.FirstAsync(x => x.Id == id);
+                var customers = biz.Customers.ToList();
+                                                        ;
+                return customers;
+            }
+        }
+
         public async Task<Customer> GetCustomerByName(string name)
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())

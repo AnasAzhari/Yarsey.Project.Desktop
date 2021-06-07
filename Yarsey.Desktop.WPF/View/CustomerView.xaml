@@ -91,7 +91,7 @@
                             Grid.Row="2"
                             NumericButtonCount="10"
                             PageSize="10"
-                            Source="{Binding CustomerCollection,Mode=TwoWay}"
+                            Source="{Binding Path=CustomerCollection,Mode=TwoWay}"
 
                             />
 
@@ -110,8 +110,18 @@
 
                  <!--customer detail-->
                 <Grid Grid.Column="1">
-                    
-                    
+                    <StackPanel Orientation="Vertical">
+                        <Label Content="Mail"></Label>
+                        <TextBlock>
+                                 <Hyperlink NavigateUri="mailto:username@domainname">mailto: With Email Address</Hyperlink>
+                        </TextBlock>
+                        <!--<ListView>
+                            <ListViewItem Content="{Binding CustomerCollection}"/>
+                        </ListView>-->
+                        <TextBox Text="{Binding CustomerCollection[0].Name}"/>
+
+                    </StackPanel>
+                  
                     
                     
                     
