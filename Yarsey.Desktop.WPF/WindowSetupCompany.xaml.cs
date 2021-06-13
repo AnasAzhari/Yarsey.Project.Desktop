@@ -11,13 +11,14 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Syncfusion.Windows.Shared;
 
 namespace Yarsey.Desktop.WPF
 {
     /// <summary>
     /// Interaction logic for WindowSetupCompany.xaml
     /// </summary>
-    public partial class WindowSetupCompany : Window
+    public partial class WindowSetupCompany : ChromelessWindow
     {
         public WindowSetupCompany()
         {

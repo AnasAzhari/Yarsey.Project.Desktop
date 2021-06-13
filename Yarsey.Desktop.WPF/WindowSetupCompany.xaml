@@ -1,4 +1,4 @@
-﻿<Window x:Class="Yarsey.Desktop.WPF.WindowSetupCompany"
+﻿<syncfusion:ChromelessWindow x:Class="Yarsey.Desktop.WPF.WindowSetupCompany"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -12,6 +12,9 @@
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
         mc:Ignorable="d"
+        CornerRadius="3"
+         ResizeMode="NoResize"     
+          AllowsTransparency="True"                 
         Title="Yarsey Desktop Akaun" Height="750" Width="1000" WindowStartupLocation="CenterScreen">
     
     
@@ -277,4 +280,4 @@
         
         
     </Grid>
-</Window>
+</syncfusion:ChromelessWindow>

@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yarsey.EntityFramework;
 
 namespace Yarsey.EntityFramework.Migrations
 {
     [DbContext(typeof(YarseyDbContext))]
-    partial class YarseyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210612135027_sales")]
+    partial class sales
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,9 +104,6 @@ namespace Yarsey.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BusinessId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<DateTime>("CreatedTime")
                         .HasColumnType("TEXT");
 
@@ -119,8 +118,6 @@ namespace Yarsey.EntityFramework.Migrations
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BusinessId");
 
                     b.HasIndex("Customer_id")
                         .IsUnique();
@@ -167,12 +164,6 @@ namespace Yarsey.EntityFramework.Migrations
 
             modelBuilder.Entity("Yarsey.Domain.Models.Sale", b =>
                 {
-                    b.HasOne("Yarsey.Domain.Models.Business", null)
-                        .WithMany("Sales")
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("Yarsey.Domain.Models.Customer", "Customer")
                         .WithOne()
                         .HasForeignKey("Yarsey.Domain.Models.Sale", "Customer_id")
@@ -198,8 +189,6 @@ namespace Yarsey.EntityFramework.Migrations
             modelBuilder.Entity("Yarsey.Domain.Models.Business", b =>
                 {
                     b.Navigation("Customers");
-
-                    b.Navigation("Sales");
 
                     b.Navigation("Transactions");
                 });

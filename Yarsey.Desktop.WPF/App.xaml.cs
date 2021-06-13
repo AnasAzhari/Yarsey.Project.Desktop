@@ -111,11 +111,14 @@ namespace Yarsey.Desktop.WPF
 
         public void ChangeSetupWindowtoMainwindow(Business business)
         {
-            MainWindow= _host.Services.GetRequiredService<MainWindow>();
-            MainWindow.Show();
-            var mainwindowsetup = _host.Services.GetRequiredService<MainViewModel>();
-            mainwindowsetup.Business = business;
+            //var mainwindowsetup = _host.Services.GetRequiredService<MainViewModel>();
+            //mainwindowsetup.Business = business;
             _host.Services.GetRequiredService<WindowSetupCompany>().Hide();
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.Show();
+            BusinessStore bizStore = _host.Services.GetRequiredService<BusinessStore>();
+            bizStore.CurrentBusiness = business;
+
         }
 
         //default business selection. Assuming only 1 business. To be changed later

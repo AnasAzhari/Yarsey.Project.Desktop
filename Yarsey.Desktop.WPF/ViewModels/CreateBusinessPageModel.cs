@@ -214,6 +214,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public async void SearchImage()
         {
+
+            
             OpenFileDialog ofd = new OpenFileDialog();
             ofd.AddExtension = true;
             ofd.Filter = "Image Files|*.jpg;*.jpeg;*.png";
@@ -230,10 +232,11 @@ namespace Yarsey.Desktop.WPF.ViewModels
                   
                     BmpImage = Helper.Helper.ImageResizer(filelocation, 120) ; // set image
 
-                    BitmapImage bmpOri = new BitmapImage(new Uri(filelocation));
+                    // BitmapImage bmpOri = new BitmapImage(new Uri(filelocation));
 
+                    Image = Helper.Helper.FileToByteArray(filelocation);
 
-                    Image = Helper.Helper.ImageToByte(bmpOri);
+                   // Image = Helper.Helper.ImageToByte(bmpOri);
                    
               
                 }

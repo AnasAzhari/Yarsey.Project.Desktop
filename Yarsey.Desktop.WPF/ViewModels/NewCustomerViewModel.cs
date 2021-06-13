@@ -62,11 +62,11 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         private async Task Success()
         {
-            Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo };
+            Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo,Created_at=DateTime.Now };
 
-            await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id,customer).ContinueWith((customer)=> { _customerVMNavigationService.Navigate(); });
-
+            await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id, customer).ContinueWith((customer) => { _customerVMNavigationService.Navigate(); });
             
+            _businessStore.RefreshBusiness();
         
         }
         private void Create()

@@ -12,23 +12,17 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
-using Syncfusion.Windows.Shared;
-using Syncfusion.Windows;
-using Yarsey.Desktop.WPF.ViewModels;
 
-
-namespace Yarsey.Desktop.WPF
+namespace Yarsey.Desktop.WPF.View
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for SaleView.xaml
     /// </summary>
-    public partial class MainWindow :ChromelessWindow
+    public partial class SaleView : UserControl
     {
-        public MainWindow(ViewModelBase viewModelBase)
+        public SaleView()
         {
-            DataContext = viewModelBase;
             InitializeComponent();
-           
         }
     }
 }

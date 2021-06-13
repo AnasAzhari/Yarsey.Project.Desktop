@@ -9,8 +9,8 @@ using Yarsey.EntityFramework;
 namespace Yarsey.EntityFramework.Migrations
 {
     [DbContext(typeof(YarseyDbContext))]
-    [Migration("20210515154011_businessmodel_migration")]
-    partial class businessmodel_migration
+    [Migration("20210609142618_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

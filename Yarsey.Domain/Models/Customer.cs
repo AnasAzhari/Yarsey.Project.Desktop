@@ -30,7 +30,6 @@ namespace Yarsey.Domain.Models
 
         //public DateTime Logged { get; set; }
 
-
         public DateTime Created_at { get; set; }
     }
 }

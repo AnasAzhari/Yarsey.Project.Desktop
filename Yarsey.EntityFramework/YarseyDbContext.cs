@@ -15,6 +15,8 @@ namespace Yarsey.EntityFramework
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Business> Businesses { get; set; }
+
+        public DbSet<Sale> Sales { get; set; }
         public YarseyDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -40,8 +42,22 @@ namespace Yarsey.EntityFramework
                 entity.Property(e => e.RegistrationNo);
                 entity.Property(e => e.Image);
                 entity.HasMany(e => e.Customers).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
+                entity.HasMany(e => e.Sales).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
 
             });
+
+            modelBuilder.Entity<Sale>(entity =>
+            {
+                entity.Property(e => e.CreatedTime);
+                entity.Property(e => e.SaleCategory).HasConversion<int>();
+                entity.HasOne(e => e.Customer).WithOne().OnDelete(DeleteBehavior.Cascade).HasForeignKey<Sale>(s=>s.Customer_id);
+                entity.Property(e => e.Notes);
+                entity.HasOne(e => e.Transaction).WithOne().OnDelete(DeleteBehavior.Cascade).HasForeignKey<Transaction>(b=>b.Sales_id);
+
+
+            });
+
+
 
 
             base.OnModelCreating(modelBuilder);

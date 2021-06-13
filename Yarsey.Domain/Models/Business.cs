@@ -35,5 +35,9 @@ namespace Yarsey.Domain.Models
 
         public ICollection<Customer> Customers { get; set; }
 
+        public ICollection<Sale> Sales { get; set; }
+
+        public ICollection<Transaction> Transactions { get; set; }
+
     }
 }

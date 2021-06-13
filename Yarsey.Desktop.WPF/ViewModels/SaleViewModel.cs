@@ -13,76 +13,41 @@ using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
-
-    public class CustomerViewModel:ViewModelBase
+   public class SaleViewModel:ViewModelBase
     {
-       
-        
-
-        private ObservableCollection<Customer> _customerCollection=null;
-
-        public ObservableCollection<Customer> CustomerCollection
-        {
-            get { return _customerCollection; }
-            set {
-                SetProperty(ref _customerCollection, value); 
-            }
-
-
-        }
-
-        public Customer SelectedCustomer { get; set; }
-
-
-        private readonly CustomerDataService _customerDataService;
         private readonly BusinessStore _businessStore;
-        private readonly BusinessDataService _businessDataService;
+        private readonly SaleDataService _saleDataService;
+        private ObservableCollection<Sale> _salesCollection;
 
-        public ICommand NavigateNewCustomer { get; }
-
-        public CustomerViewModel(INavigationService newCustNavService, CustomerDataService customerDataService,BusinessStore businessStore,BusinessDataService businessDataService)
+        public ObservableCollection<Sale> SalesCollection
         {
-            _customerDataService = customerDataService;
-            this._businessStore = businessStore;
-            this._businessDataService = businessDataService;
-           
-            NavigateNewCustomer = new NavigationDrawerCommand(newCustNavService);
-
-           this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
-           // this.CustomerCollection = GetCollectionOri().Result;
+            get { return _salesCollection; }
+            set { SetProperty(ref _salesCollection, value); }
         }
+        public Sale SelectedSale{ get; set; }
 
+        public ICommand NavigateSaleCustomer { get; }
+
+        public SaleViewModel(INavigationService navigationService, BusinessStore businessStore,SaleDataService saleDataService)
+        {
+            NavigateSaleCustomer = new NavigationDrawerCommand(navigationService);
+            this._businessStore = businessStore;
+            this._saleDataService = saleDataService;
+            this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
+            
+        }
 
         public void OnBusinessChanged()
         {
-            
-            var res = GetCustomerCollectionX().Result;
-            this.CustomerCollection = res;
-        }
-        private async Task<ObservableCollection<Customer>> GetCustomerCollectionX()
-        {
-            IEnumerable<Customer> cList = _businessStore.CurrentBusiness.Customers.ToList();
-           // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
-            ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(cList);
-
-            return custCollection;
+            var res = GetSalesCollection().Result;
+            this.SalesCollection = res;
         }
 
-        private  ObservableCollection<Customer> GetCustomerCollection()
+        private async Task<ObservableCollection<Sale>> GetSalesCollection()
         {
-           // IEnumerable<Customer> cList = _businessStore.CurrentBusiness.Customers.ToList();
-            IEnumerable<Customer> customerlist = _customerDataService.GetAll().Result;
-            ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(customerlist);
-            
-            return custCollection;
-        }
-
-        private async Task<ObservableCollection<Customer>> GetCollectionOri()
-        {
-            IEnumerable<Customer> customerlist = await _customerDataService.GetAll();
-            ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(customerlist);
-
-            return custCollection;
+            IEnumerable<Sale> sList = _businessStore.CurrentBusiness.Sales.ToList();
+            ObservableCollection<Sale> saleCollection = new ObservableCollection<Sale>(sList);
+            return saleCollection;
         }
 
 
@@ -139,7 +104,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             double res;
             bool checkNumeric = double.TryParse(FilterText, out res);
-            var item = o as Customer;
+            var item = o as Sale;
             if (item != null && FilterText.Equals(""))
             {
                 return true;
@@ -150,31 +115,31 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 {
                     if (checkNumeric && !FilterOption.Equals("All Columns"))
                     {
-                     
+
                     }
                     else if (FilterOption.Equals("All Columns"))
                     {
-                        if (item.Name.ToLower().Contains(FilterText.ToLower()))
+                        if (item.Customer.Name.ToLower().Contains(FilterText.ToLower()))
                             return true;
-                     
+
                         //if(!string.IsNullOrEmpty(item.PhoneNo))
                         //    return item.PhoneNo.ToLower().Contains(FilterText.ToLower());
-                        
+
                         //if(!string.IsNullOrEmpty(item.Email))
                         //    return item.Email.ToLower().Contains(FilterText.ToLower());
-                        
+
                         //if(!string.IsNullOrEmpty(item.Adress))
                         //    item.Adress.ToLower().Contains(FilterText.ToLower());
-                        
-                       
+
+
                         return false;
-                                                 
-                            
-                        
+
+
+
                     }
                     else
                     {
-                     
+
                     }
                 }
             }
@@ -183,5 +148,10 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
 
         #endregion
+
+
+
+
     }
+
 }

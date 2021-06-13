@@ -16,6 +16,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
     public class MainViewModel:ViewModelBase
     {
         private readonly NavigationDrawerStore _navigationDrawerStore;
+        private readonly INavigationService salesNavigationServvice;
         private readonly BusinessStore _businessStore;
 
         public ViewModelBase CurrentNavigationDrawerContentViewModel => _navigationDrawerStore.CurrentContentViewModel;
@@ -23,6 +24,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public Business Business { get { return _businessStore.CurrentBusiness; } set { _businessStore.CurrentBusiness = value; } }
         public ICommand NavigateHomeCommand { get; set; }
         public ICommand NavigateCustomerCommand { get; set; }
+        public ICommand NavigateSalesCommand { get; set; }
 
         public NavationItemClickedAction navationItemClickedAction { get; set; }
 
@@ -35,19 +37,21 @@ namespace Yarsey.Desktop.WPF.ViewModels
             List<ViewModelBase> vMList,
             INavigationService homeNavigationService,
             INavigationService custNavService,
+            INavigationService salesNavigationServvice,
             BusinessStore businessStore
             
             )
         {
 
             _navigationDrawerStore = navigationDrawerStore;
+            this.salesNavigationServvice = salesNavigationServvice;
             this._businessStore = businessStore;
             this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
             _navigationDrawerStore.CurrentContentViewModelChanged += OnCurrentContentViewModel;
  
             NavigateHomeCommand = new NavigationDrawerCommand(homeNavigationService);
             NavigateCustomerCommand = new NavigationDrawerCommand(custNavService);
-
+            NavigateSalesCommand = new NavigationDrawerCommand(salesNavigationServvice);
         }
         private void OnCurrentContentViewModel()
         {

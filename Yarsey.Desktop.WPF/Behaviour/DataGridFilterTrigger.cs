@@ -14,8 +14,20 @@ namespace Yarsey.Desktop.WPF.Behaviour
     {
         protected override void Invoke(object parameter)
         {
-            var viewModel = this.Target.DataContext as CustomerViewModel;
-            viewModel.filterChanged += OnFilterChanged;
+            var type = this.Target.DataContext.GetType();
+
+            if (type == typeof(SaleViewModel))
+            {
+                var viewModel = this.Target.DataContext as SaleViewModel;
+                viewModel.filterChanged += OnFilterChanged;
+
+            }
+            else if(type == typeof(CustomerViewModel))
+            {
+                var viewModel = this.Target.DataContext as CustomerViewModel;
+                viewModel.filterChanged += OnFilterChanged;
+            }
+           
         }
 
         /// <summary>
@@ -23,12 +35,38 @@ namespace Yarsey.Desktop.WPF.Behaviour
         /// </summary>
         private void OnFilterChanged()
         {
-            var viewModel = this.Target.DataContext as CustomerViewModel;
-            if (this.Target.View != null)
+
+            // var viewModel = this.Target.DataContext as CustomerViewModel;
+            if (this.Target.DataContext != null)
             {
-                this.Target.View.Filter = viewModel.FilerRecords;
-                this.Target.View.RefreshFilter();
+                var type = this.Target.DataContext.GetType();
+
+
+                if (type == typeof(SaleViewModel))
+                {
+                    var viewModel = this.Target.DataContext as SaleViewModel;
+                    if (this.Target.View != null)
+                    {
+                        this.Target.View.Filter = viewModel.FilerRecords;
+                        this.Target.View.RefreshFilter();
+                    }
+
+                }
+                else if (type == typeof(CustomerViewModel))
+                {
+                    var viewModel = this.Target.DataContext as CustomerViewModel;
+                    if (this.Target.View != null)
+                    {
+                        this.Target.View.Filter = viewModel.FilerRecords;
+                        this.Target.View.RefreshFilter();
+                    }
+
+                }
+
             }
+        
+
+          
         }
     }
 }

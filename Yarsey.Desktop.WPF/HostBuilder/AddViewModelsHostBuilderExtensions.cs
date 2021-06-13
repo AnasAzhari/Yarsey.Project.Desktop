@@ -25,6 +25,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                                                              s.GetRequiredService<BusinessDataService>()
 
                     ));
+                services.AddSingleton<SaleViewModel>(s => new SaleViewModel(CreateNewSaleNavigationDraweService(s), s.GetRequiredService<BusinessStore>(),s.GetRequiredService<SaleDataService>()));
                 services.AddSingleton<HomeViewModel>();
                 services.AddSingleton<MainViewModel>(s => new MainViewModel(
                     
@@ -36,6 +37,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                     },
                     CreateHomeNavigationDrawerService(s),
                     CreateCustomerNavigationDrawerService(s),
+                    CreateSalesNavigationDrawerService(s),
                     s.GetRequiredService<BusinessStore>()
 
                 ));
@@ -45,8 +47,10 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 //services.AddSingleton<MainViewModel>(s => new MainViewModel());
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); ; 
                 services.AddSingleton<HomeView>();
+                services.AddSingleton<NewSaleView>();
                 services.AddSingleton<CustomerView>(s=>new CustomerView() {DataContext= s.GetRequiredService<CustomerViewModel>() });
                 services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s),s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<BusinessStore>(), s.GetRequiredService<BusinessDataService>()));
+                services.AddTransient<NewSaleViewModel>(s => new NewSaleViewModel(s.GetRequiredService<BusinessStore>(), s.GetRequiredService<SaleDataService>()));
             });
 
             return host;
@@ -76,6 +80,17 @@ namespace Yarsey.Desktop.WPF.HostBuilder
             );
 
         }
+        public static INavigationService CreateSalesNavigationDrawerService(IServiceProvider serviceProvider)
+        {
+            return new NavigationDrawerService<SaleViewModel>(
+
+                serviceProvider.GetRequiredService<NavigationDrawerStore>(),
+
+                () => serviceProvider.GetRequiredService<SaleViewModel>()
+
+            );
+
+        }
         public static INavigationService CreateNewCustomerNavigationDraweService(IServiceProvider serviceProvider)
         {
             return new NavigationDrawerService<NewCustomerViewModel>(
@@ -83,6 +98,17 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 serviceProvider.GetRequiredService<NavigationDrawerStore>(),
 
                 () => serviceProvider.GetRequiredService<NewCustomerViewModel>()
+
+            );
+
+        }
+        public static INavigationService CreateNewSaleNavigationDraweService(IServiceProvider serviceProvider)
+        {
+            return new NavigationDrawerService<NewSaleViewModel>(
+
+                serviceProvider.GetRequiredService<NavigationDrawerStore>(),
+
+                () => serviceProvider.GetRequiredService<NewSaleViewModel>()
 
             );
 
