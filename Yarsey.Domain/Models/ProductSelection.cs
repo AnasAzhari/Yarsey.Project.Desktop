@@ -6,15 +6,10 @@ using System.Threading.Tasks;
 
 namespace Yarsey.Domain.Models
 {
-  public enum TransactionType
+    public class ProductSelection
     {
-        Buy,
-        Sell,
-        Invoice,
-        SaleOrder,
-    }
-    public enum ProductType
-    {
+        public Product SelectedProduct { get; set; }
+        public int Quantity { get; set; }
 
-    } 
+    }
 }

@@ -4,10 +4,103 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Yarsey.Desktop.WPF.View"
+                       xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:converters="clr-namespace:Yarsey.Desktop.WPF.Converter"
+              xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
+        syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+        <converters:EmptyCollectionToObjectConverter x:Key="EmptyCollectionToObjectConverter" EmptyValue="False" NotEmptyValue="True"/>
+        <converters:ErrorConverter x:Key="ErrorConverter"/>
+    </UserControl.Resources>
     <Grid>
-        <Label FontSize="25" Content="New Sale View"/>
+        
+        <Grid.RowDefinitions >
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="600"/>
+            <RowDefinition/>
+
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0" Margin="5,5,5,5">
+            <Label FontSize="25" Foreground="DarkGreen" Content="New Sale" HorizontalAlignment="Center"/>
+        </Grid>
+        <Grid Grid.Row="1" Margin="5,20,15,15">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="2*" />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+
+            <Grid Grid.Column="0">
+                <Grid Grid.Row="1"  VerticalAlignment="Top" Margin="5,5,20,5">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                            <RowDefinition/>
+
+                        </Grid.RowDefinitions>
+
+                        <!--<syncfusion:SfTextInputLayout
+                            x:Name="firstNameInputLayout"
+                            Grid.Row="0"
+                            Grid.Column="0"
+                            HelperText="Masukkan nama pelanggan"
+                            
+                            Hint="Nama">
+
+                                        <syncfusion:SfTextInputLayout.LeadingView>
+                                            
+                                            <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
+                                        </syncfusion:SfTextInputLayout.LeadingView>
+
+                                        <TextBox
+                                Foreground="{Binding Foreground, ElementName=firstNameInputLayout, Mode=TwoWay}"
+                                MaxLength="15"
+                                Text="{Binding Name}" />
+                        </syncfusion:SfTextInputLayout>-->
+                        <syncfusion:SfTextInputLayout Hint="Name"
+                                                      Margin="2,2,2,2"
+                                                      x:Name="nameInputLayout"
+                                                
+                                                      Grid.Column="0" Grid.Row="0">
+                            <syncfusion:SfTextInputLayout.LeadingView>
+
+                                <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
+                            </syncfusion:SfTextInputLayout.LeadingView>
+                            <syncfusion:SfTextBoxExt AutoCompleteMode="Suggest" AllowDrop="True" SearchItemPath="Name"  AutoCompleteSource="{Binding CustomerList}" >
+                                
+                            </syncfusion:SfTextBoxExt>
+                        </syncfusion:SfTextInputLayout>
+
+
+
+
+                    </Grid>
+
+                </Grid>
+            </Grid>
+
+        </Grid>
+
+        <Grid Grid.Row="2" Margin="35,5,5,5">
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Simpan" Command="{Binding CreateCustomerCommand}" Height="50" Width="200" />
+                <Button Content="Batal" Command="{Binding NavigateCustomerCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
+            </StackPanel>
+        </Grid>
+
 
     </Grid>
 </UserControl>

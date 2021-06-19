@@ -53,10 +53,10 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
 
 
-        public void OnBusinessChanged()
+        public async void OnBusinessChanged()
         {
             
-            var res = GetCustomerCollectionX().Result;
+            var res = await GetCustomerCollectionX();
             this.CustomerCollection = res;
         }
         private async Task<ObservableCollection<Customer>> GetCustomerCollectionX()

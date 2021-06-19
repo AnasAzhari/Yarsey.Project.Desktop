@@ -17,6 +17,8 @@ namespace Yarsey.EntityFramework
         public DbSet<Business> Businesses { get; set; }
 
         public DbSet<Sale> Sales { get; set; }
+
+        public DbSet<Product> Products { get; set; }
         public YarseyDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -54,6 +56,14 @@ namespace Yarsey.EntityFramework
                 entity.Property(e => e.Notes);
                 entity.HasOne(e => e.Transaction).WithOne().OnDelete(DeleteBehavior.Cascade).HasForeignKey<Transaction>(b=>b.Sales_id);
 
+
+            });
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.Property(e => e.CreatedTime);
+                entity.Property(e => e.ProductName);
+                entity.Property(e => e.Notes);
+                entity.Property(e => e.ProductUOM).HasConversion(v => v.ToString(), v => (ProductUom)Enum.Parse(typeof(ProductUom), v));
 
             });
 
