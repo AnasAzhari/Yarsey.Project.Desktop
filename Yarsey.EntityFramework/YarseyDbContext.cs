@@ -23,6 +23,23 @@ namespace Yarsey.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<Business>(entity =>
+            {
+                entity.Property(e => e.Email);
+                entity.Property(e => e.BusinessName).IsRequired();
+                entity.Property(e => e.Adresss);
+                entity.Property(e => e.PhoneNo);
+                entity.Property(e => e.RegistrationNo);
+                entity.Property(e => e.Image);
+                entity.HasMany(e => e.Customers).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
+                entity.HasMany(e => e.Sales).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
+                entity.HasMany(e => e.Products).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
+
+            });
+
+
+
             modelBuilder.Entity<Customer>(entity =>
             {
                 entity.Property(e => e.Email);
@@ -35,18 +52,6 @@ namespace Yarsey.EntityFramework
 
             });
 
-            modelBuilder.Entity<Business>(entity =>
-            {
-                entity.Property(e => e.Email);
-                entity.Property(e => e.BusinessName).IsRequired();
-                entity.Property(e => e.Adresss);
-                entity.Property(e => e.PhoneNo);
-                entity.Property(e => e.RegistrationNo);
-                entity.Property(e => e.Image);
-                entity.HasMany(e => e.Customers).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
-                entity.HasMany(e => e.Sales).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
-
-            });
 
             modelBuilder.Entity<Sale>(entity =>
             {
@@ -63,12 +68,10 @@ namespace Yarsey.EntityFramework
                 entity.Property(e => e.CreatedTime);
                 entity.Property(e => e.ProductName);
                 entity.Property(e => e.Notes);
-                entity.Property(e => e.ProductUOM).HasConversion(v => v.ToString(), v => (ProductUom)Enum.Parse(typeof(ProductUom), v));
+                //entity.Property(e => e.ProductUOM).HasConversion(v => v.ToString(), v => (ProductUom)Enum.Parse(typeof(ProductUom), v));
+                entity.Property(e => e.ProductUOM).HasConversion<string>();
 
             });
-
-
-
 
             base.OnModelCreating(modelBuilder);
 

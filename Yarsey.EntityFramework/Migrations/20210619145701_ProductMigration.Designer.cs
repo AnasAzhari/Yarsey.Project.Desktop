@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yarsey.EntityFramework;
 
 namespace Yarsey.EntityFramework.Migrations
 {
     [DbContext(typeof(YarseyDbContext))]
-    partial class YarseyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210619145701_ProductMigration")]
+    partial class ProductMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -102,7 +104,7 @@ namespace Yarsey.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("BusinessId")
+                    b.Property<int?>("BusinessId")
                         .HasColumnType("INTEGER");
 
                     b.Property<DateTime>("CreatedTime")
@@ -201,9 +203,7 @@ namespace Yarsey.EntityFramework.Migrations
                 {
                     b.HasOne("Yarsey.Domain.Models.Business", null)
                         .WithMany("Products")
-                        .HasForeignKey("BusinessId")
-                        .OnDelete(DeleteBehavior.ClientCascade)
-                        .IsRequired();
+                        .HasForeignKey("BusinessId");
                 });
 
             modelBuilder.Entity("Yarsey.Domain.Models.Sale", b =>

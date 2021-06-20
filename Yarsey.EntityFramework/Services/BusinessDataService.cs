@@ -36,7 +36,7 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business entity = await dbContext.Businesses.Include(c => c.Customers)
+                Business entity = await dbContext.Businesses.Include(c => c.Customers).Include(p=>p.Products)
                                         .FirstOrDefaultAsync();
                 return entity;
             }
@@ -46,7 +46,7 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business entity = await dbContext.Businesses.Include(c=>c.Customers)
+                Business entity = await dbContext.Businesses.Include(c=>c.Customers).Include(p=>p.Products)
                                         .FirstOrDefaultAsync((a) => a.Id == id);
                 return entity;
             }
@@ -85,6 +85,17 @@ namespace Yarsey.EntityFramework.Services
                 Business businesses = await dbContext.Businesses.Include(p=>p.Customers).FirstOrDefaultAsync(x=>x.Id==bizId);
 
                 businesses.Customers.Add(customer);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddProduct(int bizId, Product product)
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                Business businesses = await dbContext.Businesses.Include(p => p.Products).FirstOrDefaultAsync(x => x.Id == bizId);
+
+                businesses.Products.Add(product);
                 await dbContext.SaveChangesAsync();
             }
         }

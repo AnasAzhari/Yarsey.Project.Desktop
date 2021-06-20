@@ -49,7 +49,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             NavigateNewCustomer = new NavigationDrawerCommand(newCustNavService);
 
            this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
-           // this.CustomerCollection = GetCollectionOri().Result;
+          
         }
 
 
@@ -61,9 +61,19 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
         private async Task<ObservableCollection<Customer>> GetCustomerCollectionX()
         {
-            IEnumerable<Customer> cList = _businessStore.CurrentBusiness.Customers.ToList();
-           // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
-            ObservableCollection<Customer> custCollection = new ObservableCollection<Customer>(cList);
+            IEnumerable<Customer> cList = _businessStore.CurrentBusiness.Customers?.ToList();
+            // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
+            ObservableCollection<Customer> custCollection;
+            if (cList != null)
+            {
+                 custCollection = new ObservableCollection<Customer>(cList);
+            }
+            else
+            {
+                custCollection = null;
+
+            }
+            
 
             return custCollection;
         }

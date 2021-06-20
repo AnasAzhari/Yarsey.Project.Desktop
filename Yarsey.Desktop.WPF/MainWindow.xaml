@@ -30,12 +30,14 @@
                 <views:NewCustomerView/>
             </DataTemplate>
 
-            <DataTemplate DataType="{x:Type ViewModels:SaleViewModel}">
-                <views:SaleView/>
+      
+            <DataTemplate DataType="{x:Type ViewModels:ProductViewModel}">
+                <views:ProductView/>
             </DataTemplate>
-            <DataTemplate DataType="{x:Type ViewModels:NewSaleViewModel}">
-                <views:NewSaleView/>
+            <DataTemplate DataType="{x:Type ViewModels:NewProductViewModel}">
+                <views:NewProductView/>
             </DataTemplate>
+            
 
         </Grid.Resources>
         <syncfusion:SfNavigationDrawer x:Name="sff" DisplayMode="Expanded">
@@ -57,7 +59,9 @@
                 </syncfusion:NavigationItem.Icon>
             </syncfusion:NavigationItem>
 
-            <syncfusion:NavigationItem Header="Sales" Command="{Binding NavigateSalesCommand}"  >
+        
+
+            <syncfusion:NavigationItem Header="Product" Command="{Binding NavigateProductCommand}"  >
                 <syncfusion:NavigationItem.Icon>
                     <Image Source="{StaticResource  CustomerIcon}"/>
                 </syncfusion:NavigationItem.Icon>
@@ -68,9 +72,6 @@
             </syncfusion:SfNavigationDrawer.ContentView>
 
         </syncfusion:SfNavigationDrawer>
-
-
-
 
     </Grid>
 </syncfusion:ChromelessWindow>

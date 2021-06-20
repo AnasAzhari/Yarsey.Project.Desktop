@@ -328,7 +328,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
                     var fileLengthMb = (float)fileLengthKb / (float)1024;
 
 
-                    if (fileLengthMb >= 5)
+                    if (fileLengthMb <= 5)
                     {
                         result.Add("File size is bigger than 5MB");
                     }

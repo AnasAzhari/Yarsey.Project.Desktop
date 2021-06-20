@@ -11,7 +11,17 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
+              FontWeight="DemiBold"  Content="Senarai Produk"/>
+        </Grid>
+        <Grid Grid.Row="1">
+            <Grid>
             <Grid.RowDefinitions>
                 <RowDefinition Height="30"/>
                 <RowDefinition/>
@@ -26,7 +36,7 @@
                                 Margin="3"
                                 VerticalAlignment="Center"
                                  Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
-                    <ToggleButton Content="New Sales"  Command="{Binding NavigateSaleCustomer}"
+                    <ToggleButton Content="New Product"  Command="{Binding NavigateNewProduct}"
                                         HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="50,0,0,0"    />
                 </StackPanel>
             </Grid>
@@ -40,10 +50,12 @@
                             ColumnSizer="Star"
                            
                             ItemsSource="{Binding ElementName=sfDataPager,Path=PagedSource, Mode=TwoWay}"
-                            SelectedItem="{Binding SelectedSale,Mode=TwoWay}"
+                            SelectedItem="{Binding SelectedProduct,Mode=TwoWay}"
                             NavigationMode="Row">
                     <syncfusion:SfDataGrid.Columns>
-                        <!--<syncfusion:GridTextColumn HeaderText="Customer ID" MappingName="Id" />-->
+                        
+            <syncfusion:GridTextColumn HeaderText="Customer ID" MappingName="Id" />
+            
                         <syncfusion:GridTextColumn HeaderText="Product Name" MappingName="ProductName" />
                         <syncfusion:GridTextColumn HeaderText="Product UOM" MappingName="ProductUOM" />
                         <syncfusion:GridTextColumn HeaderText="Product Cost" MappingName="ProductCost" />
@@ -79,5 +91,10 @@
 
         </Grid>
 
+
+        </Grid>
+
+
+     
     </Grid>
 </UserControl>

@@ -15,6 +15,7 @@ using Yarsey.Desktop.WPF.ViewModels;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
+using Yarsey.Desktop.WPF.View;
 
 namespace Yarsey.Desktop.WPF
 {
@@ -95,6 +96,8 @@ namespace Yarsey.Desktop.WPF
             var navDrawerStore = _host.Services.GetRequiredService<NavigationDrawerStore>();
             navDrawerStore.CurrentContentViewModel = homeVM;
 
+            var viewCust = _host.Services.GetRequiredService<CustomerView>();
+            var viewProduct = _host.Services.GetRequiredService<ProductView>();
         }
 
         private void ConfigureSetupWindow()

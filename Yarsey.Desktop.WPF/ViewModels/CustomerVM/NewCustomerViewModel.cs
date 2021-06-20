@@ -43,7 +43,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand CreateCustomerCommand { get; set; }
 
-        private bool canValidateForErrors;
+        
 
         private CustomerDataService _customerDataService;
         private readonly BusinessStore _businessStore;
@@ -60,6 +60,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
             CreateCustomerCommand = new AsyncRelayCommand(ValidateAsync, Success);
         }
 
+
+        private bool canValidateForErrors;
+
         private async Task Success()
         {
             Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo,Created_at=DateTime.Now };
@@ -69,38 +72,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             _businessStore.RefreshBusiness();
         
         }
-        private void Create()
-        {
-            try
-            {
-                canValidateForErrors = true;
-                if (this.ErrorsChanged != null)
-                {
-                    this.RaiseErrorsChanged("Name");
-                    this.RaiseErrorsChanged("PhoneNo");
-                    this.RaiseErrorsChanged("Adress");
-                    this.RaiseErrorsChanged("Email");
 
-                }
-
-                if (!this.HasErrors)
-                {
-
-                    var customer = new Customer() { Name = Name, PhoneNo = PhoneNo };
-
-                }
-
-
-            }
-            catch (Exception ex)
-            {
-
-                throw;
-            }
-
-        }
-
-     
 
         private async Task<bool> ValidateAsync()
         {
@@ -161,22 +133,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 ErrorsChanged.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
             }
         }
-
-        //private void OnSubmitButtonClicked()
-        //{
-        //    canValidateForErrors = true;
-        //    if (this.ErrorsChanged != null)
-        //    {
-        //        this.RaiseErrorsChanged("Name");
-        //        this.RaiseErrorsChanged("PhoneNo");
-        //        this.RaiseErrorsChanged("Adress");
-        //        this.RaiseErrorsChanged("Email");
-
-        //    }
-
-        //    if (!this.HasErrors)
-        //        MessageBox.Show("Your details has been registered successfully", "Success", MessageBoxButton.OK);
-        //}
+   
         private List<string> OnValidate(string columnName)
         {
             List<string> result = new List<string>();
@@ -189,8 +146,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 if (string.IsNullOrEmpty(Name))
                     result.Add("Sila masukkan nama");
             }
-
-
 
             if (string.IsNullOrEmpty(columnName) || columnName == "PhoneNo")
             {
@@ -214,7 +169,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
             return result;
         }
-
 
         System.Collections.IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
         {

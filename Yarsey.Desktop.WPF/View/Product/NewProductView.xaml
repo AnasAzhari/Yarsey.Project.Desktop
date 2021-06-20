@@ -64,7 +64,7 @@
                             <TextBox
                             Foreground="{Binding Foreground, ElementName=productNameInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding PhoneNo}" />
+                            Text="{Binding ProductName}" />
                         </syncfusion:SfTextInputLayout>
                         <syncfusion:SfTextInputLayout Hint="Product UOM"
                                                       Margin="2,2,2,2"
@@ -75,9 +75,10 @@
 
                                 <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
                             </syncfusion:SfTextInputLayout.LeadingView>
-                            <syncfusion:SfTextBoxExt AutoCompleteMode="Suggest" AllowDrop="True" SearchItemPath="Name"  AutoCompleteSource="{Binding CustomerList}" >
+                            <!--<syncfusion:SfTextBoxExt AutoCompleteMode="Suggest" AllowDrop="True" IsReadOnly="True" SelectedValue="{Binding ProductUoms[0]}"  AutoCompleteSource="{Binding ProductUoms}" >
 
-                            </syncfusion:SfTextBoxExt>
+                            </syncfusion:SfTextBoxExt>-->
+                            <syncfusion:ComboBoxAdv ItemsSource="{Binding ProductUoms}" SelectedItem="{Binding ProductUOM}" />
                         </syncfusion:SfTextInputLayout>
 
                         <syncfusion:SfTextInputLayout Hint="Product Cost"
@@ -89,11 +90,18 @@
 
                                 <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
                             </syncfusion:SfTextInputLayout.LeadingView>
+                         
+                            <!--<syncfusion:CurrencyTextBox Value="{Binding ProductCost}"/>-->
                             <TextBox
-                            Foreground="{Binding Foreground, ElementName=productCostInputLayout, Mode=TwoWay}"
+                            Foreground="{Binding Foreground, ElementName=notesInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding PhoneNo}" />
+                              
+                            Text="{Binding ProductCost,StringFormat='#.00'}" />
+
                         </syncfusion:SfTextInputLayout>
+                        <!--<syncfusion:CurrencyTextBox Grid.Column="0" Grid.Row="1">
+                            
+                        </syncfusion:CurrencyTextBox>-->
 
                         <syncfusion:SfTextInputLayout Hint="Notes"
                                                       x:Name="notesInputLayout"
@@ -102,18 +110,13 @@
                                                       Grid.Column="1" Grid.Row="1">
                             <syncfusion:SfTextInputLayout.LeadingView>
 
-                                <Image Margin="0,0,0,0"  Source="{StaticResource Notes}" />
+                                <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
                             </syncfusion:SfTextInputLayout.LeadingView>
                             <TextBox
                             Foreground="{Binding Foreground, ElementName=notesInputLayout, Mode=TwoWay}"
                             MaxLength="15"
-                            Text="{Binding PhoneNo}" />
+                            Text="{Binding Notes}" />
                         </syncfusion:SfTextInputLayout>
-
-
-
-
-
 
                     </Grid>
 
@@ -124,8 +127,8 @@
 
         <Grid Grid.Row="2" Margin="35,5,5,5">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Simpan" Command="{Binding CreateCustomerCommand}" Height="50" Width="200" />
-                <Button Content="Batal" Command="{Binding NavigateCustomerCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
+                <Button Content="Simpan" Command="{Binding CreateProductCommand}" Height="50" Width="200" />
+                <Button Content="Batal" Command="{Binding NavigateProductCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
             </StackPanel>
         </Grid>
 
