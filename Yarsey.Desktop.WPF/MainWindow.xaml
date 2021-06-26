@@ -45,6 +45,9 @@
             <DataTemplate DataType="{x:Type ViewModels:ErrorMessageViewModel}">
                 <views:ErrorMessage/>
             </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:ConfirmMessageViewModel}">
+                <views:ConfirmMessage/>
+            </DataTemplate>
             
 
         </Grid.Resources>

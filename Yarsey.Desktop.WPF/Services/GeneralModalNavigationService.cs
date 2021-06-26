@@ -13,12 +13,14 @@ namespace Yarsey.Desktop.WPF.Services
         private ModalNavigationStore _modaNavigationStore;
         private ErrorMessageViewModel _errorMessageViewModel;
         private SuccessMessageViewModel _successMessageViewModel;
+        private readonly ConfirmMessageViewModel _confirmMessageViewModel;
 
-        public GeneralModalNavigationService(ModalNavigationStore modalNavigationStore, ErrorMessageViewModel errorMessageViewModel, SuccessMessageViewModel successMessageViewModel)
+        public GeneralModalNavigationService(ModalNavigationStore modalNavigationStore, ErrorMessageViewModel errorMessageViewModel, SuccessMessageViewModel successMessageViewModel,ConfirmMessageViewModel confirmMessageViewModel)
         {
-            _modaNavigationStore = modalNavigationStore;
-            _errorMessageViewModel = errorMessageViewModel;
-            _successMessageViewModel = successMessageViewModel;
+            this._modaNavigationStore = modalNavigationStore;
+            this._errorMessageViewModel = errorMessageViewModel;
+            this._successMessageViewModel = successMessageViewModel;
+            this._confirmMessageViewModel = confirmMessageViewModel;
         }
 
         public void Navigate()
@@ -35,6 +37,13 @@ namespace Yarsey.Desktop.WPF.Services
         {
             _modaNavigationStore.CurrentViewModel = _successMessageViewModel;
             _successMessageViewModel.SuccessMessage = message;
+        }
+        public async void NavigationOnConfirmDelete(string message,Func<Task> task)
+        {
+            _modaNavigationStore.CurrentViewModel = _confirmMessageViewModel;
+            _confirmMessageViewModel.ConfirmMessage = message;
+            _confirmMessageViewModel.ConfirmTask = task;
+            
         }
     }
 }

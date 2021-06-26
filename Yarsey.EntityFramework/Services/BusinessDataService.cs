@@ -32,6 +32,17 @@ namespace Yarsey.EntityFramework.Services
             return await _nonQueryDataService.Delete(id);
         }
 
+        public async Task DeleteProduct(Product product)
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                Product entity = await dbContext.Products.FirstOrDefaultAsync(x => x.Id == product.Id);
+                dbContext.Products.Remove(entity);
+                await dbContext.SaveChangesAsync();
+
+            }
+        }
+
         public async Task<Business> GetDefault()
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())

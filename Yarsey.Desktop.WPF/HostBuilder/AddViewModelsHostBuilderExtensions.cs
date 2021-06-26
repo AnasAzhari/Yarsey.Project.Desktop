@@ -30,7 +30,9 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 services.AddSingleton<ProductViewModel>(s => new ProductViewModel(CreateNewProductNavigationDraweService(s),
                                                                                 s.GetRequiredService<BusinessStore>(),
-                                                                                s.GetRequiredService<BusinessDataService>()));
+                                                                                s.GetRequiredService<BusinessDataService>(),
+                                                                                s.GetRequiredService<GeneralModalNavigationService>()
+                                                        ));
 
                 services.AddSingleton<HomeViewModel>();
                 services.AddSingleton<MainViewModel>(s => new MainViewModel(
@@ -67,7 +69,8 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 services.AddTransient<NewProductViewModel>(s => new NewProductViewModel(CreateProductNavigationDrawerService(s), s.GetRequiredService<BusinessStore>(), s.GetRequiredService<BusinessDataService>()));
                 services.AddSingleton<ErrorMessageViewModel>();
                 services.AddSingleton<SuccessMessageViewModel>();
-                services.AddSingleton<GeneralModalNavigationService>(s => new GeneralModalNavigationService(s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<ErrorMessageViewModel>(), s.GetRequiredService<SuccessMessageViewModel>()));
+                services.AddSingleton<ConfirmMessageViewModel>();
+                services.AddSingleton<GeneralModalNavigationService>(s => new GeneralModalNavigationService(s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<ErrorMessageViewModel>(), s.GetRequiredService<SuccessMessageViewModel>(),s.GetRequiredService<ConfirmMessageViewModel>()));
 
              
             });

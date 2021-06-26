@@ -21,8 +21,24 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
-              FontWeight="DemiBold"  Content="Senarai Pelanggan"/>
+            <!--<Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
+              FontWeight="DemiBold"  Content="Senarai Pelanggan"/>-->
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
+                        FontWeight="DemiBold"  Content="Senarai Pelanggan"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
+              FontWeight="DemiBold"  Content="Maklumat Pelanggan"/>
+                </Grid>
+
+            </Grid>
         </Grid>
 
         <Grid Grid.Row="1">
@@ -49,8 +65,8 @@
                                 Margin="3"
                                 VerticalAlignment="Center"
                                  Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
-                                <ToggleButton Content="New Customer"  Command="{Binding NavigateNewCustomer}"
-                                        HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="50,0,0,0"    />
+                                <ToggleButton Content="New Customer" Width="100"  Command="{Binding NavigateNewCustomer}"
+                                        HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="50,0,0,0"    />
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Row="1" Margin="3,3,3,15">

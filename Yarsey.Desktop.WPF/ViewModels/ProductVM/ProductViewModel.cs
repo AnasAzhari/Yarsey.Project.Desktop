@@ -17,6 +17,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
     {
         private ObservableCollection<Product> _productCollection = null;
         private readonly BusinessStore _businessStore;
+        private readonly GeneralModalNavigationService _generalModalNavigationService;
 
         public ObservableCollection<Product> ProductCollection{get { return _productCollection; } set{ SetProperty(ref _productCollection, value);}}
 
@@ -26,15 +27,17 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand DeleteProductCommand { get; set; }
       
-        public BusinessDataService BusinessDataService { get; }
+        public BusinessDataService _businessDataService { get; }
 
-        public ProductViewModel(INavigationService newProductnavService, BusinessStore businessStore, BusinessDataService businessDataService)
+        public ProductViewModel(INavigationService newProductnavService, BusinessStore businessStore, BusinessDataService businessDataService,GeneralModalNavigationService generalModalNavigationService)
         {
             this._businessStore = businessStore;
-            BusinessDataService = businessDataService;
+            _businessDataService = businessDataService;
+            this._generalModalNavigationService = generalModalNavigationService;
             NavigateNewProduct = new NavigationDrawerCommand(newProductnavService);
             //this.DeleteProductCommand = new AsyncRelayCommand()
             this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
+            this.DeleteProductCommand = new AsyncRelayCommand(DeleteValidationAsync, ConfirmDelete);
         }
 
 
@@ -63,6 +66,21 @@ namespace Yarsey.Desktop.WPF.ViewModels
             return prodCollection;
         }
 
+        public async Task ConfirmDelete()
+        {
+            _generalModalNavigationService.NavigationOnConfirmDelete("Are you sure you want to delete this product ?", DeleteSelectedProduct);
+        }
+
+        public async Task DeleteSelectedProduct()
+        {
+            var adatak = _businessStore.CurrentBusiness.Products.Contains(SelectedProduct);
+
+            // _businessStore.CurrentBusiness.Products.Remove(SelectedProduct);
+            _businessDataService.DeleteProduct(SelectedProduct);
+
+            _businessStore.RefreshBusiness();
+        }
+
         public async Task<bool> DeleteValidationAsync()
         {
             if (SelectedProduct != null)
@@ -71,6 +89,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             }
             else
             {
+                _generalModalNavigationService.NavigateOnEception("Cannot delete the product");
                 return false;
             }
         }

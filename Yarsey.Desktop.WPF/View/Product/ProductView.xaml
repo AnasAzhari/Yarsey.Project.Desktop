@@ -17,8 +17,23 @@
         </Grid.RowDefinitions>
 
         <Grid Grid.Row="0">
-            <Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
-              FontWeight="DemiBold"  Content="Senarai Produk"/>
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+                    <Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
+                        FontWeight="DemiBold"  Content="Senarai Produk"/>
+                </Grid>
+                <Grid Grid.Column="1">
+                    <Label FontSize="25" Foreground="DarkGreen" HorizontalAlignment="Center"
+              FontWeight="DemiBold"  Content="Maklumat Produk"/>
+                </Grid>
+                
+            </Grid>
+           
         </Grid>
         <Grid Grid.Row="1">
             <Grid>
@@ -45,8 +60,8 @@
                                 Margin="3"
                                 VerticalAlignment="Center"
                                  Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
-                                <ToggleButton Content="New Product"  Command="{Binding NavigateNewProduct}"
-                                        HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="50,0,0,0"    />
+                                <ToggleButton Content="New Product" Width="100"  Command="{Binding NavigateNewProduct}"
+                                        HorizontalAlignment="Right" HorizontalContentAlignment="Center" Margin="50,0,0,0"    />
                             </StackPanel>
                         </Grid>
                         <Grid Grid.Row="1" Margin="3,3,3,15">
@@ -141,7 +156,7 @@
                                 <Grid Grid.Row="0" Grid.Column="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="3,0,0,0">
                                         <Button Content="Edit" Margin="0,0,5,0" Height="30" Width="70" />
-                                        <Button ClickMode="Hover" Content="Delete" Height="30" Width="70" IsDefault="False" Background="Red"   />
+                                        <Button Content="Delete" Height="30" Width="70" IsDefault="False" Command="{Binding DeleteProductCommand}" Background="Red"   />
                                     </StackPanel>
 
                                 </Grid>
