@@ -18,15 +18,19 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private readonly NavigationDrawerStore _navigationDrawerStore;
         private readonly INavigationService salesNavigationServvice;
         private readonly BusinessStore _businessStore;
+        private readonly ModalNavigationStore _modalNavigationStore;
 
         public ViewModelBase CurrentNavigationDrawerContentViewModel => _navigationDrawerStore.CurrentContentViewModel;
+
+        public ViewModelBase CurrentModalViewModel => _modalNavigationStore.CurrentViewModel;
 
         public Business Business { get { return _businessStore.CurrentBusiness; } set { _businessStore.CurrentBusiness = value; } }
         public ICommand NavigateHomeCommand { get; set; }
         public ICommand NavigateCustomerCommand { get; set; }
         public ICommand NavigateSalesCommand { get; set; }
-
         public ICommand NavigateProductCommand { get; set; }
+
+        public bool IsOpen => _modalNavigationStore.IsOpen;
         public NavationItemClickedAction navationItemClickedAction { get; set; }
 
         public ViewModelBase CurrentLayout { get; set; }
@@ -40,14 +44,16 @@ namespace Yarsey.Desktop.WPF.ViewModels
             INavigationService custNavService,
       
             INavigationService productNavigationServvice,
-            BusinessStore businessStore
-            
+            BusinessStore businessStore,
+            ModalNavigationStore modalNavigationStore
+
             )
         {
 
             _navigationDrawerStore = navigationDrawerStore;
           
             this._businessStore = businessStore;
+            this._modalNavigationStore = modalNavigationStore;
             this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
             _navigationDrawerStore.CurrentContentViewModelChanged += OnCurrentContentViewModel;
  
@@ -55,6 +61,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             NavigateCustomerCommand = new NavigationDrawerCommand(custNavService);
            
             NavigateProductCommand = new NavigationDrawerCommand(productNavigationServvice);
+            _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
         }
         private void OnCurrentContentViewModel()
         {
@@ -64,6 +71,12 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private void OnBusinessChanged()
         {
             OnPropertyChanged(nameof(Business));
+        }
+
+        private void OnCurrentModalViewModelChanged()
+        {
+            OnPropertyChanged(nameof(CurrentModalViewModel));
+            OnPropertyChanged(nameof(IsOpen));
         }
 
 

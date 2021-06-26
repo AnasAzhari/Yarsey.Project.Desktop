@@ -48,21 +48,27 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                     CreateCustomerNavigationDrawerService(s),
                    
                     CreateProductNavigationDrawerService(s),
-                    s.GetRequiredService<BusinessStore>()
+                    s.GetRequiredService<BusinessStore>(),
+                    s.GetRequiredService<ModalNavigationStore>()
 
                 ));
                 services.AddSingleton<MainWindowSetupViewModel>(s=>new MainWindowSetupViewModel(s.GetRequiredService<BusinessDataService>()));
                 services.AddSingleton<WindowSetupCompany>(s => new WindowSetupCompany() { DataContext=s.GetRequiredService<MainWindowSetupViewModel>()});
+                
 
                 //services.AddSingleton<MainViewModel>(s => new MainViewModel());
-                services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); ; 
+                services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); 
                 services.AddSingleton<HomeView>();
                
                 services.AddSingleton<CustomerView>(s=>new CustomerView() {DataContext= s.GetRequiredService<CustomerViewModel>() });
                 services.AddSingleton<ProductView>(services => new ProductView() { DataContext = services.GetRequiredService<ProductViewModel>() });
                
-                services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s),s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<BusinessStore>(), s.GetRequiredService<BusinessDataService>()));
+                services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s),s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<BusinessStore>(), s.GetRequiredService<BusinessDataService>(),s.GetRequiredService<GeneralModalNavigationService>()));
                 services.AddTransient<NewProductViewModel>(s => new NewProductViewModel(CreateProductNavigationDrawerService(s), s.GetRequiredService<BusinessStore>(), s.GetRequiredService<BusinessDataService>()));
+                services.AddSingleton<ErrorMessageViewModel>();
+                services.AddSingleton<SuccessMessageViewModel>();
+                services.AddSingleton<GeneralModalNavigationService>(s => new GeneralModalNavigationService(s.GetRequiredService<ModalNavigationStore>(), s.GetRequiredService<ErrorMessageViewModel>(), s.GetRequiredService<SuccessMessageViewModel>()));
+
              
             });
 

@@ -37,19 +37,22 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private readonly CustomerDataService _customerDataService;
         private readonly BusinessStore _businessStore;
         private readonly BusinessDataService _businessDataService;
+     
 
         public ICommand NavigateNewCustomer { get; }
+
+        public ICommand TestModal { get; set; }
 
         public CustomerViewModel(INavigationService newCustNavService, CustomerDataService customerDataService,BusinessStore businessStore,BusinessDataService businessDataService)
         {
             _customerDataService = customerDataService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
-           
+            
             NavigateNewCustomer = new NavigationDrawerCommand(newCustNavService);
 
            this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
-          
+         
         }
 
 

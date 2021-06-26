@@ -48,14 +48,16 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private CustomerDataService _customerDataService;
         private readonly BusinessStore _businessStore;
         private readonly BusinessDataService _businessDataService;
+        private readonly GeneralModalNavigationService _generalModalNavigationService;
         private INavigationService _customerVMNavigationService;
 
-        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService,BusinessStore businessStore, BusinessDataService businessDataService)
+        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService,BusinessStore businessStore, BusinessDataService businessDataService,GeneralModalNavigationService generalModalNavigationService)
         {
             _customerVMNavigationService = navigationService;
             _customerDataService = customerService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
+            this._generalModalNavigationService = generalModalNavigationService;
             NavigateCustomerCommand = new NavigationDrawerCommand(navigationService);
             CreateCustomerCommand = new AsyncRelayCommand(ValidateAsync, Success);
         }
@@ -68,7 +70,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo,Created_at=DateTime.Now };
 
             await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id, customer).ContinueWith((customer) => { _customerVMNavigationService.Navigate(); });
-            
+            _generalModalNavigationService.NavigationOnSuccess("Customer Created Successfully");
             _businessStore.RefreshBusiness();
         
         }

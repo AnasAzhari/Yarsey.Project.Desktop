@@ -12,6 +12,11 @@ namespace Yarsey.Desktop.WPF.Behaviour
 {
     public class DataGridFilterTrigger : TargetedTriggerAction<SfDataGrid>
     {
+
+        public DataGridFilterTrigger()
+        {
+
+        }
         protected override void Invoke(object parameter)
         {
             var type = this.Target.DataContext.GetType();
@@ -20,6 +25,10 @@ namespace Yarsey.Desktop.WPF.Behaviour
             if(type == typeof(CustomerViewModel))
             {
                 var viewModel = this.Target.DataContext as CustomerViewModel;
+                viewModel.filterChanged += OnFilterChanged;
+            }else if(type == typeof(ProductViewModel))
+            {
+                var viewModel = this.Target.DataContext as ProductViewModel;
                 viewModel.filterChanged += OnFilterChanged;
             }
            
@@ -47,11 +56,19 @@ namespace Yarsey.Desktop.WPF.Behaviour
                     }
 
                 }
+                else if(type == typeof(ProductViewModel))
+                {
+                    var viewModel = this.Target.DataContext as ProductViewModel;
+                    if (this.Target.View != null)
+                    {
+                        this.Target.View.Filter = viewModel.FilerRecords;
+                        this.Target.View.RefreshFilter();
+                    }
+
+                }
 
             }
-        
 
-          
         }
     }
 }

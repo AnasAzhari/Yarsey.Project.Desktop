@@ -22,26 +22,35 @@
         </Grid>
         <Grid Grid.Row="1">
             <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
-                <RowDefinition/>
-            </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <StackPanel Grid.Row="0" Orientation="Horizontal">
-                    <Label Content="Cari :" VerticalAlignment="Center"/>
-                    <TextBox
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0">
+
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                                <Label Content="Cari :" VerticalAlignment="Center"/>
+                                <TextBox
                                 x:Name="FilterBox"
                                 Width="182"
                                 Height="23"
                                 Margin="3"
                                 VerticalAlignment="Center"
                                  Text="{Binding FilterText, UpdateSourceTrigger=PropertyChanged}" />
-                    <ToggleButton Content="New Product"  Command="{Binding NavigateNewProduct}"
+                                <ToggleButton Content="New Product"  Command="{Binding NavigateNewProduct}"
                                         HorizontalAlignment="Right" HorizontalContentAlignment="Right" Margin="50,0,0,0"    />
-                </StackPanel>
-            </Grid>
-            <Grid Grid.Row="1" Margin="3,3,3,15">
-                <syncfusion:SfDataGrid
+                            </StackPanel>
+                        </Grid>
+                        <Grid Grid.Row="1" Margin="3,3,3,15">
+                            <syncfusion:SfDataGrid
                             Grid.Row="1"
                             x:Name="sfDataGrid"
                             Margin="5"
@@ -52,26 +61,26 @@
                             ItemsSource="{Binding ElementName=sfDataPager,Path=PagedSource, Mode=TwoWay}"
                             SelectedItem="{Binding SelectedProduct,Mode=TwoWay}"
                             NavigationMode="Row">
-                    <syncfusion:SfDataGrid.Columns>
-                        
-            <syncfusion:GridTextColumn HeaderText="Customer ID" MappingName="Id" />
-            
-                        <syncfusion:GridTextColumn HeaderText="Product Name" MappingName="ProductName" />
-                        <syncfusion:GridTextColumn HeaderText="Product UOM" MappingName="ProductUOM" />
-                        <syncfusion:GridTextColumn HeaderText="Product Cost" MappingName="ProductCost" />
-                        <syncfusion:GridTextColumn HeaderText="Notes" MappingName="Notes" />
-                        
-                        <syncfusion:GridDateTimeColumn CustomPattern="dd-m-yyyy hh:mm AM"  HeaderText="Created At" MappingName="CreatedTime" />
-                    </syncfusion:SfDataGrid.Columns>
-                    <behavior:Interaction.Triggers>
-                        <behavior:EventTrigger EventName="Loaded">
-                            <behaviorCustom:DataGridFilterTrigger/>
-                        </behavior:EventTrigger>
-                    </behavior:Interaction.Triggers>
+                                <syncfusion:SfDataGrid.Columns>
 
-                </syncfusion:SfDataGrid>
+                                    <!--<syncfusion:GridTextColumn HeaderText="Customer ID" MappingName="Id" />-->
 
-                <datapager:SfDataPager
+                                    <syncfusion:GridTextColumn HeaderText="Product Name" MappingName="ProductName" />
+                                    <syncfusion:GridTextColumn HeaderText="Product UOM" MappingName="ProductUOM" />
+                                    <syncfusion:GridTextColumn HeaderText="Product Cost" MappingName="ProductCost" />
+                                    <syncfusion:GridTextColumn HeaderText="Notes" MappingName="Notes" />
+                                   
+                                    <syncfusion:GridDateTimeColumn CustomPattern="dd-m-yyyy hh:mm AM"  HeaderText="Created At" MappingName="CreatedTime" />
+                                </syncfusion:SfDataGrid.Columns>
+                                <behavior:Interaction.Triggers>
+                                    <behavior:EventTrigger EventName="Loaded">
+                                        <behaviorCustom:DataGridFilterTrigger/>
+                                    </behavior:EventTrigger>
+                                </behavior:Interaction.Triggers>
+
+                            </syncfusion:SfDataGrid>
+
+                            <datapager:SfDataPager
                             x:Name="sfDataPager"
                             
                             HorizontalAlignment="Left"
@@ -86,8 +95,84 @@
                             Source="{Binding Path=ProductCollection,Mode=TwoWay}"
                             />
 
+                        </Grid>
+                    </Grid>
 
-            </Grid>
+                </Grid>
+                
+
+                <Grid Grid.Column="1">
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedProduct}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
+
+                    <Grid Margin="5">
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
+
+                        <Grid Grid.Row="0" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="6*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Grid.Column="0">
+                                    <Label Content="Action"/>
+
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="3,0,0,0">
+                                        <Button Content="Edit" Margin="0,0,5,0" Height="30" Width="70" />
+                                        <Button ClickMode="Hover" Content="Delete" Height="30" Width="70" IsDefault="False" Background="Red"   />
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <Grid Grid.Row="1" Grid.Column="0">
+                                    <Label Content="Name"/>
+
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="1">
+
+                                    <Label Content="{Binding SelectedProduct.ProductName}"/>
+                                </Grid>
+
+
+
+
+
+
+
+
+                            </Grid>
+                            
+                            
+                            
+                        </Grid>
+                        
+                        
+                    </Grid>
+                    
+                    
+                </Grid>
 
         </Grid>
 

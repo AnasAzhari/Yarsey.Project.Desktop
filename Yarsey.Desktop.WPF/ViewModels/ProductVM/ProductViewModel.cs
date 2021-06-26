@@ -18,17 +18,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private ObservableCollection<Product> _productCollection = null;
         private readonly BusinessStore _businessStore;
 
-        public ObservableCollection<Product> ProductCollection
-        {
-            get { return _productCollection; }
-            set
-            {
-                SetProperty(ref _productCollection, value);
-            }
-        }
+        public ObservableCollection<Product> ProductCollection{get { return _productCollection; } set{ SetProperty(ref _productCollection, value);}}
 
-        public Product SelectedProduct { get; set; }
+        private Product _selectedProduct;
+        public Product SelectedProduct { get { return _selectedProduct; } set { SetProperty(ref _selectedProduct, value); } }
         public ICommand NavigateNewProduct { get; }
+
+        public ICommand DeleteProductCommand { get; set; }
       
         public BusinessDataService BusinessDataService { get; }
 
@@ -37,6 +33,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             this._businessStore = businessStore;
             BusinessDataService = businessDataService;
             NavigateNewProduct = new NavigationDrawerCommand(newProductnavService);
+            //this.DeleteProductCommand = new AsyncRelayCommand()
             this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
         }
 
@@ -65,6 +62,20 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
             return prodCollection;
         }
+
+        public async Task<bool> DeleteValidationAsync()
+        {
+            if (SelectedProduct != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+        
+
 
         #region -------------FILTERING-------------------
 
@@ -119,7 +130,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             double res;
             bool checkNumeric = double.TryParse(FilterText, out res);
-            var item = o as Customer;
+            var item = o as Product;
             if (item != null && FilterText.Equals(""))
             {
                 return true;
@@ -134,7 +145,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
                     }
                     else if (FilterOption.Equals("All Columns"))
                     {
-                        if (item.Name.ToLower().Contains(FilterText.ToLower()))
+                        if (item.ProductName.ToLower().Contains(FilterText.ToLower()))
                             return true;
 
                         //if(!string.IsNullOrEmpty(item.PhoneNo))

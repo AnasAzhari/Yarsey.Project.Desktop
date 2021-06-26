@@ -9,6 +9,7 @@
          xmlns:interaction="http://schemas.microsoft.com/xaml/behaviors"
         xmlns:views="clr-namespace:Yarsey.Desktop.WPF.View"
         xmlns:behaviour="clr-namespace:Yarsey.Desktop.WPF.Behaviour"
+        xmlns:modal="clr-namespace:Yarsey.Desktop.WPF.CustomControl"
         mc:Ignorable="d"
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
         syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
@@ -37,9 +38,24 @@
             <DataTemplate DataType="{x:Type ViewModels:NewProductViewModel}">
                 <views:NewProductView/>
             </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:SuccessMessageViewModel}">
+                <views:SuccessMessage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:ErrorMessageViewModel}">
+                <views:ErrorMessage/>
+            </DataTemplate>
             
 
         </Grid.Resources>
+        <!--<local:ModalWindow Panel.ZIndex="1" IsOpen="{Binding IsOpen}" Owner="{x:Reference}">
+            <ContentControl Content="{Binding CurrentModalViewModel}"/>
+        </local:ModalWindow>-->
+        <modal:ModalControl Panel.ZIndex="1" IsOpen="{Binding IsOpen}">
+            <ContentControl Content="{Binding CurrentModalViewModel}"/>
+        </modal:ModalControl>
+        
+        
         <syncfusion:SfNavigationDrawer x:Name="sff" DisplayMode="Expanded">
             <!--<interaction:Interaction.Triggers>
                 <interaction:EventTrigger EventName="ItemClicked">

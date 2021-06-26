@@ -12,6 +12,7 @@
 
             <Label Margin="5,5,5,5" Foreground="Red" FontSize="20" Content="{Binding BizName}"/>
             <Image Source="{Binding Image}" Height="100" Width="100"/>
+            <Button Content="Open Modal" Width="100" Height="60" Command="{Binding OpenModal}"/>
         </StackPanel>
         
 

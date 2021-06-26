@@ -4,8 +4,10 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Yarsey.Desktop.WPF.Stores;
+using Yarsey.Desktop.WPF.Commands;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -17,6 +19,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
 
         private BitmapImage _image;
+
+        public ICommand OpenModal { get; set; }
 
         public BitmapImage Image
         {
@@ -37,6 +41,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             this._businessstore = businessstore;
             this._businessstore.CurrentBusinessChanged += OnBusinessChanged;
+       
         }
 
         public void OnBusinessChanged()
