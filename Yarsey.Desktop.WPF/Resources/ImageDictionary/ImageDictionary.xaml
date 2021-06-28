@@ -12,5 +12,5 @@
     <BitmapImage x:Key="Buy" UriSource="/Resources/Icon/buy_60px.png"/>
     <BitmapImage x:Key="Registration" UriSource="/Resources/Icon/licence_100px.png"/>
     <BitmapImage x:Key="Registration2" UriSource="/Resources/Icon/licence2_100px.png"/>
-
+    <BitmapImage x:Key="Settings" UriSource="/Resources/Icon/settings_64px.png"/>
 </ResourceDictionary>

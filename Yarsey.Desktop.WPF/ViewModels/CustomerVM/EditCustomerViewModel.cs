@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
@@ -16,6 +17,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 {
     public class EditCustomerViewModel:ViewModelBase, INotifyDataErrorInfo
     {
+        private readonly INavigationService _customerNavService;
         private readonly BusinessStore _businessStore;
         private readonly BusinessDataService _businessDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
@@ -69,23 +71,136 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand NavigateCustomerCommand { get; set; }
 
+        public ICommand UpdateCustomerCommand { get; set; }
+
         public EditCustomerViewModel(INavigationService navigationService, BusinessStore businessStore, BusinessDataService businessDataService, GeneralModalNavigationService generalModalNavigationService)
         {
+            this._customerNavService = navigationService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
             this._generalModalNavigationService = generalModalNavigationService;
 
             NavigateCustomerCommand = new NavigationDrawerCommand(navigationService);
+            UpdateCustomerCommand = new AsyncRelayCommand(ValidateAsync, Success);
 
         }
 
-        public bool HasErrors => throw new NotImplementedException();
+        private bool canValidateForErrors;
+
+        private async Task Success()
+        {
+            SelectedCustomer.Name = Name;
+            SelectedCustomer.Adress = Adress;
+            SelectedCustomer.Email = Email;
+            SelectedCustomer.PhoneNo = PhoneNo;
+            SelectedCustomer.CompanyName = NameCompany;
+            SelectedCustomer.Note = Notes;
+
+
+            // await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id, customer).ContinueWith((customer) => { _customerNavService.Navigate(); });
+            await _businessDataService.UpdateCustomer(SelectedCustomer);
+            _customerNavService.Navigate();
+            //_generalModalNavigationService.NavigationOnSuccess("Customer Created Successfully");
+            _businessStore.RefreshBusiness();
+
+        }
+
+
+        private async Task<bool> ValidateAsync()
+        {
+
+            canValidateForErrors = true;
+            if (this.ErrorsChanged != null)
+            {
+                this.RaiseErrorsChanged("Name");
+                this.RaiseErrorsChanged("PhoneNo");
+                this.RaiseErrorsChanged("Adress");
+                this.RaiseErrorsChanged("Email");
+
+
+                if (!this.HasErrors)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (!this.HasErrors)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+
+            }
+
+        }
+
+        public bool HasErrors
+        {
+            get
+            {
+                return OnValidate(string.Empty).Count > 0;
+            }
+        }
+
 
         public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
 
-        public IEnumerable GetErrors(string propertyName)
+        private void RaiseErrorsChanged(string propertyName)
         {
-            throw new NotImplementedException();
+            if (ErrorsChanged != null)
+            {
+                ErrorsChanged.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            }
         }
+
+        private List<string> OnValidate(string columnName)
+        {
+            List<string> result = new List<string>();
+
+            if (!canValidateForErrors)
+                return result;
+
+            if (string.IsNullOrEmpty(columnName) || columnName == "Name")
+            {
+                if (string.IsNullOrEmpty(Name))
+                    result.Add("Sila masukkan nama");
+            }
+
+            if (string.IsNullOrEmpty(columnName) || columnName == "PhoneNo")
+            {
+                if (string.IsNullOrEmpty(PhoneNo))
+                    result.Add("Enter your phone number");
+            }
+
+
+            if (string.IsNullOrEmpty(columnName) || columnName == "Email")
+            {
+                if (string.IsNullOrEmpty(Email))
+                {
+
+                }
+                else
+                {
+                    if (!Regex.IsMatch(Email, mailPattern))
+                        result.Add("Enter a valid email address");
+                }
+            }
+
+            return result;
+        }
+
+        System.Collections.IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
+        {
+            return OnValidate(propertyName);
+        }
+
     }
 }

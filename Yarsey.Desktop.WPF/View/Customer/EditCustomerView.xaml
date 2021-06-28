@@ -155,7 +155,7 @@
 
         <Grid Grid.Row="2" Margin="35,5,5,5">
             <StackPanel Orientation="Horizontal">
-                <!--<Button Content="Simpan" Command="{Binding CreateCustomerCommand}" Height="50" Width="200" />-->
+                <Button Content="Kemaskini" Command="{Binding UpdateCustomerCommand}" Height="50" Width="200" />
                 <Button Content="Batal" Command="{Binding NavigateCustomerCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
             </StackPanel>
         </Grid>

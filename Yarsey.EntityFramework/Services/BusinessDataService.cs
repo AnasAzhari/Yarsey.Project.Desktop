@@ -43,6 +43,15 @@ namespace Yarsey.EntityFramework.Services
             }
         }
 
+        public async Task UpdateCustomer(Customer customer)
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                dbContext.Entry(customer).State = EntityState.Modified;
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
         public async Task DeleteCustomer(Customer customer)
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())

@@ -22,6 +22,7 @@
     <None Remove="Resources\Icon\licence2_100px.png" />
     <None Remove="Resources\Icon\licence_100px.png" />
     <None Remove="Resources\Icon\phone_32px.png" />
+    <None Remove="Resources\Icon\settings_64px.png" />
     <None Remove="Resources\Icon\truck_200px.png" />
     <None Remove="Resources\Icon\user_location_24px.png" />
   </ItemGroup>
@@ -180,6 +181,9 @@
     <Resource Include="Resources\Icon\licence2_100px.png" />
     <Resource Include="Resources\Icon\licence_100px.png" />
     <Resource Include="Resources\Icon\phone_32px.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Icon\settings_64px.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Resources\Icon\truck_200px.png">
