@@ -20,19 +20,47 @@ namespace Yarsey.Desktop.WPF.HostBuilder
         {
             host.ConfigureServices(services =>
             {
-                services.AddSingleton<CustomerViewModel>(s=>new CustomerViewModel(CreateNewCustomerNavigationDraweService(s),
+                #region Customer
+
+                services.AddScoped<CustomerView>(s => new CustomerView() { DataContext = s.GetRequiredService<CustomerViewModel>() });
+                
+                services.AddSingleton<CustomerViewModel>(s=>new CustomerViewModel(
+                                                             CreateNewCustomerNavigationDraweService(s), 
+                                                             EditCustomerNavigationDrawerService(s),
                                                              s.GetRequiredService<CustomerDataService>(),
                                                              s.GetRequiredService<BusinessStore>(),
-                                                             s.GetRequiredService<BusinessDataService>()
+                                                             s.GetRequiredService<BusinessDataService>(),
+                                                             s.GetRequiredService<GeneralModalNavigationService>()
 
                     ));
-           
+                services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s), 
+                                                                    s.GetRequiredService<CustomerDataService>(),
+                                                                    s.GetRequiredService<BusinessStore>(), 
+                                                                    s.GetRequiredService<BusinessDataService>(), 
+                                                                    s.GetRequiredService<GeneralModalNavigationService>()));
+                services.AddTransient<EditCustomerViewModel>(s => new EditCustomerViewModel(CreateCustomerNavigationDrawerService(s),
+                                                                    s.GetRequiredService<BusinessStore>(),
+                                                                    s.GetRequiredService<BusinessDataService>(),
+                                                                    s.GetRequiredService<GeneralModalNavigationService>()));
 
+
+                #endregion
+
+                #region Product
                 services.AddSingleton<ProductViewModel>(s => new ProductViewModel(CreateNewProductNavigationDraweService(s),
                                                                                 s.GetRequiredService<BusinessStore>(),
                                                                                 s.GetRequiredService<BusinessDataService>(),
                                                                                 s.GetRequiredService<GeneralModalNavigationService>()
                                                         ));
+
+                services.AddScoped<ProductView>(services => new ProductView() { DataContext = services.GetRequiredService<ProductViewModel>() });
+
+
+                services.AddTransient<NewProductViewModel>(s => new NewProductViewModel(CreateProductNavigationDrawerService(s), 
+                                                                    s.GetRequiredService<BusinessStore>(), 
+                                                                    s.GetRequiredService<BusinessDataService>()));
+
+                #endregion
 
                 services.AddSingleton<HomeViewModel>();
                 services.AddSingleton<MainViewModel>(s => new MainViewModel(
@@ -62,11 +90,8 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>())); 
                 services.AddSingleton<HomeView>();
                
-                services.AddSingleton<CustomerView>(s=>new CustomerView() {DataContext= s.GetRequiredService<CustomerViewModel>() });
-                services.AddSingleton<ProductView>(services => new ProductView() { DataContext = services.GetRequiredService<ProductViewModel>() });
-               
-                services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s),s.GetRequiredService<CustomerDataService>(), s.GetRequiredService<BusinessStore>(), s.GetRequiredService<BusinessDataService>(),s.GetRequiredService<GeneralModalNavigationService>()));
-                services.AddTransient<NewProductViewModel>(s => new NewProductViewModel(CreateProductNavigationDrawerService(s), s.GetRequiredService<BusinessStore>(), s.GetRequiredService<BusinessDataService>()));
+                
+
                 services.AddSingleton<ErrorMessageViewModel>();
                 services.AddSingleton<SuccessMessageViewModel>();
                 services.AddSingleton<ConfirmMessageViewModel>();
@@ -124,6 +149,14 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
             );
 
+        }
+        public static INavigationService EditCustomerNavigationDrawerService(IServiceProvider serviceProvider)
+        {
+            return new NavigationDrawerService<EditCustomerViewModel>(
+                    serviceProvider.GetRequiredService<NavigationDrawerStore>(),
+                    ()=>serviceProvider.GetRequiredService<EditCustomerViewModel>()
+
+                );
         }
       
         public static INavigationService CreateNewProductNavigationDraweService(IServiceProvider serviceProvider)

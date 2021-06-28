@@ -16,9 +16,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
     public class CustomerViewModel:ViewModelBase
     {
-       
-        
-
+  
         private ObservableCollection<Customer> _customerCollection=null;
 
         public ObservableCollection<Customer> CustomerCollection
@@ -27,34 +25,38 @@ namespace Yarsey.Desktop.WPF.ViewModels
             set {
                 SetProperty(ref _customerCollection, value); 
             }
-
-
         }
 
-        public Customer SelectedCustomer { get; set; }
-
+        public Customer _selectedCustomer;
+        public Customer SelectedCustomer {
+            get { return _selectedCustomer; }
+            set { SetProperty(ref _selectedCustomer, value); } 
+        }
 
         private readonly CustomerDataService _customerDataService;
         private readonly BusinessStore _businessStore;
         private readonly BusinessDataService _businessDataService;
-     
+        private readonly GeneralModalNavigationService _generalModalNavigationService;
 
         public ICommand NavigateNewCustomer { get; }
+        public ICommand DeleteCustomerCommand { get; set; }
 
+        public ICommand EditCustomerCommand { get; set; }
         public ICommand TestModal { get; set; }
 
-        public CustomerViewModel(INavigationService newCustNavService, CustomerDataService customerDataService,BusinessStore businessStore,BusinessDataService businessDataService)
+        public CustomerViewModel(INavigationService newCustNavService,INavigationService editCustNavService, CustomerDataService customerDataService,BusinessStore businessStore,BusinessDataService businessDataService, GeneralModalNavigationService generalModalNavigationService)
         {
             _customerDataService = customerDataService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
-            
+            this._generalModalNavigationService = generalModalNavigationService;
             NavigateNewCustomer = new NavigationDrawerCommand(newCustNavService);
-
+            EditCustomerCommand = new NavigationDrawerEditCommand(editCustNavService, SelectedCustomer);
            this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
-         
-        }
 
+            this.DeleteCustomerCommand = new AsyncRelayCommand(DeleteValidationAsync, ConfirmDelete);
+
+        }
 
         public async void OnBusinessChanged()
         {
@@ -76,7 +78,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 custCollection = null;
 
             }
-            
 
             return custCollection;
         }
@@ -97,6 +98,40 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
             return custCollection;
         }
+
+        #region ----------------------Delete Customer Section----------------------------------
+
+
+        public async Task ConfirmDelete()
+        {
+            _generalModalNavigationService.NavigationOnConfirmDelete("Are you sure you want to delete this customer ?", DeleteSelectedCustomer);
+        }
+        public async Task DeleteSelectedCustomer()
+        {
+            var adatak = _businessStore.CurrentBusiness.Customers.Contains(SelectedCustomer);
+
+            
+            await _businessDataService.DeleteCustomer(SelectedCustomer);
+
+            _businessStore.RefreshBusiness();
+        }
+
+        public async Task<bool> DeleteValidationAsync()
+        {
+            if (SelectedCustomer != null)
+            {
+                return true;
+            }
+            else
+            {
+                _generalModalNavigationService.NavigateOnEception("Cannot delete the product");
+                return false;
+            }
+        }
+
+
+
+        #endregion
 
 
         #region -------------FILTERING-------------------

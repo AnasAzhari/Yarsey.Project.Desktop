@@ -2,6 +2,8 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:Yarsey.Desktop.WPF"
+               xmlns:views="clr-namespace:Yarsey.Desktop.WPF.View"
+              xmlns:ViewModels="clr-namespace:Yarsey.Desktop.WPF.ViewModels"
              >
     <Application.Resources>
         <ResourceDictionary>
@@ -11,6 +13,38 @@
                 <ResourceDictionary Source="/Resources/Styles/OrdinaryButton.xaml"/>-->
                 <ResourceDictionary Source="/Resources/ImageDictionary/ImageDictionary.xaml"/>
             </ResourceDictionary.MergedDictionaries>
+
+            <DataTemplate DataType="{x:Type ViewModels:HomeViewModel}">
+                <views:HomeView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:CustomerViewModel}">
+                <views:CustomerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:NewCustomerViewModel}">
+                <views:NewCustomerView/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:EditCustomerViewModel}">
+                <views:EditCustomerView/>
+            </DataTemplate>
+
+
+            <DataTemplate DataType="{x:Type ViewModels:ProductViewModel}">
+                <views:ProductView  />
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:NewProductViewModel}">
+                <views:NewProductView/>
+            </DataTemplate>
+
+            <DataTemplate DataType="{x:Type ViewModels:SuccessMessageViewModel}">
+                <views:SuccessMessage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:ErrorMessageViewModel}">
+                <views:ErrorMessage/>
+            </DataTemplate>
+            <DataTemplate DataType="{x:Type ViewModels:ConfirmMessageViewModel}">
+                <views:ConfirmMessage/>
+            </DataTemplate>
+
 
 
         </ResourceDictionary>

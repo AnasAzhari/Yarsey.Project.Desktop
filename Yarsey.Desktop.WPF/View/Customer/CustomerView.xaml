@@ -78,7 +78,7 @@
                             AutoGenerateColumns="False"
                             ColumnSizer="Star"
                            
-                            ItemsSource="{Binding ElementName=sfDataPager,Path=PagedSource, Mode=TwoWay}"
+                            ItemsSource="{Binding ElementName=sfDataPagerC,Path=PagedSource, Mode=TwoWay}"
                             SelectedItem="{Binding SelectedCustomer,Mode=TwoWay}"
                             NavigationMode="Row">
                                 <syncfusion:SfDataGrid.Columns>
@@ -98,7 +98,7 @@
                             </syncfusion:SfDataGrid>
 
                             <datapager:SfDataPager
-                            x:Name="sfDataPager"
+                            x:Name="sfDataPagerC"
                             
                             HorizontalAlignment="Left"
                             RenderOptions.EdgeMode="Aliased"
@@ -148,37 +148,66 @@
                     
                 </Grid>-->
                 <Grid Grid.Column="1">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="1*"/>
-                        <RowDefinition Height="3*"/>
-                    </Grid.RowDefinitions>
-                    <StackPanel Orientation="Vertical">
-                        <Label FontSize="25" Foreground="DeepSkyBlue" Content="{Binding SelectedCustomer.Name}"/>
-                        <Label FontSize="25" Foreground="DeepSkyBlue" Content="2nd Content"/>
-                        <Label FontSize="25" Foreground="DeepSkyBlue" Content="3rd Content"/>
-                    </StackPanel>
+                    <Grid.Style>
+                        <Style TargetType="{x:Type Grid}">
+                            <Setter Property="Visibility" Value="Visible"/>
+                            <Style.Triggers>
+                                <DataTrigger Binding="{Binding SelectedCustomer}" Value="{x:Null}">
+                                    <Setter Property="Visibility" Value="Hidden"/>
+                                </DataTrigger>
+                            </Style.Triggers>
+                        </Style>
+                    </Grid.Style>
 
-                    <!--<Grid Grid.Row="1">
-                        <syncfusion:SfDataGrid
-                ItemsSource="{Binding ElementName=sfDataPager,Path=PagedSource, Mode=TwoWay}"
-                >
+                    <Grid Margin="5">
 
-                        </syncfusion:SfDataGrid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="*"/>
+                            <RowDefinition Height="3*"/>
+                        </Grid.RowDefinitions>
 
-                        <datapager:SfDataPager
-                            x:Name="sdf"
-                            
-                            HorizontalAlignment="Left"
-                            RenderOptions.EdgeMode="Aliased"
-                            RenderOptions.BitmapScalingMode="HighQuality"
-                            
-                            VerticalAlignment="Bottom"
-                            Grid.Row="2"
-                            NumericButtonCount="10"
-                         
-                            PageSize="30"                          
-            />
-                    </Grid>-->
+                        <Grid Grid.Row="0" >
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="6*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+
+                                <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                                    <Label FontSize="20" Content="Action" />
+
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="1">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="3,0,0,0">
+                                        <Button Content="Edit" Margin="0,0,5,0" Height="30" Width="70" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding SelectedCustomer}"/>
+                                        <Button Content="Delete" Height="30" Width="70" IsDefault="False" Command="{Binding DeleteCustomerCommand}" Background="Red"   />
+                                    </StackPanel>
+
+                                </Grid>
+
+                                <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                                    <Label Content="Name" FontSize="20"/>
+
+                                </Grid>
+                                <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
+
+                                    <Label FontSize="20" Content="{Binding SelectedCustomer.Name}"/>
+                                </Grid>
+
+                            </Grid>
+
+
+
+                        </Grid>
+                    </Grid>
+
 
                 </Grid>
 

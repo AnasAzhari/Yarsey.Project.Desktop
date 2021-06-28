@@ -65,18 +65,24 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
         private void OnCurrentContentViewModel()
         {
+           
             OnPropertyChanged(nameof(CurrentNavigationDrawerContentViewModel));
+            GC.Collect();
+           
         }
 
         private void OnBusinessChanged()
         {
             OnPropertyChanged(nameof(Business));
+            GC.Collect();
         }
 
         private void OnCurrentModalViewModelChanged()
         {
             OnPropertyChanged(nameof(CurrentModalViewModel));
             OnPropertyChanged(nameof(IsOpen));
+            GC.Collect();
+            
         }
 
 

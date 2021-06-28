@@ -21,33 +21,7 @@
     </Window.DataContext>-->
     <Grid>
         <Grid.Resources>
-            <DataTemplate DataType="{x:Type ViewModels:HomeViewModel}">
-                <views:HomeView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type ViewModels:CustomerViewModel}">
-                <views:CustomerView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type ViewModels:NewCustomerViewModel}">
-                <views:NewCustomerView/>
-            </DataTemplate>
-
-      
-            <DataTemplate DataType="{x:Type ViewModels:ProductViewModel}">
-                <views:ProductView/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type ViewModels:NewProductViewModel}">
-                <views:NewProductView/>
-            </DataTemplate>
-
-            <DataTemplate DataType="{x:Type ViewModels:SuccessMessageViewModel}">
-                <views:SuccessMessage/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type ViewModels:ErrorMessageViewModel}">
-                <views:ErrorMessage/>
-            </DataTemplate>
-            <DataTemplate DataType="{x:Type ViewModels:ConfirmMessageViewModel}">
-                <views:ConfirmMessage/>
-            </DataTemplate>
+        
             
 
         </Grid.Resources>
@@ -77,8 +51,6 @@
                     <Image Source="{StaticResource  CustomerIcon}"/>
                 </syncfusion:NavigationItem.Icon>
             </syncfusion:NavigationItem>
-
-        
 
             <syncfusion:NavigationItem Header="Product" Command="{Binding NavigateProductCommand}"  >
                 <syncfusion:NavigationItem.Icon>

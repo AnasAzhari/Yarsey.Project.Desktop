@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Desktop.WPF.ViewModels;
+using Yarsey.Domain.Models;
 
 namespace Yarsey.Desktop.WPF.Services
 {
@@ -21,6 +22,17 @@ namespace Yarsey.Desktop.WPF.Services
         public void Navigate()
         {
             _navigationDrawerStore.CurrentContentViewModel = _contentVM();
+        }
+
+        public void NavigateEditCustomer(Customer customer)
+        {
+            _navigationDrawerStore.CurrentContentViewModel = _contentVM();
+            if (_navigationDrawerStore.CurrentContentViewModel.GetType() == typeof(EditCustomerViewModel))
+            {
+                EditCustomerViewModel vm = (EditCustomerViewModel)_navigationDrawerStore.CurrentContentViewModel;
+                vm.SelectedCustomer = customer;
+
+            }
         }
     }
 }

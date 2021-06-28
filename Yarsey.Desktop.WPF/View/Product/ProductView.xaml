@@ -149,8 +149,8 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0" Grid.Column="0">
-                                    <Label Content="Action"/>
+                                <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                                    <Label FontSize="20" Content="Action" />
 
                                 </Grid>
                                 <Grid Grid.Row="0" Grid.Column="1">
@@ -161,32 +161,22 @@
 
                                 </Grid>
 
-                                <Grid Grid.Row="1" Grid.Column="0">
-                                    <Label Content="Name"/>
+                                <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
+                                    <Label Content="Name" FontSize="20"/>
 
                                 </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1">
+                                <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
 
-                                    <Label Content="{Binding SelectedProduct.ProductName}"/>
+                                    <Label FontSize="20" Content="{Binding SelectedProduct.ProductName}"/>
                                 </Grid>
-
-
-
-
-
-
-
 
                             </Grid>
-                            
-                            
-                            
+
+
+
                         </Grid>
-                        
-                        
                     </Grid>
-                    
-                    
+
                 </Grid>
 
         </Grid>

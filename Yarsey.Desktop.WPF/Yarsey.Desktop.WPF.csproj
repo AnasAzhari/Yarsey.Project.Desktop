@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Behaviour\DatagridSelectionChangedBehaviour.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="Resources\Icon\add_user_group_man_man_240px.png" />
     <None Remove="Resources\Icon\buy_60px.png" />
     <None Remove="Resources\Icon\customer_32px.png" />

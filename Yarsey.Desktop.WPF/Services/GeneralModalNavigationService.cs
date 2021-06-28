@@ -8,7 +8,7 @@ using Yarsey.Desktop.WPF.ViewModels;
 
 namespace Yarsey.Desktop.WPF.Services
 {
-   public class GeneralModalNavigationService : INavigationService
+   public class GeneralModalNavigationService : IModalNavigationService
     {
         private ModalNavigationStore _modaNavigationStore;
         private ErrorMessageViewModel _errorMessageViewModel;

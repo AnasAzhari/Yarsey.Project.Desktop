@@ -61,11 +61,10 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 prodCollection = null;
 
             }
-
-
             return prodCollection;
         }
 
+        #region --------------- Delete Product ----------------------------
         public async Task ConfirmDelete()
         {
             _generalModalNavigationService.NavigationOnConfirmDelete("Are you sure you want to delete this product ?", DeleteSelectedProduct);
@@ -93,8 +92,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 return false;
             }
         }
-        
 
+        #endregion
 
         #region -------------FILTERING-------------------
 

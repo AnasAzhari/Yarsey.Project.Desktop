@@ -43,6 +43,19 @@ namespace Yarsey.EntityFramework.Services
             }
         }
 
+        public async Task DeleteCustomer(Customer customer)
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                Customer entity = await dbContext.Customers.FirstOrDefaultAsync(x => x.Id == customer.Id);
+                dbContext.Customers.Remove(entity);
+                await dbContext.SaveChangesAsync();
+
+            }
+        }
+
+
+
         public async Task<Business> GetDefault()
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())

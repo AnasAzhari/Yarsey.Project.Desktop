@@ -8,12 +8,21 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Desktop.WPF.Commands;
+using Yarsey.Domain.Models;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
     public class HomeViewModel:ViewModelBase
     {
         private readonly BusinessStore _businessstore;
+
+        private List<Customer> _personList;
+
+        public List<Customer> PersonsList
+        {
+            get { return _personList; }
+            set { SetProperty(ref _personList, value); }
+        }
 
         public string ContentHome { get; set; }
 
@@ -49,7 +58,15 @@ namespace Yarsey.Desktop.WPF.ViewModels
             BizName = this._businessstore.CurrentBusiness.BusinessName;
             byte[] imgBlob = this._businessstore.CurrentBusiness.Image;
             Image = Helper.Helper.BlobToImage(imgBlob);
+            PersonsList = this._businessstore.CurrentBusiness.Customers.ToList();
 
         }
+    }
+
+    public class Person
+    {
+        public string Name { get; set; }
+        public int Age { get; set; }
+
     }
 }
