@@ -18,11 +18,22 @@ namespace Yarsey.Desktop.WPF.View
     /// <summary>
     /// Interaction logic for HomeView.xaml
     /// </summary>
-    public partial class HomeView : UserControl
+    public partial class HomeView : UserControl,IDisposable
     {
         public HomeView()
         {
+            this.Unloaded += HomeView_Unloaded;
             InitializeComponent();
+        }
+
+        private void HomeView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            this.Dispose();
+        }
+
+        public void Dispose()
+        {
+            
         }
     }
 }

@@ -14,8 +14,9 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syncfusion.Windows.Shared;
 using Syncfusion.Windows;
+using Syncfusion.SfSkinManager;
 using Yarsey.Desktop.WPF.ViewModels;
-
+using Microsoft.Extensions.Configuration;
 
 namespace Yarsey.Desktop.WPF
 {
@@ -24,11 +25,44 @@ namespace Yarsey.Desktop.WPF
     /// </summary>
     public partial class MainWindow :ChromelessWindow
     {
-        public MainWindow(ViewModelBase viewModelBase)
+        private readonly IConfiguration _configuration;
+
+        public MainWindow(ViewModelBase viewModelBase,IConfiguration configuration)
         {
             DataContext = viewModelBase;
+            this._configuration = configuration;
+            SfSkinManager.ApplyStylesOnApplication = true;
             InitializeComponent();
-           
+
+            InitConfigure();
+        }
+
+        public void SetLightMode()
+        {
+            SfSkinManager.SetTheme(this, new FluentTheme() { ThemeName = "FluentLight" });
+          
+        }
+        public void SetDarkMode()
+        {
+            SfSkinManager.SetTheme(this, new FluentTheme() { ThemeName = "FluentDarkTurq" });
+            
+        }
+        public void InitConfigure()
+        {
+            var d = _configuration.GetSection("Theme").GetSection("LightMode").Value;
+            bool result;
+            if (bool.TryParse(d, out result))
+            {
+                if (result == true)
+                {
+                    SetLightMode();
+                }
+                else
+                {
+                    SetDarkMode();
+                }
+            }
+
         }
     }
 }

@@ -13,7 +13,8 @@ namespace Yarsey.Desktop.WPF.Helper
 {
     public static class Helper
     {
-
+        public const string InvoiceModule = "Inv";
+        public const string ReceiptModule = "Rcp";
 
         public static BitmapSource ImageResizer(string loc,int maxheight)
         {
@@ -99,6 +100,16 @@ namespace Yarsey.Desktop.WPF.Helper
             image.Freeze();
             return image;
         }
+
+        //public static string RunnningNo(string module)
+        //{
+        //  //    $newNumber = intval($currentNumber->dat_remark) + 1;
+        //  //$updateNumber = MdtDataParameter::where('dat_name', '=',$key)->update([
+        //  //      'dat_remark' => str_pad($newNumber, 8, "0", STR_PAD_LEFT)
+        //  //]);
+        //  //  return $currentNumber->dat_description.date("Y").str_pad($newNumber, 8, "0", STR_PAD_LEFT);
+
+        //}
 
 
     }

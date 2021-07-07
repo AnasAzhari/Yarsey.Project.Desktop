@@ -36,7 +36,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
             this._generalModalNavigationService = generalModalNavigationService;
             NavigateNewProduct = new NavigationDrawerCommand(newProductnavService);
             //this.DeleteProductCommand = new AsyncRelayCommand()
-            this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
+            //this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
+            OnBusinessChanged();
             this.DeleteProductCommand = new AsyncRelayCommand(DeleteValidationAsync, ConfirmDelete);
         }
 
@@ -192,6 +193,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
 
         #endregion
+        #region Dispose
+        public override void Dispose()
+        {
+            this._businessStore.CurrentBusinessChanged -= OnBusinessChanged;
+            base.Dispose();
+        }
 
+        #endregion
     }
 }

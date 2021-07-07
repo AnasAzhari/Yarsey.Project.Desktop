@@ -10,14 +10,13 @@ namespace Yarsey.Domain.Models
     {
 
         public Customer Customer { get; set; }
+        public int Customer_Id { get; set; }
+        public string ref_no { get; set; }
         public DateTime InvoiceDate { get; set; }
         public DateTime Due { get; set; }
         public ICollection<ProductSelection> ProductsSelected { get; set; }
         public bool Taxed { get; set; } = false;
         public int Taxedpercentage { get; set; }
-
-
-
 
     }
 }

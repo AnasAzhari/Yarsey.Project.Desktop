@@ -18,11 +18,38 @@ namespace Yarsey.Desktop.WPF.View
     /// <summary>
     /// Interaction logic for CustomerView.xaml
     /// </summary>
-    public partial class CustomerView : UserControl
+    public partial class CustomerView : UserControl,IDisposable
     {
+        bool isBusy = false;
         public CustomerView()
         {
+           
+         
+            this.Unloaded += CustomerView_Unloaded;
+            this.Loaded += CustomerView_Loaded;
             InitializeComponent();
+            //this.busyIndicator.IsBusy = true;
+            
+
+        }
+
+        private void CustomerView_Loaded(object sender, RoutedEventArgs e)
+        {
+            //this.busyIndicator.IsBusy = false;
+        }
+
+        private void CustomerView_Unloaded(object sender, RoutedEventArgs e)
+        {
+            
+            this.Dispose();
+        }
+
+        
+        public void Dispose()
+        {
+            sfDataGrid?.Dispose();
+            sfDataPagerC?.Dispose();
+           
         }
     }
 }

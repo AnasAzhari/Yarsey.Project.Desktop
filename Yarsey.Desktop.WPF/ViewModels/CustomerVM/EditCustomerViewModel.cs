@@ -202,5 +202,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
             return OnValidate(propertyName);
         }
 
+
+        #region Dispose
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
+
+        #endregion
     }
 }

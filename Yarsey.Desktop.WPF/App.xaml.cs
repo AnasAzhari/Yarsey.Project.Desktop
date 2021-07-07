@@ -59,7 +59,7 @@ namespace Yarsey.Desktop.WPF
                
             }
 
-
+            BusinessSelection();
             if (business != null)
             {
                 MainWindow = _host.Services.GetRequiredService<MainWindow>();
@@ -70,7 +70,7 @@ namespace Yarsey.Desktop.WPF
             }
 
 
-            BusinessSelection();
+            
             ConfigureMainWindow();
             ConfigureSetupWindow();
           
@@ -78,7 +78,6 @@ namespace Yarsey.Desktop.WPF
             MainWindow.Show();
           
            
-
 
             base.OnStartup(e);
         }
@@ -96,8 +95,8 @@ namespace Yarsey.Desktop.WPF
             var navDrawerStore = _host.Services.GetRequiredService<NavigationDrawerStore>();
             navDrawerStore.CurrentContentViewModel = homeVM;
 
-            var viewCust = _host.Services.GetRequiredService<CustomerView>();
-            var viewProduct = _host.Services.GetRequiredService<ProductView>();
+            //var viewCust = _host.Services.GetRequiredService<CustomerView>();
+            //var viewProduct = _host.Services.GetRequiredService<ProductView>();
         }
 
         private void ConfigureSetupWindow()
@@ -130,7 +129,7 @@ namespace Yarsey.Desktop.WPF
             Business biz = await _host.Services.GetRequiredService<BusinessDataService>().GetDefault();
             BusinessStore bizStore = _host.Services.GetRequiredService<BusinessStore>();
             bizStore.CurrentBusiness = biz;
-
+            
         }
 
 

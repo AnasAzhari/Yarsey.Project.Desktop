@@ -14,7 +14,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
         {
             host.ConfigureAppConfiguration(c =>
             {
-                c.AddJsonFile("AppSettings.json");
+                c.AddJsonFile("AppSettings.json", optional: true, reloadOnChange: true);
                 c.AddEnvironmentVariables();
             });
 

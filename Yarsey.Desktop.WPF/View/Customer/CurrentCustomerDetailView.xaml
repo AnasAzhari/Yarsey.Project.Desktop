@@ -28,15 +28,12 @@
 
             <datapager:SfDataPager
                             x:Name="sdf"
-                            
                             HorizontalAlignment="Left"
                             RenderOptions.EdgeMode="Aliased"
                             RenderOptions.BitmapScalingMode="HighQuality"
-                            
                             VerticalAlignment="Bottom"
                             Grid.Row="2"
                             NumericButtonCount="10"
-                         
                             PageSize="30"                          
             />
         </Grid>

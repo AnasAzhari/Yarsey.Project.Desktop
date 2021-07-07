@@ -6,15 +6,9 @@ using System.Threading.Tasks;
 
 namespace Yarsey.Domain.Models
 {
-  public enum TransactionType
+    public class RunningNumber:DomainObject
     {
-        Buy,
-        Sell,
-        Invoice,
-        SaleOrder,
+        public string ModuleName { get; set; }
+        public int RunningNo { get; set; }
     }
-    public enum ProductType
-    {
-
-    } 
 }

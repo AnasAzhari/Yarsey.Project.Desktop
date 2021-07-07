@@ -143,6 +143,12 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
 
 
+        #region Dispose
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
 
+        #endregion
     }
 }

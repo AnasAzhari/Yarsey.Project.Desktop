@@ -19,6 +19,7 @@ namespace Yarsey.Desktop.WPF.Stores
             get => _currentContentViewModel;
             set
             {
+                _currentContentViewModel?.Dispose();
                 _currentContentViewModel = value;
                 OnCurrentViewModelChanged();
             }

@@ -16,27 +16,13 @@ using System.Windows.Shapes;
 namespace Yarsey.Desktop.WPF.View
 {
     /// <summary>
-    /// Interaction logic for ProductView.xaml
+    /// Interaction logic for InvoiceView.xaml
     /// </summary>
-    public partial class ProductView : UserControl,IDisposable
+    public partial class InvoiceView : UserControl
     {
-
-        public ProductView()
+        public InvoiceView()
         {
-            this.Unloaded += ProductView_Unloaded;
             InitializeComponent();
-           
-        }
-
-        private void ProductView_Unloaded(object sender, RoutedEventArgs e)
-        {
-            this.Dispose();
-        }
-
-        public void Dispose()
-        {
-            this.sfDataPager.Dispose();
-            this.sfDataGrid.Dispose();
         }
     }
 }

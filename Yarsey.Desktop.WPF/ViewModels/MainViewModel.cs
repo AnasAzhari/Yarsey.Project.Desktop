@@ -29,7 +29,17 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public ICommand NavigateCustomerCommand { get; set; }
         public ICommand NavigateSalesCommand { get; set; }
         public ICommand NavigateProductCommand { get; set; }
+        public ICommand NavigateSettingsCommand { get; set; }
 
+        public ICommand NavigateInvoiceCommand { get; set; }
+
+        private bool _isBusy=false;
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set { 
+                SetProperty(ref _isBusy, value); }
+        }
         public bool IsOpen => _modalNavigationStore.IsOpen;
         public NavationItemClickedAction navationItemClickedAction { get; set; }
 
@@ -44,6 +54,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
             INavigationService custNavService,
       
             INavigationService productNavigationServvice,
+            INavigationService invoiceNavigationService,
+            INavigationService settingsNavigationService,
             BusinessStore businessStore,
             ModalNavigationStore modalNavigationStore
 
@@ -61,14 +73,17 @@ namespace Yarsey.Desktop.WPF.ViewModels
             NavigateCustomerCommand = new NavigationDrawerCommand(custNavService);
            
             NavigateProductCommand = new NavigationDrawerCommand(productNavigationServvice);
+            NavigateSettingsCommand = new NavigationDrawerCommand(settingsNavigationService);
+            NavigateInvoiceCommand = new NavigationDrawerCommand(invoiceNavigationService);
             _modalNavigationStore.CurrentViewModelChanged += OnCurrentModalViewModelChanged;
         }
-        private void OnCurrentContentViewModel()
+        private async void OnCurrentContentViewModel()
         {
-           
+            IsBusy = true;
             OnPropertyChanged(nameof(CurrentNavigationDrawerContentViewModel));
             GC.Collect();
            
+            IsBusy = false;
         }
 
         private void OnBusinessChanged()

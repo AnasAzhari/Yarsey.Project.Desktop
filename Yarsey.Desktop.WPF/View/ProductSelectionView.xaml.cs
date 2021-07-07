@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Yarsey.Desktop.WPF.View
 {
     /// <summary>
-    /// Interaction logic for Settings.xaml
+    /// Interaction logic for ProductSelectionView.xaml
     /// </summary>
-    public partial class Settings : UserControl
+    public partial class ProductSelectionView : UserControl
     {
-        public Settings()
+        public ProductSelectionView()
         {
             InitializeComponent();
         }

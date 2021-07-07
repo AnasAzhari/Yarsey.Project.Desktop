@@ -52,9 +52,10 @@ namespace Yarsey.Desktop.WPF.ViewModels
             this._generalModalNavigationService = generalModalNavigationService;
             NavigateNewCustomer = new NavigationDrawerCommand(newCustNavService);
             EditCustomerCommand = new NavigationDrawerEditCommand(editCustNavService, SelectedCustomer);
-           this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
+           //this._businessStore.CurrentBusinessChanged += OnBusinessChanged;
 
             this.DeleteCustomerCommand = new AsyncRelayCommand(DeleteValidationAsync, ConfirmDelete);
+            OnBusinessChanged();
 
         }
 
@@ -227,6 +228,17 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 }
             }
             return false;
+        }
+
+
+        #endregion
+
+        #region Dispose
+
+        public override void Dispose()
+        {
+            this._businessStore.CurrentBusinessChanged -= OnBusinessChanged;
+            base.Dispose();
         }
 
 

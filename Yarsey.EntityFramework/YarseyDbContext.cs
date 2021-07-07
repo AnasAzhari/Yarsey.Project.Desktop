@@ -15,14 +15,19 @@ namespace Yarsey.EntityFramework
         public DbSet<Customer> Customers { get; set; }
 
         public DbSet<Business> Businesses { get; set; }
-
         public DbSet<Sale> Sales { get; set; }
-
         public DbSet<Product> Products { get; set; }
+        public DbSet<RunningNumber> RunningNumbers { get; set; }
         public YarseyDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+
+            modelBuilder.Entity<RunningNumber>(entity =>
+            {
+                entity.Property(e => e.ModuleName);
+                entity.Property(e => e.RunningNo);
+            });
 
             modelBuilder.Entity<Business>(entity =>
             {
@@ -35,10 +40,9 @@ namespace Yarsey.EntityFramework
                 entity.HasMany(e => e.Customers).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
                 entity.HasMany(e => e.Sales).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
                 entity.HasMany(e => e.Products).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
+                entity.HasMany(e => e.Invoices).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
 
             });
-
-
 
             modelBuilder.Entity<Customer>(entity =>
             {
@@ -49,28 +53,39 @@ namespace Yarsey.EntityFramework
                 entity.Property(e => e.CompanyName);
                 entity.Property(e => e.Note);
 
-
             });
 
+            //modelBuilder.Entity<Sale>(entity =>
+            //{
+            //    entity.Property(e => e.CreatedTime);
+            //    entity.Property(e => e.SaleCategory).HasConversion<int>();
+            //    entity.HasOne(e => e.Customer).WithOne().OnDelete(DeleteBehavior.Cascade).HasForeignKey<Sale>(s=>s.Customer_id);
+            //    entity.Property(e => e.Notes);
+            //    entity.HasOne(e => e.Transaction).WithOne().OnDelete(DeleteBehavior.Cascade).HasForeignKey<Transaction>(b=>b.Sales_id);
 
-            modelBuilder.Entity<Sale>(entity =>
-            {
-                entity.Property(e => e.CreatedTime);
-                entity.Property(e => e.SaleCategory).HasConversion<int>();
-                entity.HasOne(e => e.Customer).WithOne().OnDelete(DeleteBehavior.Cascade).HasForeignKey<Sale>(s=>s.Customer_id);
-                entity.Property(e => e.Notes);
-                entity.HasOne(e => e.Transaction).WithOne().OnDelete(DeleteBehavior.Cascade).HasForeignKey<Transaction>(b=>b.Sales_id);
 
-
-            });
+            //});
             modelBuilder.Entity<Product>(entity =>
             {
                 entity.Property(e => e.CreatedTime);
                 entity.Property(e => e.ProductName);
                 entity.Property(e => e.Notes);
-                //entity.Property(e => e.ProductUOM).HasConversion(v => v.ToString(), v => (ProductUom)Enum.Parse(typeof(ProductUom), v));
-                entity.Property(e => e.ProductUOM).HasConversion<string>();
+                entity.Property(e => e.ProductUOM).HasConversion(v => v.ToString(), v => (ProductUom)Enum.Parse(typeof(ProductUom), v));
+                //entity.Property(e => e.ProductUOM).HasConversion<string>();
 
+            });
+
+            modelBuilder.Entity<Invoice>(entity =>
+            {
+                entity.HasOne(e => e.Customer).WithMany().HasForeignKey(e => e.Customer_Id).OnDelete(DeleteBehavior.NoAction);
+                entity.HasMany(e => e.ProductsSelected).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
+               
+            });
+
+            modelBuilder.Entity<ProductSelection>(entity =>
+            {
+                entity.HasOne(e => e.SelectedProduct).WithMany().HasForeignKey(e=>e.SelectedProductId).IsRequired().OnDelete(DeleteBehavior.NoAction);
+                entity.Property(e => e.Quantity);                
             });
 
             base.OnModelCreating(modelBuilder);
