@@ -12,14 +12,14 @@
         xmlns:modal="clr-namespace:Yarsey.Desktop.WPF.CustomControl"
         mc:Ignorable="d"
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
-        syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentLight,FluentHoverEffectMode=Background,FluentPressedEffectMode=Reveal}"
+        
         Title="Yarsey Desktop Accounting" Height="450" Width="800" WindowStartupLocation="CenterScreen"
         WindowState="Maximized"
         >
     <!--<Window.DataContext>
         <ViewModels:MainViewModel/>
     </Window.DataContext>-->
-    <Grid>
+    <Grid x:Name="MainControl" Background="#e6e6e6">
         <Grid.Resources>
             <ResourceDictionary>
             

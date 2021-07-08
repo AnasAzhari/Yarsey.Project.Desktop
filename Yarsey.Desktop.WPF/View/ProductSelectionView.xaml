@@ -19,9 +19,9 @@
                     <ColumnDefinition/>
                     <ColumnDefinition/>
          </Grid.ColumnDefinitions>
-        <syncfusion:ComboBoxAdv x:Name="ItemsCollection" Grid.Column="0" Grid.Row="0" Margin="0,0,3,0" /> <!--PilihatnItem-->
-        <syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0"  Margin="3,0,3,0" /> 
-        <syncfusion:CurrencyTextBox Grid.Column="2" Grid.Row="0" Margin="3,0,3,0" />
+        <syncfusion:ComboBoxAdv x:Name="ItemsCollection" ItemsSource="{Binding ListOfProduct}" Grid.Column="0" Grid.Row="0" Margin="0,0,3,0" /> <!--PilihatnItem-->
+        <syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Amount}"  Margin="3,0,3,0" /> 
+        <syncfusion:CurrencyTextBox Grid.Column="2" Value="{Binding Amount}" Grid.Row="0" Margin="3,0,3,0" />
         <syncfusion:CurrencyTextBox  Grid.Column="3" Grid.Row="0" Margin="3,0,3,0" />
         <syncfusion:ComboBoxAdv  Grid.Column="4" Grid.Row="0" Margin="3,0,3,0" />
         <syncfusion:ComboBoxAdv  Grid.Column="5" Grid.Row="0" />
