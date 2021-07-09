@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Data;
 using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
@@ -34,7 +35,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand AddProductSelectionCommand { get; set; }
 
-        public RelayBasicCommand SelectedProductChanged { get; set; }
+        public DelegateCommand<object> SelectedProductChanged { get; set; }
+        public DelegateCommand<object> DeleteProductSelection { get; set; }
 
         public NewInvoiceViewModel(INavigationService invoiceNavService, BusinessStore businessStore, BusinessDataService businessDataService)
         {
@@ -45,7 +47,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
             this.NavigateInvoiceCommand = new NavigationDrawerCommand(invoiceNavService);
             this.AddProductSelectionCommand = new AsyncRelayCommand(DeleteValidationAsync, AddProduct);
-            this.SelectedProductChanged = new RelayBasicCommand(ProductChanged);
+            this.SelectedProductChanged = new DelegateCommand<object>(ProductChanged);
+            this.DeleteProductSelection = new DelegateCommand<object>(DeleteProductSelectionFunction);
             if (_businessStore.CurrentBusiness != null)
             {
                 InitCollections();
@@ -79,10 +82,19 @@ namespace Yarsey.Desktop.WPF.ViewModels
             ProductSelections.Add(ps);
        
         }
-        private void ProductChanged()
+        private void ProductChanged(object param)
         {
-           
+            var obj = param.GetType();
+            ProductSelection ps = (ProductSelection)param;
+            ps.Word = ps.SelectedProduct.Notes;
+            CollectionViewSource.GetDefaultView(ProductSelections);
 
+        }
+        private void DeleteProductSelectionFunction(object param)
+        {
+            var obj = param.GetType();
+            ProductSelection ps = (ProductSelection)param;
+            ProductSelections.Remove(ps);
         }
 
     }

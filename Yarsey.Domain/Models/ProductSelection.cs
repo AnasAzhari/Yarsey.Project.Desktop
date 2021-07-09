@@ -10,9 +10,6 @@ namespace Yarsey.Domain.Models
     public class ProductSelection:DomainObject
     {
 
-        public ObservableCollection<Product> ListOfProduct;
-
-        private Product _selectedProduct;
         public Product SelectedProduct { get; set; }
         public int SelectedProductId { get; set; }
         public int Quantity { get; set; }
@@ -20,7 +17,8 @@ namespace Yarsey.Domain.Models
         public decimal Tax { get; set; }
         public decimal Discount { get; set; }
         public decimal Amount { get; set; }
-        public string Word { get; set; } = "BlaBla bla bla";
+
+        public string Word { get; set; } 
 
    
 

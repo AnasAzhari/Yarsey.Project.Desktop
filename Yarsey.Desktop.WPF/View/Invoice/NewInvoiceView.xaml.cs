@@ -25,6 +25,6 @@ namespace Yarsey.Desktop.WPF.View
             InitializeComponent();
         }
 
-    
+     
     }
 }

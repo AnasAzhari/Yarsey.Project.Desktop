@@ -125,8 +125,8 @@
                                                         
                                 >
                                     <!--<behavior:Interaction.Triggers>
-                                        <behavior:EventTrigger EventName="Selected">
-                                            <behavior:InvokeCommandAction Command="{Binding DataContext.SelectedProductChanged}" CommandParameter="{Binding JJJ}"/>
+                                        <behavior:EventTrigger EventName="SelectionChanged">
+                                            <behavior:InvokeCommandAction Command="{Binding SelectedProductChanged}" CommandParameter="{Binding JJJ}"/>
                                         </behavior:EventTrigger>
                                     </behavior:Interaction.Triggers>-->
                                 </syncfusion:ComboBoxAdv>
@@ -208,13 +208,16 @@
                                           
                                           
                                              </StackPanel>-->
-                                            <ListView x:Name="ProductSelectionistView" ItemsSource="{Binding ProductSelections}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                                            <ListView x:Name="ProductSelectionistView" ItemsSource="{Binding ProductSelections,UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
                                                 <ListView.ItemContainerStyle>
                                                     <Style TargetType="ListViewItem">
                                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
                                                     </Style>
+                                                    
                                                 </ListView.ItemContainerStyle>
-                                                
+                                         
+                                              
+
                                                 <ListView.ItemTemplate >
                                                         <DataTemplate  >
                                                         <!--<local:ProductSelectionView   Padding="4,4,4,4">
@@ -239,29 +242,41 @@
                                                                 <ColumnDefinition/>
                                                                 <ColumnDefinition/>
                                                                 <ColumnDefinition/>
+                                                                <ColumnDefinition/>
                                                             </Grid.ColumnDefinitions>
-                                                            <ComboBox x:Name="ItemsCollection"
-                                                                                    ItemsSource="{Binding DataContext.ProductList, RelativeSource={RelativeSource AncestorType={x:Type ListView}}}"
+                                                            <syncfusion:ComboBoxAdv x:Name="xxxx"
+                                                                                    ItemsSource="{Binding DataContext.ProductList, RelativeSource={RelativeSource AncestorType={x:Type ListView}},UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                                                                                     SelectedValue="{Binding SelectedProduct,Mode=TwoWay}"
                                                                                     
                                                                                     DisplayMemberPath="ProductName" 
                                                                                     Grid.Column="0" Grid.Row="0" Margin="0,0,3,0" 
                                                                                     
                                                                                     
-                                                                                    >
+                                                            >
                                                                 <behavior:Interaction.Triggers>
                                                                     <behavior:EventTrigger EventName="SelectionChanged">
-                                                                        <behavior:InvokeCommandAction Command="{Binding DataContext.SelectedProductChanged}" CommandParameter="{Binding ProductSelectionistView}"/>
+                                                                        <behavior:InvokeCommandAction Command="{Binding DataContext.SelectedProductChanged, 
+                                                                                                        RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" 
+                                                                                                      CommandParameter="{Binding}"/>
                                                                     </behavior:EventTrigger>
                                                                 </behavior:Interaction.Triggers>
 
-                                                            </ComboBox>
+                                                            </syncfusion:ComboBoxAdv>
 
-                                                            <syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay}"  Margin="3,0,3,0" />
+                                                            <syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="3,0,3,0" />
                                                             <syncfusion:CurrencyTextBox Grid.Column="2" Value="{Binding Amount}" Grid.Row="0" Margin="3,0,3,0" />
                                                             <syncfusion:CurrencyTextBox  Grid.Column="3" Grid.Row="0" Margin="3,0,3,0" />
                                                             <syncfusion:ComboBoxAdv  Grid.Column="4" Grid.Row="0" Margin="3,0,3,0" />
                                                             <syncfusion:ComboBoxAdv  Grid.Column="5" Grid.Row="0" />
+                                                            <Button Content="Delete" Grid.Column="6" >
+                                                                <behavior:Interaction.Triggers>
+                                                                    <behavior:EventTrigger EventName="Click">
+                                                                        <behavior:InvokeCommandAction Command="{Binding DataContext.DeleteProductSelection, 
+                                                                                                        RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" 
+                                                                                                      CommandParameter="{Binding}"/>
+                                                                    </behavior:EventTrigger>
+                                                                </behavior:Interaction.Triggers>
+                                                            </Button>
                                                         </Grid>
 
                                                     </DataTemplate>
