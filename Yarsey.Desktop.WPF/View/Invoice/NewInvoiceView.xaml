@@ -176,24 +176,22 @@
                                  <!--HEADER-->
                                 <Grid Grid.Row="0" Grid.Column="1" >
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
-                                        <ColumnDefinition/>
+                                        <ColumnDefinition Width="4*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="2*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                        <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
 
                                     <Label Grid.Column="0" FontSize="12" Content="Item" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <Label Grid.Column="1" FontSize="12" Content="Quantity" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <Label Grid.Column="2" FontSize="12" Content="Rate" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <Label Grid.Column="3" FontSize="12" Content="Tax" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <Label Grid.Column="4" FontSize="12" Content="Discount" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Label Grid.Column="3" FontSize="12" Content="Tax (%)" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Label Grid.Column="4" FontSize="12" Content="Discount (%)" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <Label Grid.Column="5" FontSize="12" Content="Amount" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <Label Grid.Column="6" FontSize="12" Content="Sum" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                    <Label Grid.Column="7" FontSize="12" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Label Grid.Column="6" FontSize="12" Content="Delete" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                 </Grid>
     
                                  <!--ITEMSCONTROL-->
@@ -236,13 +234,13 @@
                                                         </StackPanel>-->
                                                         <Grid>
                                                             <Grid.ColumnDefinitions>
-                                                                <ColumnDefinition/>
-                                                                <ColumnDefinition/>
-                                                                <ColumnDefinition/>
-                                                                <ColumnDefinition/>
-                                                                <ColumnDefinition/>
-                                                                <ColumnDefinition/>
-                                                                <ColumnDefinition/>
+                                                                <ColumnDefinition Width="4*"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="2*"/>
+                                                                <ColumnDefinition Width="3*"/>
+                                                                <ColumnDefinition Width="1*"/>
                                                             </Grid.ColumnDefinitions>
                                                             <syncfusion:ComboBoxAdv x:Name="xxxx"
                                                                                     ItemsSource="{Binding DataContext.ProductList, RelativeSource={RelativeSource AncestorType={x:Type ListView}},UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
@@ -262,13 +260,23 @@
                                                                 </behavior:Interaction.Triggers>
 
                                                             </syncfusion:ComboBoxAdv>
-
-                                                            <syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="3,0,3,0" />
-                                                            <syncfusion:CurrencyTextBox Grid.Column="2" Value="{Binding Amount}" Grid.Row="0" Margin="3,0,3,0" />
-                                                            <syncfusion:CurrencyTextBox  Grid.Column="3" Grid.Row="0" Margin="3,0,3,0" />
-                                                            <syncfusion:ComboBoxAdv  Grid.Column="4" Grid.Row="0" Margin="3,0,3,0" />
-                                                            <syncfusion:ComboBoxAdv  Grid.Column="5" Grid.Row="0" />
-                                                            <Button Content="Delete" Grid.Column="6" >
+                                                            <syncfusion:UpDown Grid.Column="1"  Value="{Binding Quantity,UpdateSourceTrigger=PropertyChanged}" Margin="3,0,3,0" />
+                                                            <!--<syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="3,0,3,0" />-->
+                                                            <syncfusion:DoubleTextBox  Grid.Column="2" Value="{Binding PricePerItem,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3,0,3,0" />
+                                                            <syncfusion:DoubleTextBox  Grid.Column="3" Value="{Binding Tax,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3,0,3,0" />
+                                                            <syncfusion:DoubleTextBox  Grid.Column="4" Value="{Binding Discount,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3,0,3,0" />
+                                                            <syncfusion:CurrencyTextBox Grid.Column="5" IsReadOnly="True"  Value="{Binding Amount,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3,0,3,0" >
+                                                                <syncfusion:CurrencyTextBox.Style>
+                                                                    <Style TargetType="syncfusion:CurrencyTextBox">
+                                                                        <Style.Triggers>
+                                                                            <Trigger Property="IsReadOnly" Value="True">
+                                                                                <Setter Property="Background" Value="Wheat"/>
+                                                                            </Trigger>
+                                                                        </Style.Triggers>
+                                                                    </Style>
+                                                                </syncfusion:CurrencyTextBox.Style>
+                                                            </syncfusion:CurrencyTextBox>
+                                                            <Button Content="Delete" Grid.Column="6" Background="Red" Margin="3,0,3,0">
                                                                 <behavior:Interaction.Triggers>
                                                                     <behavior:EventTrigger EventName="Click">
                                                                         <behavior:InvokeCommandAction Command="{Binding DataContext.DeleteProductSelection, 
@@ -312,13 +320,7 @@
                             </Grid>
 
                         </Grid>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+
 
                     </Grid>
 

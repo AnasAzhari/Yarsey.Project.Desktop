@@ -78,7 +78,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
         public async Task AddProduct()
         {
-            var ps = new ProductSelectionViewModel() {PricePerItem=900 };
+            var ps = new ProductSelectionViewModel();
             ProductSelections.Add(ps);
        
         }
@@ -87,6 +87,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
             var obj = param.GetType();
             ProductSelectionViewModel ps = (ProductSelectionViewModel)param;
             ps.Word = ps.SelectedProduct.Notes;
+            ps.PricePerItem = ps.SelectedProduct.ProductCost;
+            
             
 
         }
