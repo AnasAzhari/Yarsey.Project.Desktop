@@ -24,9 +24,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private ObservableCollection<Customer> _businessCustomers = new ObservableCollection<Customer>();
         public ObservableCollection<Customer> BusinessCustomers { get { return _businessCustomers; } set { SetProperty(ref _businessCustomers, value); } }
 
-        public ObservableCollection<ProductSelection> _productSelections=new ObservableCollection<ProductSelection>();
+        public ObservableCollection<ProductSelectionViewModel> _productSelections=new ObservableCollection<ProductSelectionViewModel>();
 
-        public ObservableCollection<ProductSelection> ProductSelections { get { return _productSelections; } set { SetProperty(ref _productSelections, value); } }
+        public ObservableCollection<ProductSelectionViewModel> ProductSelections { get { return _productSelections; } set { SetProperty(ref _productSelections, value); } }
 
         private ObservableCollection<Product> _productList= new ObservableCollection<Product>();
         public ObservableCollection<Product> ProductList { get { return _productList; } set { SetProperty(ref _productList, value); } }
@@ -40,7 +40,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public NewInvoiceViewModel(INavigationService invoiceNavService, BusinessStore businessStore, BusinessDataService businessDataService)
         {
-            this._productSelections = new ObservableCollection<ProductSelection>();
+            this._productSelections = new ObservableCollection<ProductSelectionViewModel>();
             this._productNavService = invoiceNavService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
@@ -78,22 +78,22 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
         public async Task AddProduct()
         {
-            var ps = new ProductSelection() {PricePerItem=900 };
+            var ps = new ProductSelectionViewModel() {PricePerItem=900 };
             ProductSelections.Add(ps);
        
         }
         private void ProductChanged(object param)
         {
             var obj = param.GetType();
-            ProductSelection ps = (ProductSelection)param;
+            ProductSelectionViewModel ps = (ProductSelectionViewModel)param;
             ps.Word = ps.SelectedProduct.Notes;
-            CollectionViewSource.GetDefaultView(ProductSelections);
+            
 
         }
         private void DeleteProductSelectionFunction(object param)
         {
             var obj = param.GetType();
-            ProductSelection ps = (ProductSelection)param;
+            ProductSelectionViewModel ps = (ProductSelectionViewModel)param;
             ProductSelections.Remove(ps);
         }
 

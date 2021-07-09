@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Yarsey.Domain.Models;
 
-namespace Yarsey.Desktop.WPF.ViewModels.InvoiceVM
+namespace Yarsey.Desktop.WPF.ViewModels
 {
     public class ProductSelectionViewModel:ViewModelBase
     {
