@@ -8,14 +8,17 @@ using System.Windows.Media.Imaging;
 using System.Drawing.Drawing2D;
 using System.Windows.Media;
 using System.IO;
+using Yarsey.EntityFramework;
 
 namespace Yarsey.Desktop.WPF.Helper
 {
     public static class Helper
     {
+        #region CONSTANT
+        // DONT CHANGE THIS SECTION !!!!!
         public const string InvoiceModule = "Inv";
         public const string ReceiptModule = "Rcp";
-
+        #endregion
         public static BitmapSource ImageResizer(string loc,int maxheight)
         {
             BitmapImage bitmapImage = new BitmapImage(new Uri(loc));

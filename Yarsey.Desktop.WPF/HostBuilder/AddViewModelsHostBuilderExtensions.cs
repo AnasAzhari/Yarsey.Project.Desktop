@@ -28,7 +28,6 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 //services.AddTransient<CustomerView>(s => new CustomerView() { DataContext = s.GetRequiredService<CustomerViewModel>() });
 
-
                 services.AddTransient<CustomerViewModel>(s=>new CustomerViewModel(
                                                              CreateNewCustomerNavigationDraweService(s), 
                                                              EditCustomerNavigationDrawerService(s),
@@ -83,10 +82,9 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                                                         ));
                 services.AddTransient<NewInvoiceViewModel>(s => new NewInvoiceViewModel(CreateInvoiceNavigationDrawerService(s),
                                                                       s.GetRequiredService<BusinessStore>(),
-                                                                      s.GetRequiredService<BusinessDataService>()
+                                                                      s.GetRequiredService<InvoiceDataService>(),
+                                                                      s.GetRequiredService<GeneralModalNavigationService>()
                                                         ));
-
-
 
                 #endregion
 

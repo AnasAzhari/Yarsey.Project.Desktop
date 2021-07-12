@@ -16,6 +16,7 @@ using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
 using Yarsey.Desktop.WPF.View;
+using Yarsey.EntityFramework.Seed;
 
 namespace Yarsey.Desktop.WPF
 {
@@ -52,7 +53,8 @@ namespace Yarsey.Desktop.WPF
             YarseyDbContextFactory contextFactory = _host.Services.GetRequiredService<YarseyDbContextFactory>();
             using (YarseyDbContext context = contextFactory.CreateDbContext())
             {
-                context.Database.Migrate();
+                await context.Database.MigrateAsync();
+                await Seed.SeedReference(context, new List<string>() { Helper.Helper.InvoiceModule, Helper.Helper.ReceiptModule });
                 var biz=context.Businesses.FirstOrDefault();
 
                 business = biz;
@@ -69,8 +71,6 @@ namespace Yarsey.Desktop.WPF
                 MainWindow = _host.Services.GetRequiredService<WindowSetupCompany>();
             }
 
-
-            
             ConfigureMainWindow();
             ConfigureSetupWindow();
           

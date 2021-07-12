@@ -10,24 +10,25 @@ namespace Yarsey.EntityFramework.Seed
 {
     public class Seed
     {
-        public async Task SeedReference(YarseyDbContext yarseyDbContext,List<String> listModule)
+        public static async Task SeedReference(YarseyDbContext yarseyDbContext,List<String> listModule)
         {
-            if (await yarseyDbContext.RunningNumbers.AnyAsync()) return;
 
             if(listModule!=null)
             {
+         
                 if (listModule.Count > 0)
                 {
-                    foreach (var item in listModule)
+                    foreach (var module in listModule)
                     {
-                        var runningnoModule = new RunningNumber() { ModuleName = item, RunningNo = 0 };
+                        if (await yarseyDbContext.RunningNumbers.Where(x => x.ModuleName == module).AnyAsync()) continue;
+
+                        var runningnoModule = new RunningNumber() { ModuleName = module, RunningNo = 0 };
 
                         yarseyDbContext.RunningNumbers.Add(runningnoModule);
-
                     }
                     await yarseyDbContext.SaveChangesAsync();
-
                 }
+
             }
 
 

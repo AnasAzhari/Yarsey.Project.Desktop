@@ -2,15 +2,17 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Yarsey.EntityFramework;
 
 namespace Yarsey.EntityFramework.Migrations
 {
     [DbContext(typeof(YarseyDbContext))]
-    partial class YarseyDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210711134231_runningno")]
+    partial class runningno
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -215,7 +217,12 @@ namespace Yarsey.EntityFramework.Migrations
                     b.Property<int>("RunningNo")
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("business_id")
+                        .HasColumnType("INTEGER");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("business_id");
 
                     b.ToTable("RunningNumbers");
                 });
@@ -334,6 +341,17 @@ namespace Yarsey.EntityFramework.Migrations
                         .IsRequired();
 
                     b.Navigation("SelectedProduct");
+                });
+
+            modelBuilder.Entity("Yarsey.Domain.Models.RunningNumber", b =>
+                {
+                    b.HasOne("Yarsey.Domain.Models.Business", "Business")
+                        .WithMany()
+                        .HasForeignKey("business_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Business");
                 });
 
             modelBuilder.Entity("Yarsey.Domain.Models.Sale", b =>

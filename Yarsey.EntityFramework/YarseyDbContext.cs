@@ -18,6 +18,7 @@ namespace Yarsey.EntityFramework
         public DbSet<Sale> Sales { get; set; }
         public DbSet<Product> Products { get; set; }
         public DbSet<RunningNumber> RunningNumbers { get; set; }
+        public DbSet<Invoice> Invoices { get; set; }
         public YarseyDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,6 +43,12 @@ namespace Yarsey.EntityFramework
                 entity.HasMany(e => e.Products).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
                 entity.HasMany(e => e.Invoices).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
 
+            });
+            modelBuilder.Entity<RunningNumber>(entity =>
+            {
+                entity.Property(e => e.ModuleName);
+                entity.Property(e => e.RunningNo);
+        
             });
 
             modelBuilder.Entity<Customer>(entity =>

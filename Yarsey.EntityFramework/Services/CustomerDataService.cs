@@ -37,8 +37,7 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext =_yarseyDbContextFactory.CreateDbContext())
             {
-                Customer entity = await dbContext.Customers
-                                        .FirstOrDefaultAsync((a) => a.Id == id);
+                Customer entity = await dbContext.Customers.FirstOrDefaultAsync((a) => a.Id == id);
                 return entity;
             }
         }
@@ -47,8 +46,7 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                IEnumerable<Customer> customers = await dbContext.Customers
-                                                        .ToListAsync();
+                IEnumerable<Customer> customers = await dbContext.Customers.ToListAsync();
                 return customers;
             }
         }
@@ -59,7 +57,6 @@ namespace Yarsey.EntityFramework.Services
             {
                 Business biz = await dbContext.Businesses.FirstAsync(x => x.Id == id);
                 var customers = biz.Customers.ToList();
-                                                        ;
                 return customers;
             }
         }
@@ -68,8 +65,7 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Customer customer = await dbContext.Customers
-                                          .FirstOrDefaultAsync((a)=>a.Name==name);
+                Customer customer = await dbContext.Customers.FirstOrDefaultAsync((a) => a.Name == name);
                 return customer;
             }
         }

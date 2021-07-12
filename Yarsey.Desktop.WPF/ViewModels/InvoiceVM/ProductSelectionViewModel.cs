@@ -7,8 +7,15 @@ using Yarsey.Domain.Models;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
-    public class ProductSelectionViewModel:ViewModelBase
+    public class ProductSelectionViewModel:ViewModelBase,IDisposable
     {
+
+        public ProductSelectionViewModel(NewInvoiceViewModel newInvoiceViewModel)
+        {
+            this._newInvoiceViewModel = newInvoiceViewModel;
+        }
+
+
         Product _selectedProduct;
 
         int _quantity=1;
@@ -17,6 +24,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         decimal _discount;
         decimal _amount;
         string _word;
+        private readonly NewInvoiceViewModel _newInvoiceViewModel;
 
         public Product SelectedProduct { get { return _selectedProduct; } set { SetProperty(ref _selectedProduct, value); RecalculateAmount(); } }
         public int Quantity { get { return _quantity; } set { SetProperty(ref _quantity, value); RecalculateAmount(); } }
@@ -31,7 +39,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
             decimal baseAmount = PricePerItem * Quantity;
             decimal discountedAmount = ((Tax - Discount) / 100)*baseAmount;
             Amount = baseAmount + discountedAmount;
-            
+            _newInvoiceViewModel.cbCalculateTotal();
         }
+
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
+
     }
 }

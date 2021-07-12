@@ -47,6 +47,7 @@
                         <Grid.RowDefinitions>
                             <RowDefinition Height="90"/>
                             <RowDefinition Height="90"/>
+                            <RowDefinition Height="90"/>
                             <RowDefinition />
                             <RowDefinition Height="90"/>
 
@@ -73,7 +74,7 @@
                                 <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice No"/>
-                                <syncfusion:SfTextBoxExt Grid.Row="1" FontSize="15" Grid.Column="1" IsReadOnly="True"  VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                <syncfusion:SfTextBoxExt Grid.Row="1" FontSize="15" MaxLines="2" Grid.Column="1" IsReadOnly="True" Text="{Binding CurrentRunningNo}"  VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                          
                                     />
                                 <Label Grid.Row="2" Grid.Column="1" Content=""/>
@@ -94,13 +95,40 @@
                                 <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice Date"/>
-                                <syncfusion:SfDatePicker Grid.Row="1" Grid.Column="1"   VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                <syncfusion:SfDatePicker Grid.Row="1" Grid.Column="1" Value="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                          
                                     />
                                 <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
 
 
                             </Grid>
+                          </Grid>
+
+                        <Grid Grid.Row="0" Grid.Column="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Invoice Due Date"/>
+                                <syncfusion:SfDatePicker Grid.Row="1" Grid.Column="1" Value="{Binding Due,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" MinDate="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                                         
+                                    />
+                                <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
+                            </Grid>
+                            
                         </Grid>
 
 
@@ -131,8 +159,6 @@
                                     </behavior:Interaction.Triggers>-->
                                 </syncfusion:ComboBoxAdv>
                                 <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
-
-
                             </Grid>
                             
                         </Grid>
@@ -145,8 +171,8 @@
                                     <RowDefinition/>
                                 </Grid.RowDefinitions>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"/>
-                                    <ColumnDefinition Width="6*"/>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
                                 <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
@@ -161,7 +187,33 @@
 
                         </Grid>
                         
-                        <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                        <!--Adress-->
+                        <Grid Grid.Row="2" Grid.Column="0">
+                         
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource  Adress}"/>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Customer"/>
+                            <syncfusion:SfRichTextBoxAdv Grid.Row="1" Grid.Column="1" />
+
+                            <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
+                            
+
+
+                        </Grid>
+                        
+                        
+                        <!--Listview-->
+                        <Grid Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60"/>
@@ -185,7 +237,7 @@
                                         <ColumnDefinition Width="1*"/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Label Grid.Column="0" FontSize="12" Content="Item" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <Label Grid.Column="0" FontSize="12" Content="Product" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <Label Grid.Column="1" FontSize="12" Content="Quantity" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <Label Grid.Column="2" FontSize="12" Content="Rate" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                                     <Label Grid.Column="3" FontSize="12" Content="Tax (%)" HorizontalAlignment="Center" VerticalAlignment="Center"/>
@@ -197,7 +249,7 @@
                                  <!--ITEMSCONTROL-->
                                 <Grid Grid.Row="1" Grid.Column="1"  >
                                     <Border BorderBrush="SeaGreen" BorderThickness="2">
-                                        <ScrollViewer  >
+                                        <ScrollViewer VerticalScrollBarVisibility="Auto" >
 
                                             <!--<StackPanel Orientation="Vertical" Margin="0,4,15,5">
                                                 <local:ProductSelectionView Padding="4,4,4,4"/>
@@ -206,7 +258,7 @@
                                           
                                           
                                              </StackPanel>-->
-                                            <ListView x:Name="ProductSelectionistView" ItemsSource="{Binding ProductSelections,UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+                                            <ListView x:Name="ProductSelectionistView" ItemsSource="{Binding ProductSelections,UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled" Margin="3,3,10,6" >
                                                 <ListView.ItemContainerStyle>
                                                     <Style TargetType="ListViewItem">
                                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -260,12 +312,12 @@
                                                                 </behavior:Interaction.Triggers>
 
                                                             </syncfusion:ComboBoxAdv>
-                                                            <syncfusion:UpDown Grid.Column="1"  Value="{Binding Quantity,UpdateSourceTrigger=PropertyChanged}" Margin="3,0,3,0" />
+                                                            <syncfusion:UpDown  Grid.Column="1" MinValue="1" Step="1" NumberDecimalDigits="0"  Value="{Binding Quantity,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3,0,3,0" />
                                                             <!--<syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="3,0,3,0" />-->
-                                                            <syncfusion:DoubleTextBox  Grid.Column="2" Value="{Binding PricePerItem,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3,0,3,0" />
-                                                            <syncfusion:DoubleTextBox  Grid.Column="3" Value="{Binding Tax,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3,0,3,0" />
-                                                            <syncfusion:DoubleTextBox  Grid.Column="4" Value="{Binding Discount,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3,0,3,0" />
-                                                            <syncfusion:CurrencyTextBox Grid.Column="5" IsReadOnly="True"  Value="{Binding Amount,UpdateSourceTrigger=PropertyChanged}" Grid.Row="0" Margin="3,0,3,0" >
+                                                            <syncfusion:DoubleTextBox  Grid.Column="2" NumberDecimalDigits="2" MinValue="0" Value="{Binding PricePerItem,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+                                                            <syncfusion:DoubleTextBox  Grid.Column="3" NumberDecimalDigits="2" MinValue="0" Value="{Binding Tax,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+                                                            <syncfusion:DoubleTextBox  Grid.Column="4" NumberDecimalDigits="2" MinValue="0" Value="{Binding Discount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+                                                            <syncfusion:CurrencyTextBox Grid.Column="5" IsReadOnly="True" CurrencyDecimalDigits="2"  Value="{Binding Amount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" >
                                                                 <syncfusion:CurrencyTextBox.Style>
                                                                     <Style TargetType="syncfusion:CurrencyTextBox">
                                                                         <Style.Triggers>
@@ -301,9 +353,9 @@
 
                         </Grid>
 
-                        <Grid Grid.Row="3" Grid.Column="0">
-                            <!--<Button Content="Test" Height="50" Width="100" HorizontalAlignment="Left" VerticalAlignment="Center"/>-->
-                            <Grid>
+                        <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
+
+                            <!--<Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition/>
@@ -317,11 +369,55 @@
                                     
                                 </Grid>
                                 
+                            </Grid>-->
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="4*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                    <ColumnDefinition Width="3*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0" Grid.Column="1">
+                                        <Button Content="Add Item" Height="30" Width="100" Command="{Binding AddProductSelectionCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
+
+                                    </Grid>
+
+                                </Grid>
+
+                                <Grid Grid.Row="0" Grid.Column="4">
+                                    <Label Content="Total" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,0" />
+                                </Grid>
+                                <Grid Grid.Row="0" Grid.Column="5">
+                                    <syncfusion:CurrencyTextBox Value="{Binding Total,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" CurrencyDecimalDigits="2" IsReadOnly="True" VerticalAlignment="Top" Margin="0,5,0,0">
+                                        <syncfusion:CurrencyTextBox.Style>
+                                            <Style TargetType="syncfusion:CurrencyTextBox">
+                                                <Style.Triggers>
+                                                    <Trigger Property="IsReadOnly" Value="True">
+                                                        <Setter Property="Background" Value="Wheat"/>
+                                                    </Trigger>
+                                                </Style.Triggers>
+                                            </Style>
+                                        </syncfusion:CurrencyTextBox.Style>
+                                    </syncfusion:CurrencyTextBox>
+
+                                </Grid>
+
                             </Grid>
 
                         </Grid>
-
-
                     </Grid>
 
                 </Grid>
@@ -331,7 +427,7 @@
 
         <Grid Grid.Row="2" Margin="35,5,5,5">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Simpan" Command="{Binding CreateCustomerCommand}" Height="50" Width="200" />
+                <Button Content="Simpan" Height="50" Width="200" />
                 <Button Content="Batal" Command="{Binding NavigateInvoiceCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
             </StackPanel>
         </Grid>
