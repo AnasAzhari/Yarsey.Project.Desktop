@@ -482,6 +482,7 @@
             <StackPanel Orientation="Horizontal">
                 <Button Content="Simpan" Command="{Binding AddInvoiceCommand}" Height="50" Width="200" />
                 <Button Content="Batal" Command="{Binding NavigateInvoiceCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
+                <Button Content="Export to PDF" Command="{Binding PdfCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
             </StackPanel>
         </Grid>
 

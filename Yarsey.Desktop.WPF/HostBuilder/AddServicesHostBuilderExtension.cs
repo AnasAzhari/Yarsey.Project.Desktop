@@ -23,6 +23,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 services.AddTransient<BusinessDataService>(s => new BusinessDataService(s.GetRequiredService<YarseyDbContextFactory>()));
                 services.AddTransient<SaleDataService>(s => new SaleDataService(s.GetRequiredService<YarseyDbContextFactory>()));
                 services.AddTransient<InvoiceDataService>(s => new InvoiceDataService(s.GetRequiredService<YarseyDbContextFactory>()));
+                services.AddTransient<PdfService>();
             });
 
             return host;

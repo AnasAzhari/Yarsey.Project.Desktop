@@ -70,12 +70,6 @@
     <Reference Include="Syncfusion.Edit.Wpf">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Edit.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.Gantt.MVVM.Wpf">
-      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Gantt.MVVM.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Gantt.Wpf">
-      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Gantt.WPF.dll</HintPath>
-    </Reference>
     <Reference Include="Syncfusion.Grid.Wpf">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Grid.WPF.dll</HintPath>
     </Reference>
@@ -90,6 +84,9 @@
     </Reference>
     <Reference Include="Syncfusion.Linq.Base">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Linq.Base.dll</HintPath>
+    </Reference>
+    <Reference Include="Syncfusion.Pdf.Base">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Pdf.Base.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Presentation.Base">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Presentation.Base.dll</HintPath>
@@ -130,17 +127,8 @@
     <Reference Include="Syncfusion.SfInput.Wpf">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfInput.WPF.dll</HintPath>
     </Reference>
-    <Reference Include="Syncfusion.SfMaps.WPF">
-      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfMaps.WPF.dll</HintPath>
-    </Reference>
     <Reference Include="Syncfusion.SfNavigationDrawer.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfNavigationDrawer.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.SfProgressBar.WPF">
-      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfProgressBar.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.SfRadialMenu.Wpf">
-      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfRadialMenu.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfRichTextBoxAdv.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfRichTextBoxAdv.WPF.dll</HintPath>
@@ -165,9 +153,6 @@
     </Reference>
     <Reference Include="Syncfusion.Shared.WPF.Classic">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Shared.WPF.Classic.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.Themes.Blend.WPF">
-      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Themes.Blend.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.Themes.FluentDark.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Themes.FluentDark.WPF.dll</HintPath>

@@ -84,7 +84,8 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                                                                       s.GetRequiredService<BusinessStore>(),
                                                                       s.GetRequiredService<BusinessDataService>(),
                                                                       s.GetRequiredService<InvoiceDataService>(),
-                                                                      s.GetRequiredService<GeneralModalNavigationService>()
+                                                                      s.GetRequiredService<GeneralModalNavigationService>(),
+                                                                      s.GetRequiredService<PdfService>()
                                                         ));
 
                 #endregion

@@ -50,6 +50,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private readonly BusinessDataService _businessDataService;
         private readonly InvoiceDataService _invoiceDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
+        private readonly PdfService _pdfService;
         private ObservableCollection<Customer> _businessCustomers = new ObservableCollection<Customer>();
         public ObservableCollection<Customer> BusinessCustomers { get { return _businessCustomers; } set { SetProperty(ref _businessCustomers, value); } }
 
@@ -59,12 +60,14 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public ICommand NavigateInvoiceCommand { get; set; }
         public ICommand AddProductSelectionCommand { get; set; }
         public ICommand AddInvoiceCommand { get; set; }
+
+        public ICommand PdfCommand { get; set; }
         public DelegateCommand<object> SelectedCustomerChanged { get; set; }
         public DelegateCommand<object> SelectedProductChanged { get; set; }
         public DelegateCommand<object> DeleteProductSelection { get; set; }
 
         public Action cbCalculateTotal;
-        public NewInvoiceViewModel(INavigationService invoiceNavService, BusinessStore businessStore,BusinessDataService businessDataService ,InvoiceDataService invoiceDataService,GeneralModalNavigationService generalModalNavigationService)
+        public NewInvoiceViewModel(INavigationService invoiceNavService, BusinessStore businessStore,BusinessDataService businessDataService ,InvoiceDataService invoiceDataService,GeneralModalNavigationService generalModalNavigationService, PdfService pdfService)
         {
             this._productSelections = new ObservableCollection<ProductSelectionViewModel>();
             this._productNavService = invoiceNavService;
@@ -72,11 +75,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
             this._businessDataService = businessDataService;
             this._invoiceDataService = invoiceDataService;
             this._generalModalNavigationService = generalModalNavigationService;
-
+            this._pdfService = pdfService;
             this.cbCalculateTotal += OnProductSelectionChanged;
 
             this.NavigateInvoiceCommand = new NavigationDrawerCommand(invoiceNavService);
             this.AddProductSelectionCommand = new AsyncRelayCommand(AddValidationAsync, AddProduct);
+
+            this.PdfCommand = new DelegateCommand<object>(CreatePdf);
 
 
             this.SelectedProductChanged = new DelegateCommand<object>(ProductChanged);
@@ -152,6 +157,11 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private void CustomerChanged(object param)
         {
             Adress = this.SelectedCustomer.Adress;
+        }
+
+        private void CreatePdf(object param)
+        {
+            this._pdfService.CreateInvoicePDF(this);
         }
 
         private void DeleteProductSelectionFunction(object param)
