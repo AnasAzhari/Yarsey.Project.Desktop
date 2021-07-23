@@ -17,9 +17,12 @@ namespace Yarsey.Desktop.WPF.HostBuilder
         {
             host.ConfigureServices((context, services) =>
             {
-                string connectionString = context.Configuration.GetConnectionString("sqlite");
-                Action<DbContextOptionsBuilder> configureDbContext = o => o.UseSqlite(connectionString);
 
+                var yarseyDbConnection = context.Configuration.GetSection("DBConnection");
+ 
+                string connectionString = context.Configuration.GetConnectionString("sqlite");
+             
+                Action<DbContextOptionsBuilder> configureDbContext = o => o.UseSqlite(yarseyDbConnection.Value);
                 services.AddDbContext<YarseyDbContext>(configureDbContext);
                 services.AddSingleton<YarseyDbContextFactory>(new YarseyDbContextFactory(configureDbContext));
             });

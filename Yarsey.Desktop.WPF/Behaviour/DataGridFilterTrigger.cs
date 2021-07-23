@@ -31,7 +31,13 @@ namespace Yarsey.Desktop.WPF.Behaviour
                 var viewModel = this.Target.DataContext as ProductViewModel;
                 viewModel.filterChanged += OnFilterChanged;
             }
-           
+            else if (type == typeof(InvoiceViewModel))
+            {
+                var viewModel = this.Target.DataContext as InvoiceViewModel;
+                viewModel.filterChanged += OnFilterChanged;
+            }
+
+
         }
 
         /// <summary>
@@ -66,7 +72,16 @@ namespace Yarsey.Desktop.WPF.Behaviour
                     }
 
                 }
+                else if (type == typeof(InvoiceViewModel))
+                {
+                    var viewModel = this.Target.DataContext as InvoiceViewModel;
+                    if (this.Target.View != null)
+                    {
+                        this.Target.View.Filter = viewModel.FilerRecords;
+                        this.Target.View.RefreshFilter();
+                    }
 
+                }
             }
 
         }

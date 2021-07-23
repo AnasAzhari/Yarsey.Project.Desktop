@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -7,7 +8,7 @@ using Yarsey.Domain.Models;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
-    public class ProductSelectionViewModel:ViewModelBase,IDisposable
+    public class ProductSelectionViewModel:ViewModelBase,IDisposable, INotifyDataErrorInfo
     {
 
         public ProductSelectionViewModel(NewInvoiceViewModel newInvoiceViewModel)
@@ -46,6 +47,87 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             base.Dispose();
         }
+
+        #region Validation
+
+        private bool canValidateForErrors;
+
+        private async Task Success()
+        {
+
+
+        }
+
+
+        public async Task<bool> ValidateAsync()
+        {
+            canValidateForErrors = true;
+            if (this.ErrorsChanged != null)
+            {
+                this.RaiseErrorsChanged("SelectedProduct");
+             
+
+                if (!this.HasErrors)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                if (!this.HasErrors)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool HasErrors
+        {
+            get
+            {
+                return OnValidate(string.Empty).Count > 0;
+            }
+        }
+
+
+        public event EventHandler<DataErrorsChangedEventArgs> ErrorsChanged;
+
+        public void RaiseErrorsChanged(string propertyName)
+        {
+            if (ErrorsChanged != null)
+            {
+                ErrorsChanged.Invoke(this, new DataErrorsChangedEventArgs(propertyName));
+            }
+        }
+
+        private List<string> OnValidate(string columnName)
+        {
+            List<string> result = new List<string>();
+
+            if (!canValidateForErrors)
+                return result;
+            if (string.IsNullOrEmpty(columnName) || columnName == "SelectedProduct")
+            {
+                if (SelectedProduct == null)
+                    result.Add("Enter Product");
+            }
+            return result;
+        }
+
+        System.Collections.IEnumerable INotifyDataErrorInfo.GetErrors(string propertyName)
+        {
+            return OnValidate(propertyName);
+        }
+
+        #endregion
 
     }
 }

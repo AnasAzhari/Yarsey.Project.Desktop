@@ -19,6 +19,7 @@ using Yarsey.Desktop.WPF.ViewModels;
 using Microsoft.Extensions.Configuration;
 using Syncfusion.Themes.FluentDark.WPF;
 using Syncfusion.Themes.FluentLight.WPF;
+using Yarsey.Desktop.WPF.Services;
 
 namespace Yarsey.Desktop.WPF
 {
@@ -27,58 +28,45 @@ namespace Yarsey.Desktop.WPF
     /// </summary>
     public partial class MainWindow :ChromelessWindow
     {
-        private readonly IConfiguration _configuration;
-
+      
+        private readonly SettingsConfiguration _settingsService;
         private FluentTheme _lightFluent;
         private FluentTheme _darkFluent;
-
 
         private string _lightModeBackground = "#e6e6e6";
         private string _darkModeBackground = "#262626";
       
-
         private Brush _lightBrush;
         private Brush _darkBrush;
 
-        public MainWindow(ViewModelBase viewModelBase,IConfiguration configuration)
+        public MainWindow(ViewModelBase viewModelBase,SettingsConfiguration settingsService)
         {
-
+            this._settingsService = settingsService;
             _lightBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(_lightModeBackground));
             _darkBrush = new SolidColorBrush((Color)ColorConverter.ConvertFromString(_darkModeBackground));
        
             DataContext = viewModelBase;
-            this._configuration = configuration;
             SfSkinManager.ApplyStylesOnApplication = true;
-
-
-            InitializeComponent();
-
+            InitializeComponent();           
             InitConfigure();
+
         }
 
         public void SetLightMode()
         {
 
-            // SfSkinManager.SetTheme(this, new FluentTheme() { ThemeName = "FluentLight" });
-            //SfSkinManager.SetTheme(this, new FluentTheme("FluentLight",null));
-
-            // SfSkinManager.SetTheme(this,new FluentTheme("FluentLight",))
             SfSkinManager.SetTheme(this, _lightFluent);
             MainControl.Background = _lightBrush;
         }
         public void SetDarkMode()
         {
-            // SfSkinManager.SetTheme(this, new FluentTheme() { ThemeName = "FluentDarkTurq" });
-            //SfSkinManager.SetTheme(this, new FluentTheme("FluentDark", null));
-
+           
             SfSkinManager.SetTheme(this, _darkFluent);
             MainControl.Background = _darkBrush;
 
         }
         public void InitConfigure()
         {
-            
-
             _lightFluent = new FluentTheme("FluentLight", null);
             _lightFluent.ShowAcrylicBackground = false;
             _lightFluent.HoverEffectMode = HoverEffect.BackgroundAndBorder;
@@ -87,40 +75,16 @@ namespace Yarsey.Desktop.WPF
             _darkFluent.ShowAcrylicBackground = false;
             _darkFluent.HoverEffectMode = HoverEffect.BackgroundAndBorder;
 
-            //FluentLightThemeSettings fluentLightThemeSettings = new FluentLightThemeSettings();
-            //fluentLightThemeSettings.PrimaryBackground =new SolidColorBrush() { Color=Colors.Red,Opacity=1.0};
-            //SfSkinManager.RegisterThemeSettings("FluentLight", fluentLightThemeSettings);
-
-
-
-
-
-            //FluentLightThemeSettings l = new FluentLightThemeSettings();
-            //l.PrimaryBackground.Opacity = 1;
-
-            //FluentDarkThemeSettings d = new FluentDarkThemeSettings();
-            //d.PrimaryBackground.Opacity = 1;
-
-            //SfSkinManager.RegisterThemeSettings("FluentLight", l);
-            //SfSkinManager.RegisterThemeSettings("FluentDark", d);
-
-
-
-
-            var d = _configuration.GetSection("Theme").GetSection("LightMode").Value;
-            bool result;
-            if (bool.TryParse(d, out result))
+            if (_settingsService.CurrentSettings.LightTheme == true)
             {
-                if (result == true)
-                {
-                    SetLightMode();
-                }
-                else
-                {
-                    SetDarkMode();
-                }
+                SetLightMode();
+            }
+            else
+            {
+                SetDarkMode();
             }
 
         }
+ 
     }
 }

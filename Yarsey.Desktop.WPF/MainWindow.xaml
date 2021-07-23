@@ -23,11 +23,9 @@
         <Grid.Resources>
             <ResourceDictionary>
             
-
                 <DataTemplate DataType="{x:Type ViewModels:HomeViewModel}">
                     <views:HomeView/>
                 </DataTemplate>
-                
                 
                 <DataTemplate DataType="{x:Type ViewModels:CustomerViewModel}">
                     <views:CustomerView/>
@@ -83,12 +81,7 @@
         <!--<syncfusion:SfBusyIndicator IsBusy="True" AnimationType="Cupertino"/>-->
 
         <syncfusion:SfNavigationDrawer x:Name="sff" DisplayMode="Expanded">
-            <!--<interaction:Interaction.Triggers>
-                <interaction:EventTrigger EventName="ItemClicked">
-                    <behaviour:NavationItemClickedAction TargetObject="{Binding ElementName=contentViewGrid}" />
-                     
-                </interaction:EventTrigger>
-            </interaction:Interaction.Triggers>-->
+         
             <syncfusion:NavigationItem Header="Home" Command="{Binding NavigateHomeCommand}" IsSelected="True">
                 <syncfusion:NavigationItem.Icon>
 

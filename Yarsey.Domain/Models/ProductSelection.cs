@@ -17,7 +17,6 @@ namespace Yarsey.Domain.Models
         public decimal Tax { get; set; }
         public decimal Discount { get; set; }
         public decimal Amount { get; set; }
-
         public string Word { get; set; } 
 
    

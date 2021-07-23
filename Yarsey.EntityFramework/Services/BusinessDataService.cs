@@ -69,7 +69,7 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business entity = await dbContext.Businesses.Include(c => c.Customers).Include(p=>p.Products)
+                Business entity = await dbContext.Businesses.Include(c => c.Customers).Include(p=>p.Products).Include(i=>i.Invoices)
                                         .FirstOrDefaultAsync();
                 return entity;
             }
@@ -79,9 +79,12 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business entity = await dbContext.Businesses.Include(c=>c.Customers).Include(p=>p.Products)
-                                        .FirstOrDefaultAsync((a) => a.Id == id);
-                return entity;
+                 Business entity = await dbContext.Businesses.
+                                               Include(c => c.Customers).
+                                               Include(p => p.Products).
+                                               Include(i => i.Invoices).
+                                               FirstOrDefaultAsync((a) => a.Id == id);
+                    return entity;
             }
         }
 
@@ -129,6 +132,16 @@ namespace Yarsey.EntityFramework.Services
                 Business businesses = await dbContext.Businesses.Include(p => p.Products).FirstOrDefaultAsync(x => x.Id == bizId);
 
                 businesses.Products.Add(product);
+                await dbContext.SaveChangesAsync();
+            }
+        }
+
+        public async Task AddInvoice(int bizId,Invoice invoice)
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                Business businesses = await dbContext.Businesses.Include(p => p.Invoices).FirstOrDefaultAsync(x => x.Id == bizId);
+                businesses.Invoices.Add(invoice);
                 await dbContext.SaveChangesAsync();
             }
         }

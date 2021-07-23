@@ -19,9 +19,6 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 services.AddSingleton<NavigationDrawerStore>();
                 services.AddSingleton<BusinessStore>();
                 services.AddSingleton<ModalNavigationStore>();
-
-
-
             });
             return host;
         }

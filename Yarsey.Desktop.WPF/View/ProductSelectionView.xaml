@@ -4,29 +4,98 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Yarsey.Desktop.WPF.View"
+             xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
               xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:converters="clr-namespace:Yarsey.Desktop.WPF.Converter"
              mc:Ignorable="d" 
              d:DesignHeight="40" d:DesignWidth="800">
-    <Grid>
-        
-        
-      
-         <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
-         </Grid.ColumnDefinitions>
-        <syncfusion:ComboBoxAdv x:Name="ItemsCollection" ItemsSource="{Binding ListOfProduct}" Grid.Column="0" Grid.Row="0" Margin="0,0,3,0" /> <!--PilihatnItem-->
-        <syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Amount}"  Margin="3,0,3,0" /> 
-        <syncfusion:CurrencyTextBox Grid.Column="2" Value="{Binding Amount}" Grid.Row="0" Margin="3,0,3,0" />
-        <syncfusion:CurrencyTextBox  Grid.Column="3" Grid.Row="0" Margin="3,0,3,0" />
-        <syncfusion:ComboBoxAdv  Grid.Column="4" Grid.Row="0" Margin="3,0,3,0" />
-        <syncfusion:ComboBoxAdv  Grid.Column="5" Grid.Row="0" />
-           
 
-       
+    <UserControl.Resources>
+
+        <Style TargetType="Image">
+            <Setter Property="RenderOptions.BitmapScalingMode" Value="HighQuality"/>
+        </Style>
+        <converters:EmptyCollectionToObjectConverter x:Key="EmptyCollectionToObjectConverter" EmptyValue="False" NotEmptyValue="True"/>
+        <converters:ErrorConverter x:Key="ErrorConverter"/>
+
+    </UserControl.Resources>
+    <Grid Height="45">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="0.7*"/>
+
+        </Grid.RowDefinitions>
+
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="4*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+        <syncfusion:ComboBoxAdv x:Name="xxxx"
+                                       ItemsSource="{Binding DataContext.ProductList, RelativeSource={RelativeSource AncestorType={x:Type ListView}},UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                                       SelectedValue="{Binding SelectedProduct,Mode=TwoWay,ValidatesOnNotifyDataErrors=True}"
+                                       DisplayMemberPath="ProductName" 
+                                       Grid.Column="0" Grid.Row="0" Margin="0,0,3,0" 
+
+            >
+            <behavior:Interaction.Triggers>
+                <behavior:EventTrigger EventName="SelectionChanged">
+                    <behavior:InvokeCommandAction Command="{Binding DataContext.SelectedProductChanged, 
+                                RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" 
+                               CommandParameter="{Binding}"/>
+                </behavior:EventTrigger>
+            </behavior:Interaction.Triggers>
+            <Validation.ErrorTemplate>
+                <ControlTemplate>
+                    <StackPanel>
+                        <AdornedElementPlaceholder x:Name="gg">
+                            <Border BorderBrush="Red" 
+                             BorderThickness="2"
+                            />
+
+                        </AdornedElementPlaceholder>
+                        <ItemsControl ItemsSource="{Binding}">
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </StackPanel>
+
+                </ControlTemplate>
+            </Validation.ErrorTemplate>
+
+        </syncfusion:ComboBoxAdv>
+        <syncfusion:UpDown  Grid.Column="1" MinValue="1" Step="1" NumberDecimalDigits="0"  Value="{Binding Quantity,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3,0,3,0" />
+        <!--<syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="3,0,3,0" />-->
+        <syncfusion:DoubleTextBox  Grid.Column="2" NumberDecimalDigits="2" MinValue="0" Value="{Binding PricePerItem,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+        <syncfusion:DoubleTextBox  Grid.Column="3" NumberDecimalDigits="2" MinValue="0" Value="{Binding Tax,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+        <syncfusion:DoubleTextBox  Grid.Column="4" NumberDecimalDigits="2" MinValue="0" Value="{Binding Discount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+        <syncfusion:CurrencyTextBox Grid.Column="5" IsReadOnly="True" CurrencyDecimalDigits="2"  Value="{Binding Amount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" >
+            <syncfusion:CurrencyTextBox.Style>
+                <Style TargetType="syncfusion:CurrencyTextBox">
+                    <Style.Triggers>
+                        <Trigger Property="IsReadOnly" Value="True">
+                            <Setter Property="Background" Value="Wheat"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </syncfusion:CurrencyTextBox.Style>
+        </syncfusion:CurrencyTextBox>
+        <Button Content="Delete" Grid.Column="6" Background="Red" Margin="3,0,3,0">
+            <behavior:Interaction.Triggers>
+                <behavior:EventTrigger EventName="Click">
+                    <behavior:InvokeCommandAction Command="{Binding DataContext.DeleteProductSelection, 
+                                     RelativeSource={RelativeSource AncestorType={x:Type ListView}}}" 
+                                     CommandParameter="{Binding}"/>
+                </behavior:EventTrigger>
+            </behavior:Interaction.Triggers>
+        </Button>
     </Grid>
 </UserControl>

@@ -74,7 +74,7 @@
                                 <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice No"/>
-                                <syncfusion:SfTextBoxExt Grid.Row="1" FontSize="15" MaxLines="2" Grid.Column="1" IsReadOnly="True" Text="{Binding CurrentRunningNo}"  VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                <syncfusion:SfTextBoxExt Grid.Row="1" Height="25" MaxLines="2" Grid.Column="1" IsReadOnly="True" Text="{Binding CurrentRunningNo}"  VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                          
                                     />
                                 <Label Grid.Row="2" Grid.Column="1" Content=""/>
@@ -95,7 +95,7 @@
                                 <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice Date"/>
-                                <syncfusion:SfDatePicker Grid.Row="1" Grid.Column="1" Value="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                <syncfusion:SfDatePicker Grid.Row="1" Height="25" Grid.Column="1" Value="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                          
                                     />
                                 <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
@@ -123,7 +123,7 @@
                                 <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice Due Date"/>
-                                <syncfusion:SfDatePicker Grid.Row="1" Grid.Column="1" Value="{Binding Due,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" MinDate="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                <syncfusion:SfDatePicker Grid.Row="1" Height="25" Grid.Column="1" Value="{Binding Due,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" MinDate="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                          
                                     />
                                 <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
@@ -147,21 +147,48 @@
                                 <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Customer"/>
-                                <syncfusion:ComboBoxAdv x:Name="JJJ" ItemsSource="{Binding BusinessCustomers}" DisplayMemberPath="Name" 
+                                <syncfusion:ComboBoxAdv Height="25" x:Name="CustomerSelectionControl" ItemsSource="{Binding BusinessCustomers}" DisplayMemberPath="Name" 
+                                                        SelectedValue="{Binding SelectedCustomer,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnNotifyDataErrors=True}"
                                                         IsTextSearchEnabled="True" 
                                                         Grid.Row="1" Grid.Column="1"   VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                         
                                 >
-                                    <!--<behavior:Interaction.Triggers>
+                                    <behavior:Interaction.Triggers>
                                         <behavior:EventTrigger EventName="SelectionChanged">
-                                            <behavior:InvokeCommandAction Command="{Binding SelectedProductChanged}" CommandParameter="{Binding JJJ}"/>
+                                            <behavior:InvokeCommandAction Command="{Binding SelectedCustomerChanged}"/>
                                         </behavior:EventTrigger>
-                                    </behavior:Interaction.Triggers>-->
+                                    </behavior:Interaction.Triggers>
+
+
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel>
+                                                <AdornedElementPlaceholder x:Name="TT">
+                                                    <Border BorderBrush="Red" 
+                                                        BorderThickness="2"/>
+
+                                                </AdornedElementPlaceholder>
+                                                <ItemsControl ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+
+                                            </StackPanel>
+                                            
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+                         
+                                    
+                                    
                                 </syncfusion:ComboBoxAdv>
-                                <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
+                                <!--<Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>-->
                             </Grid>
-                            
                         </Grid>
+                        
                         <Grid Grid.Row="1" Grid.Column="1">
 
                             <Grid>
@@ -178,7 +205,7 @@
                                 <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice No"/>
-                                <syncfusion:SfDatePicker Grid.Row="1" Grid.Column="1"   VerticalAlignment="Center" VerticalContentAlignment="Center"/>
+                                <syncfusion:SfDatePicker Grid.Row="1" Grid.Column="1" Height="25"   VerticalAlignment="Center" VerticalContentAlignment="Center"/>
                                 <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
 
 
@@ -189,8 +216,7 @@
                         
                         <!--Adress-->
                         <Grid Grid.Row="2" Grid.Column="0">
-                         
-                                <Grid.RowDefinitions>
+                            <Grid.RowDefinitions>
                                     <RowDefinition/>
                                     <RowDefinition/>
                                     <RowDefinition/>
@@ -200,15 +226,33 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource  Adress}"/>
+                                <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Adress}"/>
 
-                                <Label Grid.Row="0" Grid.Column="1" Content="Customer"/>
-                            <syncfusion:SfRichTextBoxAdv Grid.Row="1" Grid.Column="1" />
+                                <Label Grid.Row="0" Grid.Column="1" Content="Bill to :"/>
+                            <TextBox Grid.Row="1" Height="25" Text="{Binding Adress,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay,ValidatesOnNotifyDataErrors=True}" Grid.Column="1">
+                                <Validation.ErrorTemplate>
+                                    <ControlTemplate>
+                                        <StackPanel>
+                                            <AdornedElementPlaceholder x:Name="ss">
+                                                <Border BorderBrush="Red" 
+                                                        BorderThickness="2"/>
 
-                            <Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>
-                            
+                                            </AdornedElementPlaceholder>
+                                            <ItemsControl ItemsSource="{Binding}">
+                                                <ItemsControl.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                    </DataTemplate>
+                                                </ItemsControl.ItemTemplate>
+                                            </ItemsControl>
 
 
+                                        </StackPanel>
+
+                                    </ControlTemplate>
+                                </Validation.ErrorTemplate>
+                            </TextBox>
+                            <!--<Label Grid.Row="2" Grid.Column="1" Content="fdsdf"/>-->
                         </Grid>
                         
                         
@@ -270,9 +314,9 @@
 
                                                 <ListView.ItemTemplate >
                                                         <DataTemplate  >
-                                                        <!--<local:ProductSelectionView   Padding="4,4,4,4">
+                                                        <local:ProductSelectionView>
                                                                
-                                                        </local:ProductSelectionView>-->
+                                                        </local:ProductSelectionView>
                                                         <!--<StackPanel Orientation="Horizontal">
                                                             <syncfusion:ComboBoxAdv Grid.Column="0" Width="80" Margin="0,0,3,0" />
                                                             <syncfusion:UpDown  Grid.Column="1" Width="80"  Margin="3,0,3,0" MinValue="1" NumberDecimalDigits="0"  />
@@ -284,7 +328,10 @@
                                                             <syncfusion:ComboBoxAdv Width="80" Margin="3,0,3,0" />
 
                                                         </StackPanel>-->
-                                                        <Grid>
+                                                        <!--<Grid>
+                                                        
+                                                            
+                                                            
                                                             <Grid.ColumnDefinitions>
                                                                 <ColumnDefinition Width="4*"/>
                                                                 <ColumnDefinition Width="2*"/>
@@ -296,7 +343,7 @@
                                                             </Grid.ColumnDefinitions>
                                                             <syncfusion:ComboBoxAdv x:Name="xxxx"
                                                                                     ItemsSource="{Binding DataContext.ProductList, RelativeSource={RelativeSource AncestorType={x:Type ListView}},UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
-                                                                                    SelectedValue="{Binding SelectedProduct,Mode=TwoWay}"
+                                                                                    SelectedValue="{Binding SelectedProduct,Mode=TwoWay,ValidatesOnNotifyDataErrors=True}"
                                                                                     
                                                                                     DisplayMemberPath="ProductName" 
                                                                                     Grid.Column="0" Grid.Row="0" Margin="0,0,3,0" 
@@ -310,10 +357,31 @@
                                                                                                       CommandParameter="{Binding}"/>
                                                                     </behavior:EventTrigger>
                                                                 </behavior:Interaction.Triggers>
+                                                                <Validation.ErrorTemplate>
+                                                                    <ControlTemplate>
+                                                                        <StackPanel>
+                                                                            <AdornedElementPlaceholder x:Name="gg">
+                                                                                <Border BorderBrush="Red" 
+                                                                             BorderThickness="2"/>
+
+                                                                            </AdornedElementPlaceholder>
+                                                                            <ItemsControl ItemsSource="{Binding}">
+                                                                                <ItemsControl.ItemTemplate>
+                                                                                    <DataTemplate>
+                                                                                        <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                                                    </DataTemplate>
+                                                                                </ItemsControl.ItemTemplate>
+                                                                            </ItemsControl>
+
+
+                                                                        </StackPanel>
+
+                                                                    </ControlTemplate>
+                                                                </Validation.ErrorTemplate>
 
                                                             </syncfusion:ComboBoxAdv>
                                                             <syncfusion:UpDown  Grid.Column="1" MinValue="1" Step="1" NumberDecimalDigits="0"  Value="{Binding Quantity,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3,0,3,0" />
-                                                            <!--<syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="3,0,3,0" />-->
+                                                            --><!--<syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="3,0,3,0" />--><!--
                                                             <syncfusion:DoubleTextBox  Grid.Column="2" NumberDecimalDigits="2" MinValue="0" Value="{Binding PricePerItem,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
                                                             <syncfusion:DoubleTextBox  Grid.Column="3" NumberDecimalDigits="2" MinValue="0" Value="{Binding Tax,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
                                                             <syncfusion:DoubleTextBox  Grid.Column="4" NumberDecimalDigits="2" MinValue="0" Value="{Binding Discount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
@@ -337,7 +405,7 @@
                                                                     </behavior:EventTrigger>
                                                                 </behavior:Interaction.Triggers>
                                                             </Button>
-                                                        </Grid>
+                                                        </Grid>-->
 
                                                     </DataTemplate>
                                                  </ListView.ItemTemplate>
@@ -355,21 +423,6 @@
 
                         <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2">
 
-                            <!--<Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="60"/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
-
-                                <Grid Grid.Row="0" Grid.Column="1">
-                                    <Button Content="Add Item" Height="30" Width="100" Command="{Binding AddProductSelectionCommand}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,5,0,0"/>
-                                    
-                                </Grid>
-                                
-                            </Grid>-->
                             <Grid>
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="4*"/>
@@ -427,7 +480,7 @@
 
         <Grid Grid.Row="2" Margin="35,5,5,5">
             <StackPanel Orientation="Horizontal">
-                <Button Content="Simpan" Height="50" Width="200" />
+                <Button Content="Simpan" Command="{Binding AddInvoiceCommand}" Height="50" Width="200" />
                 <Button Content="Batal" Command="{Binding NavigateInvoiceCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
             </StackPanel>
         </Grid>

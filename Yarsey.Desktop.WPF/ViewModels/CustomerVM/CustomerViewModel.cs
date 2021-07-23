@@ -67,20 +67,27 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
         private async Task<ObservableCollection<Customer>> GetCustomerCollectionX()
         {
-            IEnumerable<Customer> cList = _businessStore.CurrentBusiness.Customers?.ToList();
-            // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
-            ObservableCollection<Customer> custCollection;
-            if (cList != null)
+            if (_businessStore.CurrentBusiness != null)
             {
-                 custCollection = new ObservableCollection<Customer>(cList);
+                IEnumerable<Customer> cList = _businessStore.CurrentBusiness.Customers?.ToList();
+                // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
+                ObservableCollection<Customer> custCollection;
+                if (cList != null)
+                {
+                    custCollection = new ObservableCollection<Customer>(cList);
+                }
+                else
+                {
+                    custCollection = null;
+
+                }
+
+                return custCollection;
             }
             else
             {
-                custCollection = null;
-
+                return null;
             }
-
-            return custCollection;
         }
 
         private  ObservableCollection<Customer> GetCustomerCollection()

@@ -77,6 +77,8 @@ namespace Yarsey.EntityFramework
                 entity.Property(e => e.CreatedTime);
                 entity.Property(e => e.ProductName);
                 entity.Property(e => e.Notes);
+                entity.Property(e => e.ProductCost).HasConversion<double>();
+                
                 entity.Property(e => e.ProductUOM).HasConversion(v => v.ToString(), v => (ProductUom)Enum.Parse(typeof(ProductUom), v));
                 //entity.Property(e => e.ProductUOM).HasConversion<string>();
 
@@ -84,13 +86,20 @@ namespace Yarsey.EntityFramework
 
             modelBuilder.Entity<Invoice>(entity =>
             {
+                entity.Property(e => e.InvoiceDate);
+                entity.Property(e => e.Due);
+                entity.Property(e => e.Adress);
+                
                 entity.HasOne(e => e.Customer).WithMany().HasForeignKey(e => e.Customer_Id).OnDelete(DeleteBehavior.NoAction);
+               
                 entity.HasMany(e => e.ProductsSelected).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
                
             });
 
             modelBuilder.Entity<ProductSelection>(entity =>
             {
+                entity.Property(e => e.Discount).HasConversion<double>();
+                entity.Property(e => e.Tax).HasConversion<double>();
                 entity.HasOne(e => e.SelectedProduct).WithMany().HasForeignKey(e=>e.SelectedProductId).IsRequired().OnDelete(DeleteBehavior.NoAction);
                 entity.Property(e => e.Quantity);                
             });

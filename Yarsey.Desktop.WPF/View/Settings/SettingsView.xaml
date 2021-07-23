@@ -13,13 +13,39 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0">
-            <GroupBox Margin="2,2,2,2" Header="Mode" Height="300" VerticalAlignment="Top">
-                <StackPanel Orientation="Horizontal">
-                    <RadioButton Content="Light Mode" IsChecked="{Binding LightMode}" Margin="2,6,2,2"/>
-                    <RadioButton Content="Dark Mode" Margin="2,6,2,2"/>
+        <Grid Grid.Column="0" Margin="5,5,5,5">
+            <GroupBox   Header="Mode" Height="100" VerticalAlignment="Top">
+                <StackPanel Orientation="Horizontal"  Margin="0,5,0,0">
+                    <CheckBox Content="Light Mode"  IsChecked="{Binding LightMode}" Margin="5,5,5,5" VerticalAlignment="Top"/>
+               
                 </StackPanel>
             </GroupBox>
         </Grid>
+
+        <Grid Grid.Column="1" Margin="5,5,5,5">
+            <GroupBox  Header="Database" Height="300" VerticalAlignment="Top">
+                <StackPanel Orientation="Vertical">
+                    <Grid Height="60" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5,5,5,5">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="1*"/>
+                            <ColumnDefinition Width="3*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Grid.RowDefinitions>
+                            <RowDefinition/>
+                            <RowDefinition/>
+                        </Grid.RowDefinitions>
+
+                        <Label Grid.Row="0" Grid.Column="0" Content="Backup Location" />
+                        <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding BackupLoc}"/>
+
+                        <Button Grid.Row="1" Grid.Column="1" Content="Browse" Width="90" HorizontalAlignment="Left" Margin="0,3,3,3"/>
+
+                    </Grid>
+
+                </StackPanel>
+            </GroupBox>
+        </Grid>
+        
     </Grid>
 </UserControl>

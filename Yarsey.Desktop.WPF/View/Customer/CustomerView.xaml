@@ -89,7 +89,7 @@
                                     <syncfusion:GridTextColumn HeaderText="Adress" MappingName="Adress" />
                                     <syncfusion:GridTextColumn HeaderText="Email" MappingName="Email" />
                                     <syncfusion:GridTextColumn HeaderText="Phone No" MappingName="PhoneNo" />
-                                    <syncfusion:GridDateTimeColumn CustomPattern="dd-m-yyyy hh:mm AM"  HeaderText="Created At" MappingName="Created_at" />
+                                    <syncfusion:GridDateTimeColumn CustomPattern="dd/MM/yy hh:mm tt" Pattern="CustomPattern"  HeaderText="Created At" MappingName="Created_at" />
                                 </syncfusion:SfDataGrid.Columns>
                                 <behavior:Interaction.Triggers>
                                     <behavior:EventTrigger EventName="Loaded">

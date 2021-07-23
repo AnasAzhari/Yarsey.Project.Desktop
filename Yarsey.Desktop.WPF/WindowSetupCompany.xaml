@@ -10,7 +10,7 @@
         xmlns:converters="clr-namespace:Yarsey.Desktop.WPF.Converter"
         xmlns:validation="clr-namespace:Yarsey.Desktop.WPF.Validation"
         xmlns:syncfusionskin ="clr-namespace:Syncfusion.SfSkinManager;assembly=Syncfusion.SfSkinManager.WPF"
-        syncfusionskin:SfSkinManager.Theme="{syncfusionskin:SkinManagerExtension ThemeName=FluentDarkTurq}"
+     
         mc:Ignorable="d"
         CornerRadius="3"
          ResizeMode="NoResize"     
@@ -75,9 +75,9 @@
 
 
     </Window.Resources>
-    
-    
-    <Grid>
+
+
+    <Grid x:Name="MainControl">
     
         <syncfusion:WizardControl>
             <interactivity:Interaction.Triggers>

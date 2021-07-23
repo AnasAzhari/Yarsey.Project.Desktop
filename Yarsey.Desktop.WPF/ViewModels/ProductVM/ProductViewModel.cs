@@ -50,19 +50,27 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
         private async Task<ObservableCollection<Product>> GetProductCollectionX()
         {
-            IEnumerable<Product> pList = _businessStore.CurrentBusiness.Products?.ToList();
-            // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
-            ObservableCollection<Product> prodCollection;
-            if (pList != null)
+            if (_businessStore.CurrentBusiness != null)
             {
-                prodCollection = new ObservableCollection<Product>(pList);
+                IEnumerable<Product> pList = _businessStore.CurrentBusiness.Products?.ToList();
+                // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
+                ObservableCollection<Product> prodCollection;
+                if (pList != null)
+                {
+                    prodCollection = new ObservableCollection<Product>(pList);
+                }
+                else
+                {
+                    prodCollection = null;
+
+                }
+                return prodCollection;
             }
             else
             {
-                prodCollection = null;
-
+                return null;
             }
-            return prodCollection;
+        
         }
 
         #region --------------- Delete Product ----------------------------

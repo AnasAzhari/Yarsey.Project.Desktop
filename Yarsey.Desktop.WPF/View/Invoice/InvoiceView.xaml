@@ -75,17 +75,17 @@
                             AutoGenerateColumns="False"
                             ColumnSizer="Star"
                            
-                            ItemsSource="{Binding ElementName=sfDataPager,Path=PagedSource, Mode=TwoWay}"
+                            ItemsSource="{Binding ElementName=sfDataPagerC,Path=PagedSource, Mode=TwoWay}"
                             SelectedItem="{Binding SelectedInvoice,Mode=TwoWay}"
                             NavigationMode="Row">
                                 <syncfusion:SfDataGrid.Columns>
                                     <!--<syncfusion:GridTextColumn HeaderText="Customer ID" MappingName="Id" />-->
                                     <syncfusion:GridTextColumn HeaderText="Invoice No" MappingName="ref_no" />
-                                    <syncfusion:GridTextColumn HeaderText="Tarikh" MappingName="InvoiceDate" />
+                                    <syncfusion:GridDateTimeColumn HeaderText="Tarikh" MappingName="InvoiceDate" CustomPattern="dd-m-yyyy hh:mm" />
                                     <syncfusion:GridTextColumn HeaderText="Customer Name" MappingName="Customer.Name" />
                                     
-                                    <syncfusion:GridTextColumn HeaderText="Status" MappingName="InvoiceStatus" />
-                                    <syncfusion:GridDateTimeColumn CustomPattern="dd-m-yyyy hh:mm AM"  HeaderText="Created At" MappingName="Created_at" />
+                                    <!--<syncfusion:GridTextColumn HeaderText="Status" MappingName="InvoiceStatus" />-->
+                                    <syncfusion:GridDateTimeColumn CustomPattern="dd/MM/yy hh:mm tt"  Pattern="CustomPattern" HeaderText="Created At" MappingName="CreatedTime" />
                                 </syncfusion:SfDataGrid.Columns>
                                 <behavior:Interaction.Triggers>
                                     <behavior:EventTrigger EventName="Loaded">
@@ -107,7 +107,7 @@
                             NumericButtonCount="10"
                          
                             PageSize="30"
-                            Source="{Binding Path=CustomerCollection,Mode=TwoWay}"
+                            Source="{Binding Path=InvoiceCollection,Mode=TwoWay}"
 
                             />
 
@@ -144,7 +144,7 @@
                         <Style TargetType="{x:Type Grid}">
                             <Setter Property="Visibility" Value="Visible"/>
                             <Style.Triggers>
-                                <DataTrigger Binding="{Binding SelectedCustomer}" Value="{x:Null}">
+                                <DataTrigger Binding="{Binding SelectedInvoice}" Value="{x:Null}">
                                     <Setter Property="Visibility" Value="Hidden"/>
                                 </DataTrigger>
                             </Style.Triggers>
@@ -178,8 +178,8 @@
                                 </Grid>
                                 <Grid Grid.Row="0" Grid.Column="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="3,0,0,0">
-                                        <Button Content="Edit" Margin="0,0,5,0" Height="30" Width="70" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding SelectedCustomer}"/>
-                                        <Button Content="Delete" Height="30" Width="70" IsDefault="False" Command="{Binding DeleteCustomerCommand}" Background="Red"   />
+                                        <!--<Button Content="Edit" Margin="0,0,5,0" Height="30" Width="70" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding SelectedCustomer}"/>
+                                        <Button Content="Delete" Height="30" Width="70" IsDefault="False" Command="{Binding DeleteCustomerCommand}" Background="Red"   />-->
                                     </StackPanel>
 
                                 </Grid>
@@ -190,7 +190,7 @@
                                 </Grid>
                                 <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
 
-                                    <Label FontSize="20" Content="{Binding SelectedCustomer.Name}"/>
+                                    <Label FontSize="20" Content="{Binding SelectedInvoice.ref_no}"/>
                                 </Grid>
 
                             </Grid>

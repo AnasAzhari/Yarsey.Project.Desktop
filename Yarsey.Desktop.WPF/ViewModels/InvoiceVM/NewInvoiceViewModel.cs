@@ -13,6 +13,9 @@ using Yarsey.Desktop.WPF.Services;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
+using System.Diagnostics;
+
+
 namespace Yarsey.Desktop.WPF.ViewModels
 {
     public class NewInvoiceViewModel:ViewModelBase,IDisposable,INotifyDataErrorInfo
@@ -37,42 +40,62 @@ namespace Yarsey.Desktop.WPF.ViewModels
         decimal _total;
         public decimal Total { get { return _total; } set { SetProperty(ref _total, value); } }
 
+        private string _adress;
+        public string Adress { get { return _adress; } set { SetProperty(ref _adress, value); } }
+
         #endregion
 
         private readonly INavigationService _productNavService;
         private readonly BusinessStore _businessStore;
+        private readonly BusinessDataService _businessDataService;
         private readonly InvoiceDataService _invoiceDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
         private ObservableCollection<Customer> _businessCustomers = new ObservableCollection<Customer>();
         public ObservableCollection<Customer> BusinessCustomers { get { return _businessCustomers; } set { SetProperty(ref _businessCustomers, value); } }
+
+        private Customer _selectedCustomer=null;
+        public Customer SelectedCustomer { get { return _selectedCustomer; } set { SetProperty(ref _selectedCustomer, value); } }
+
         public ICommand NavigateInvoiceCommand { get; set; }
         public ICommand AddProductSelectionCommand { get; set; }
+        public ICommand AddInvoiceCommand { get; set; }
+        public DelegateCommand<object> SelectedCustomerChanged { get; set; }
         public DelegateCommand<object> SelectedProductChanged { get; set; }
         public DelegateCommand<object> DeleteProductSelection { get; set; }
 
         public Action cbCalculateTotal;
-        public NewInvoiceViewModel(INavigationService invoiceNavService, BusinessStore businessStore, InvoiceDataService invoiceDataService,GeneralModalNavigationService generalModalNavigationService)
+        public NewInvoiceViewModel(INavigationService invoiceNavService, BusinessStore businessStore,BusinessDataService businessDataService ,InvoiceDataService invoiceDataService,GeneralModalNavigationService generalModalNavigationService)
         {
             this._productSelections = new ObservableCollection<ProductSelectionViewModel>();
             this._productNavService = invoiceNavService;
             this._businessStore = businessStore;
+            this._businessDataService = businessDataService;
             this._invoiceDataService = invoiceDataService;
             this._generalModalNavigationService = generalModalNavigationService;
+
             this.cbCalculateTotal += OnProductSelectionChanged;
+
             this.NavigateInvoiceCommand = new NavigationDrawerCommand(invoiceNavService);
             this.AddProductSelectionCommand = new AsyncRelayCommand(AddValidationAsync, AddProduct);
+
+
             this.SelectedProductChanged = new DelegateCommand<object>(ProductChanged);
             this.DeleteProductSelection = new DelegateCommand<object>(DeleteProductSelectionFunction);
+            this.SelectedCustomerChanged = new DelegateCommand<object>(CustomerChanged);
+
+            this.AddInvoiceCommand = new AsyncRelayCommand(ValidateAsync, Success);
+
             if (_businessStore.CurrentBusiness != null)
             {
                 InitCollections();
                 InitRunningNo();
+                
             }
         }
 
         public void InitCollections()
         {
-            var c = this._businessStore.CurrentBusiness?.Customers.ToList();
+            var c = this._businessStore.CurrentBusiness?.Customers?.ToList();
             if (c != null)
             {
                 BusinessCustomers = new ObservableCollection<Customer>(c);
@@ -114,8 +137,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             var ps = new ProductSelectionViewModel(this);
             ProductSelections.Add(ps);
-       
+          
         }
+
         private void ProductChanged(object param)
         {
             var obj = param.GetType();
@@ -123,9 +147,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
             ps.Word = ps.SelectedProduct.Notes;
             ps.PricePerItem = ps.SelectedProduct.ProductCost;
             
-            
-
         }
+
+        private void CustomerChanged(object param)
+        {
+            Adress = this.SelectedCustomer.Adress;
+        }
+
         private void DeleteProductSelectionFunction(object param)
         {
             var obj = param.GetType();
@@ -144,16 +172,49 @@ namespace Yarsey.Desktop.WPF.ViewModels
             Total = sum;
         }
 
-
-
         #region Validation
 
         private bool canValidateForErrors;
 
         private async Task Success()
         {
-       
+            try
+            {
+                List<ProductSelection> products = new List<ProductSelection>();
 
+                foreach (var item in ProductSelections)
+                {
+                    products.Add(new ProductSelection()
+                    {
+                        PricePerItem = item.PricePerItem,
+                        Quantity = item.Quantity,
+                        SelectedProduct = item.SelectedProduct,
+                        Tax = item.Tax,
+                        Discount = item.Discount,
+                        Word = item.Word
+
+                    });
+                }
+
+                Invoice inv = new Invoice()
+                {
+                    ref_no = CurrentRunningNo,
+                    Adress = Adress,
+                    Customer = SelectedCustomer,
+                    InvoiceDate = InvoiceDate,
+                    Due = Due,
+                    ProductsSelected = products,
+
+                };
+
+                await _businessDataService.AddInvoice(_businessStore.CurrentBusiness.Id, inv);
+            }
+            catch (Exception ex)
+            {
+                //_generalModalNavigationService.NavigateOnEception(ex.ToString());
+
+                Console.WriteLine(ex.ToString());
+            }
         }
 
 
@@ -161,17 +222,47 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
 
             canValidateForErrors = true;
+
+            // VALIDATE LISTVIEW 
+
+            List<bool> hasErr = new List<bool>();
+
+            foreach (var item in ProductSelections)
+            {
+                await item.ValidateAsync();
+                hasErr.Add(item.HasErrors);
+
+            }
+
+            var err = hasErr.Any(x => x == true);
+
             if (this.ErrorsChanged != null)
             {
-                this.RaiseErrorsChanged("Name");
-                this.RaiseErrorsChanged("PhoneNo");
+                this.RaiseErrorsChanged("SelectedCustomer");
                 this.RaiseErrorsChanged("Adress");
-                this.RaiseErrorsChanged("Email");
-
+                this.RaiseErrorsChanged("ProductSelections");
 
                 if (!this.HasErrors)
                 {
-                    return true;
+
+                    if (hasErr.Count > 0)
+                    {
+                        if (err == true)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+
+
+                    }
+                    else
+                    {
+                        return true;
+                    }
+                   
                 }
                 else
                 {
@@ -180,15 +271,36 @@ namespace Yarsey.Desktop.WPF.ViewModels
             }
             else
             {
-                if (!this.HasErrors)
+                this.RaiseErrorsChanged("SelectedCustomer");
+                this.RaiseErrorsChanged("Adress");
+                //this.RaiseErrorsChanged("ProductSelections");
+
+                if (!this.HasErrors )
                 {
-                    return true;
+                    if (hasErr.Count > 0)
+                    {
+                        if (err == true)
+                        {
+                            return false;
+                        }
+                        else
+                        {
+                            return true;
+                        }
+
+
+                    }
+                    else
+                    {
+                        return true;
+                    }
                 }
                 else
                 {
                     return false;
                 }
             }
+
         }
 
         public bool HasErrors
@@ -216,8 +328,17 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
             if (!canValidateForErrors)
                 return result;
+            if (string.IsNullOrEmpty(columnName) || columnName == "SelectedCustomer")
+            {
+                if (SelectedCustomer==null)
+                    result.Add("Enter Customer");
+            }
+            if (string.IsNullOrEmpty(columnName) || columnName == "Adress")
+            {
+                if (string.IsNullOrEmpty(Adress))
+                    result.Add("Sila masukkan alamat");
+            }
 
-     
             return result;
         }
 

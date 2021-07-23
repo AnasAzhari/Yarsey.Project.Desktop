@@ -84,8 +84,8 @@
                                     <syncfusion:GridTextColumn HeaderText="Product UOM" MappingName="ProductUOM" />
                                     <syncfusion:GridTextColumn HeaderText="Product Cost" MappingName="ProductCost" />
                                     <syncfusion:GridTextColumn HeaderText="Notes" MappingName="Notes" />
-                                   
-                                    <syncfusion:GridDateTimeColumn CustomPattern="dd-m-yyyy hh:mm AM"  HeaderText="Created At" MappingName="CreatedTime" />
+
+                                    <syncfusion:GridDateTimeColumn CustomPattern="dd/MM/yy hh:mm tt" Pattern="CustomPattern"  HeaderText="Created At" MappingName="CreatedTime" />
                                 </syncfusion:SfDataGrid.Columns>
                                 <behavior:Interaction.Triggers>
                                     <behavior:EventTrigger EventName="Loaded">

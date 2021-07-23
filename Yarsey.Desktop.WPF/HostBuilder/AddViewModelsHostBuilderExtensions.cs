@@ -21,7 +21,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
             host.ConfigureServices((context,services) =>
             {
 
-                services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>(), context.Configuration));
+                services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>(), s.GetRequiredService<SettingsConfiguration>()));
                 services.AddSingleton<HomeView>();
 
                 #region Customer
@@ -68,7 +68,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 #region Settings
 
-                services.AddSingleton<SettingsViewModel>(s => new SettingsViewModel(s.GetRequiredService<MainWindow>(),context.Configuration,s.GetRequiredService<GeneralModalNavigationService>()));
+                services.AddSingleton<SettingsViewModel>(s => new SettingsViewModel(s.GetRequiredService<MainWindow>(),s.GetRequiredService<SettingsConfiguration>(),s.GetRequiredService<GeneralModalNavigationService>()));
                 services.AddSingleton<SettingsView>(s => new SettingsView() { DataContext = s.GetRequiredService<SettingsViewModel>() });
 
                 #endregion
@@ -82,6 +82,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                                                         ));
                 services.AddTransient<NewInvoiceViewModel>(s => new NewInvoiceViewModel(CreateInvoiceNavigationDrawerService(s),
                                                                       s.GetRequiredService<BusinessStore>(),
+                                                                      s.GetRequiredService<BusinessDataService>(),
                                                                       s.GetRequiredService<InvoiceDataService>(),
                                                                       s.GetRequiredService<GeneralModalNavigationService>()
                                                         ));
@@ -110,12 +111,10 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 ));
                 services.AddSingleton<MainWindowSetupViewModel>(s=>new MainWindowSetupViewModel(s.GetRequiredService<BusinessDataService>()));
-                services.AddSingleton<WindowSetupCompany>(s => new WindowSetupCompany() { DataContext=s.GetRequiredService<MainWindowSetupViewModel>()});
+                services.AddSingleton<WindowSetupCompany>(s => new WindowSetupCompany(s.GetRequiredService<SettingsConfiguration>()) { DataContext=s.GetRequiredService<MainWindowSetupViewModel>()});
                 
 
                 //services.AddSingleton<MainViewModel>(s => new MainViewModel());
-               
-
 
                 #region General Modal Navigation Service
                 services.AddSingleton<ErrorMessageViewModel>();
