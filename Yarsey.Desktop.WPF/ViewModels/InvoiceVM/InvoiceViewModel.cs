@@ -62,7 +62,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             if (_businessStore.CurrentBusiness != null)
             {
-                IEnumerable<Invoice> iList = _businessStore.CurrentBusiness.Invoices?.ToList();
+                IEnumerable<Invoice> iList = _businessStore.CurrentBusiness.Invoices?.OrderByDescending(x=>x.ref_no).ToList();
                 // IEnumerable<Customer> customerlist = await _customerDataService.GetCustomersByBusineness(_businessStore.CurrentBusiness.Id);
                 ObservableCollection<Invoice> invCollection;
                 if (iList != null)

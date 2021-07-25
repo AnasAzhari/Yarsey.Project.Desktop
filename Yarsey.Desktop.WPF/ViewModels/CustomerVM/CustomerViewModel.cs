@@ -224,9 +224,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
                         
                        
                         return false;
-                                                 
-                            
-                        
+
                     }
                     else
                     {

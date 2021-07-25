@@ -11,6 +11,7 @@ using System.IO;
 using Yarsey.Desktop.WPF.Settings;
 using System.Text.Json;
 using Yarsey.Desktop.WPF.Services;
+using Yarsey.Desktop.WPF.Helper;
 
 namespace Yarsey.Desktop.WPF.HostBuilder
 {
@@ -21,12 +22,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
             host.ConfigureAppConfiguration(c =>
             {
                 
-                //string baseLocation = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-                
-                //string settingsJson ="Settings.json";
-                //string folder = System.IO.Path.Combine(baseLocation, "Yarsey");
-                //string fullSettingPath = System.IO.Path.Combine(folder, settingsJson);
-                //string dbConnection = System.IO.Path.Combine(folder, "Yarsey.db");
+               
 
 
                 if (!System.IO.Directory.Exists(SettingsConfiguration.Folder))
@@ -61,6 +57,8 @@ namespace Yarsey.Desktop.WPF.HostBuilder
             host.ConfigureServices((context, services) =>
             {
                 services.AddSingleton<SettingsConfiguration>();
+                services.AddAutoMapper(typeof(AutoMapperProfiles).Assembly);
+
             });
 
 

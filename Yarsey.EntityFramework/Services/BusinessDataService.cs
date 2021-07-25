@@ -136,12 +136,18 @@ namespace Yarsey.EntityFramework.Services
             }
         }
 
-        public async Task AddInvoice(int bizId,Invoice invoice)
+        public async Task AddInvoice(int bizId,Invoice invoice,string module)
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
                 Business businesses = await dbContext.Businesses.Include(p => p.Invoices).FirstOrDefaultAsync(x => x.Id == bizId);
+
                 businesses.Invoices.Add(invoice);
+
+                RunningNumber rn = await dbContext.RunningNumbers.Where(x => x.ModuleName == module).FirstOrDefaultAsync();
+
+                rn.RunningNo = rn.RunningNo + 1;
+
                 await dbContext.SaveChangesAsync();
             }
         }

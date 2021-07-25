@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AutoMapper;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,8 +29,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public string Adress { get { return _adress; } set { SetProperty(ref _adress, value); } }
         public string Email { get { return _email; } set { SetProperty(ref _email, value); } }
         public string PhoneNo { get { return _phoneNo; } set { SetProperty(ref _phoneNo, value); } }
-        public string NameCompany { get { return _namecompany; } set { SetProperty(ref _namecompany, value); } }
-        public string Notes { get { return _notes; } set { SetProperty(ref _notes, value); } }
+        public string CompanyName { get { return _namecompany; } set { SetProperty(ref _namecompany, value); } }
+        public string Note { get { return _notes; } set { SetProperty(ref _notes, value); } }
 
         int _id;
         string _name;
@@ -49,15 +50,17 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private readonly BusinessStore _businessStore;
         private readonly BusinessDataService _businessDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
+        private readonly IMapper _mapper;
         private INavigationService _customerVMNavigationService;
 
-        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService,BusinessStore businessStore, BusinessDataService businessDataService,GeneralModalNavigationService generalModalNavigationService)
+        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService,BusinessStore businessStore, BusinessDataService businessDataService,GeneralModalNavigationService generalModalNavigationService,IMapper mapper)
         {
             _customerVMNavigationService = navigationService;
             _customerDataService = customerService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
             this._generalModalNavigationService = generalModalNavigationService;
+            this._mapper = mapper;
             NavigateCustomerCommand = new NavigationDrawerCommand(navigationService);
             CreateCustomerCommand = new AsyncRelayCommand(ValidateAsync, Success);
         }
@@ -67,7 +70,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         private async Task Success()
         {
-            Customer customer = new Customer() { Name = Name, Adress = Adress, Email = Email, PhoneNo = PhoneNo,Created_at=DateTime.Now };
+            Customer customer = new Customer();
+            this._mapper.Map(this,customer);
+
 
             await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id, customer).ContinueWith((customer) => { _customerVMNavigationService.Navigate(); });
             _generalModalNavigationService.NavigationOnSuccess("Customer Created Successfully");
@@ -87,18 +92,14 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 this.RaiseErrorsChanged("Adress");
                 this.RaiseErrorsChanged("Email");
 
-
                 if (!this.HasErrors)
                 {
                     return true;
-
-
                 }
                 else
                 {
                     return false;
                 }
-
             }
             else
             {

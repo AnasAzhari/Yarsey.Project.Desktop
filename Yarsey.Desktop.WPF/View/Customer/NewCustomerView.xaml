@@ -144,7 +144,7 @@
                                                       x:Name="emailInputLayout"
                                                        ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
-                                                      Grid.Column="0" Grid.Row="1">
+                                                      Grid.Column="0" Grid.Row="1" >
                             <syncfusion:SfTextInputLayout.LeadingView>
 
                                 <Image Margin="0,0,0,0"  Source="{StaticResource Email}" />
@@ -154,26 +154,39 @@
                             MaxLength="15"
                             Text="{Binding Email}" />
                         </syncfusion:SfTextInputLayout>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
 
                         <syncfusion:SfTextInputLayout Hint="Alamat"
                                                       x:Name="alamatInputLayout"
                                                        ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
-                                                      Grid.Column="1" Grid.Row="1">
+                                                      Grid.Column="1" Grid.Row="1" >
                             <syncfusion:SfTextInputLayout.LeadingView>
 
                                 <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
                             </syncfusion:SfTextInputLayout.LeadingView>
                             <TextBox
                              Foreground="{Binding Foreground, ElementName=emailInputLayout, Mode=TwoWay}"
-                            MaxLength="15"
+                   
+                                
                             Text="{Binding Adress}" />
                         </syncfusion:SfTextInputLayout>
+                        
+                        
+                        
+                        
+                        
 
                         <syncfusion:SfTextInputLayout
                         x:Name="noteInputLayout"
                         Grid.Row="2"
-                        Grid.ColumnSpan="2"
+                        
                             
                             ContainerType="Outlined"
  ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
@@ -187,8 +200,9 @@
 
                             <TextBox
                     Foreground="{Binding Foreground, ElementName=noteInputLayout, Mode=TwoWay}"
+                                
                     MaxLength="15"
-                    Text="{Binding Notes}" />
+                    Text="{Binding Note}" />
                         </syncfusion:SfTextInputLayout>
 
 

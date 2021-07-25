@@ -110,17 +110,12 @@ namespace Yarsey.EntityFramework.Services
             {
                 var v = dbContext.RunningNumbers.Where(x => x.ModuleName == module).Select(h => h.RunningNo).FirstOrDefault();
                 char pad = '0';
-                string numberString = v+1.ToString().PadLeft(8, pad);
+                string numberString = (v + 1).ToString().PadLeft(8, pad);
                 string fullString = $"{module}{numberString}";
                 return fullString;
             }
         }
 
-        //public async static string GenerateRunningNo(string module,YarseyDbContext context)
-        //{
-        //    var md = context.RunningNumbers.Where(x => x.ModuleName == module).FirstOrDefault();
-        //    var currentNo = md.RunningNo;
-
-        //}
+  
     }
 }

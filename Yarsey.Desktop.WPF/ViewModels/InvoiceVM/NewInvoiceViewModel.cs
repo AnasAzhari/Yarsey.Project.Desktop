@@ -161,7 +161,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         private void CreatePdf(object param)
         {
-            this._pdfService.CreateInvoicePDF(this);
+            this._pdfService.CreateInvoicePDF(this,this._businessStore.CurrentBusiness);
         }
 
         private void DeleteProductSelectionFunction(object param)
@@ -217,7 +217,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
                 };
 
-                await _businessDataService.AddInvoice(_businessStore.CurrentBusiness.Id, inv);
+                await _businessDataService.AddInvoice(_businessStore.CurrentBusiness.Id, inv,Helper.Helper.InvoiceModule);
+                _generalModalNavigationService.NavigationOnSuccess("Invoice Created Successfully");
+                _businessStore.RefreshBusiness();
             }
             catch (Exception ex)
             {

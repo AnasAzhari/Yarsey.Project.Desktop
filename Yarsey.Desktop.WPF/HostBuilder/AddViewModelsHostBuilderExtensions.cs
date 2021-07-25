@@ -10,6 +10,7 @@ using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Desktop.WPF.View;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.EntityFramework.Services;
+using AutoMapper;
 
 namespace Yarsey.Desktop.WPF.HostBuilder
 {
@@ -41,7 +42,11 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                                                                     s.GetRequiredService<CustomerDataService>(),
                                                                     s.GetRequiredService<BusinessStore>(), 
                                                                     s.GetRequiredService<BusinessDataService>(), 
-                                                                    s.GetRequiredService<GeneralModalNavigationService>()));
+                                                                    s.GetRequiredService<GeneralModalNavigationService>(),
+                                                                    s.GetRequiredService<IMapper>()
+                                                                    
+                                                                    
+                                                                    ));
                 services.AddTransient<EditCustomerViewModel>(s => new EditCustomerViewModel(CreateCustomerNavigationDrawerService(s),
                                                                     s.GetRequiredService<BusinessStore>(),
                                                                     s.GetRequiredService<BusinessDataService>(),

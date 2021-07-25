@@ -13,6 +13,6 @@ namespace Yarsey.Desktop.WPF.Services
 
         public void CreatePDF(object obj);
 
-        public void CreateInvoicePDF(NewInvoiceViewModel newInvoiceViewModel);
+        public void CreateInvoicePDF(NewInvoiceViewModel newInvoiceViewModel,Business business);
     }
 }

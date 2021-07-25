@@ -27,7 +27,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
             }
         }
 
-
         public string BackupLoc
         {
             get { return _settingsConfiguration.CurrentSettings.BackupLocation; }
@@ -55,7 +54,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
             //{
             //    LightMode = result;
             //}
-            
 
         }
         public void SetTheme()
