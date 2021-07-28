@@ -70,7 +70,7 @@ namespace Yarsey.Desktop.WPF
                
             }
 
-            BusinessSelection();
+            //BusinessSelection();
             if (business != null)
             {
                 MainWindow = _host.Services.GetRequiredService<MainWindow>();
@@ -83,7 +83,7 @@ namespace Yarsey.Desktop.WPF
 
             ConfigureMainWindow();
             ConfigureSetupWindow();
-          
+            ConfigureBusinessSelectionWindow();
 
             MainWindow.Show();
           
@@ -94,6 +94,7 @@ namespace Yarsey.Desktop.WPF
         protected override void OnExit(ExitEventArgs e)
         {
             DeConfigureSetupWindow();
+            DeConfigureBusinessSelectionWindow();
             _host.Services.GetRequiredService<BusinessStore>().ClearEvents();
 
             base.OnExit(e);
@@ -113,12 +114,25 @@ namespace Yarsey.Desktop.WPF
         {
             var createBusinessPage = (CreateBusinessPageModel)_host.Services.GetRequiredService<MainWindowSetupViewModel>().BusinessPage;
             createBusinessPage.ChangeMainWindow += ChangeSetupWindowtoMainwindow;
+
         }
 
         private void DeConfigureSetupWindow()
         {
             var createBusinessPage = (CreateBusinessPageModel)_host.Services.GetRequiredService<MainWindowSetupViewModel>().BusinessPage;
             createBusinessPage.ChangeMainWindow -= ChangeSetupWindowtoMainwindow;
+        }
+
+        private void ConfigureBusinessSelectionWindow()
+        {
+            var businessSelectionPage = _host.Services.GetRequiredService<BusinessSelectionViewModel>().BusinessSelectionPage;
+            businessSelectionPage.ChangeMainWindow += ChangeBusinessSelectionWindowtoMainwindow;
+        }
+
+        private void DeConfigureBusinessSelectionWindow()
+        {
+            var businessSelectionPage = _host.Services.GetRequiredService<BusinessSelectionViewModel>().BusinessSelectionPage;
+            businessSelectionPage.ChangeMainWindow -= ChangeBusinessSelectionWindowtoMainwindow;
         }
 
         public void ChangeSetupWindowtoMainwindow(Business business)
@@ -132,6 +146,20 @@ namespace Yarsey.Desktop.WPF
             bizStore.CurrentBusiness = business;
 
         }
+
+        public void ChangeBusinessSelectionWindowtoMainwindow(Business business)
+        {
+            //var mainwindowsetup = _host.Services.GetRequiredService<MainViewModel>();
+            //mainwindowsetup.Business = business;
+            _host.Services.GetRequiredService<BusinessSelectionPage>().Hide();
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.Show();
+            BusinessStore bizStore = _host.Services.GetRequiredService<BusinessStore>();
+            bizStore.CurrentBusiness = business;
+
+        }
+
+
 
         //default business selection. Assuming only 1 business. To be changed later
         private async void BusinessSelection()

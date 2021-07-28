@@ -68,7 +68,7 @@
                     <Grid Grid.Row="0">
 
                         <ScrollViewer VerticalScrollBarVisibility="Auto"  >
-                            <ListView ItemsSource="{Binding BusinessSelectionPage.Businesses,UpdateSourceTrigger=PropertyChanged}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListView ItemsSource="{Binding BusinessSelectionPage.Businesses,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding BusinessSelectionPage.SelectedBusiness,Mode=TwoWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>

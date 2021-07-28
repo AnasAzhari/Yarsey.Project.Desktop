@@ -11,6 +11,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
     public class BusinessSelectionViewModel:ViewModelBase
     {
 
+
+
+
         private ObservableCollection<PageModel> _pages;
 
         public ObservableCollection<PageModel> Pages { get { return _pages; } set { SetProperty(ref _pages, value); } }
