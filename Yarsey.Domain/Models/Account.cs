@@ -6,11 +6,20 @@ using System.Threading.Tasks;
 
 namespace Yarsey.Domain.Models
 {
-
+    public enum AccountType
+    {
+        Assets,
+        Liabilities,
+        Equity,
+        Income,
+        Expenses
+    }
 
     public class Account
     {
-
+        public AccountType AccountType { get; set; }
+        public string Code { get; set; }
+        public string Name { get; set; }
 
     }
 }

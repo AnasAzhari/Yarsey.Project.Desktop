@@ -85,6 +85,9 @@
                     <interactivity:InvokeCommandAction Command="{Binding BusinessPage.CreateBusinessCommand}" CommandParameter="{Binding ElementName=mainWindowSetup}" />
                 </interactivity:EventTrigger>
             </interactivity:Interaction.Triggers>
+            
+            
+            
             <syncfusion:WizardPage Name="Page1" CancelVisible="False" BackVisible="False" HelpVisible="False"
                                    BannerImageHeight="200"
                                    FinishVisible="False" >

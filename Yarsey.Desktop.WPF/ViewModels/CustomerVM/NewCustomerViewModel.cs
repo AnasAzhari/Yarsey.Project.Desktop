@@ -12,6 +12,7 @@ using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
+using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
@@ -48,12 +49,12 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         private CustomerDataService _customerDataService;
         private readonly BusinessStore _businessStore;
-        private readonly BusinessDataService _businessDataService;
+        private readonly IBusinessService _businessDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
         private readonly IMapper _mapper;
         private INavigationService _customerVMNavigationService;
 
-        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService,BusinessStore businessStore, BusinessDataService businessDataService,GeneralModalNavigationService generalModalNavigationService,IMapper mapper)
+        public NewCustomerViewModel(INavigationService navigationService, CustomerDataService customerService,BusinessStore businessStore, IBusinessService businessDataService,GeneralModalNavigationService generalModalNavigationService,IMapper mapper)
         {
             _customerVMNavigationService = navigationService;
             _customerDataService = customerService;

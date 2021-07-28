@@ -17,6 +17,10 @@ using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
 using Yarsey.Desktop.WPF.View;
 using Yarsey.EntityFramework.Seed;
+using Microsoft.Extensions.Logging;
+using Serilog;
+using ILogger = Serilog.ILogger;
+using Yarsey.Domain.Services;
 
 namespace Yarsey.Desktop.WPF
 {
@@ -25,6 +29,9 @@ namespace Yarsey.Desktop.WPF
     /// </summary>
     public partial class App : Application
     {
+        
+
+
         public readonly IHost _host;
 
         public IHost CurrentHost { get { return _host; } }
@@ -38,16 +45,18 @@ namespace Yarsey.Desktop.WPF
         {
             return Host.CreateDefaultBuilder(args)
                .AddConfiguration()
+               .AddLoggingConfiguration()
                .AddDbContext()
                .AddServices()
                .AddStores()
-               .AddViewModels()
-               .AddNavigationClickedAction();
+               .AddViewModels();
+               //.AddNavigationClickedAction();
             
 
         }
         protected override async void OnStartup(StartupEventArgs e)
         {
+
             _host.Start();
             Business business;
             YarseyDbContextFactory contextFactory = _host.Services.GetRequiredService<YarseyDbContextFactory>();
@@ -65,6 +74,7 @@ namespace Yarsey.Desktop.WPF
             if (business != null)
             {
                 MainWindow = _host.Services.GetRequiredService<MainWindow>();
+                MainWindow = _host.Services.GetRequiredService<BusinessSelectionPage>();
             }
             else
             {
@@ -126,7 +136,7 @@ namespace Yarsey.Desktop.WPF
         //default business selection. Assuming only 1 business. To be changed later
         private async void BusinessSelection()
         {
-            Business biz = await _host.Services.GetRequiredService<BusinessDataService>().GetDefault();
+            Business biz = await _host.Services.GetRequiredService<IBusinessService>().GetDefault();
             BusinessStore bizStore = _host.Services.GetRequiredService<BusinessStore>();
             bizStore.CurrentBusiness = biz;
             

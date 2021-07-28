@@ -31,6 +31,8 @@ namespace Yarsey.Desktop.WPF.Services
 
         public void CreateInvoicePDF(NewInvoiceViewModel newInvoiceViewModel,Business business)
         {
+            var globalization = System.Globalization.CultureInfo.CurrentCulture;
+
             string invoiceFolder = SettingsConfiguration.GetInvoiceFolder(this.businessStore.CurrentBusiness);
             string invoicefileName = newInvoiceViewModel.CurrentRunningNo+".pdf";
 
@@ -38,13 +40,13 @@ namespace Yarsey.Desktop.WPF.Services
 
             PdfDocument document = new PdfDocument();
             document.PageSettings.Orientation = PdfPageOrientation.Portrait;
-            document.PageSettings.Margins.All = 50;
+            document.PageSettings.Margins.All = 30;
             PdfPage page = document.Pages.Add();
             PdfGraphics g = page.Graphics;
-            PdfTextElement element = new PdfTextElement(
-            $@"Syncfusiondd {newInvoiceViewModel.SelectedCustomer.Name} asfasf
-            {newInvoiceViewModel.Adress}
-            ");
+            
+            PdfTextElement element = new PdfTextElement(@$"{business.BusinessName}
+{business.Adresss}
+{business.PhoneNo}");
             element.Font = new PdfStandardFont(PdfFontFamily.TimesRoman, 12);
             element.Brush = new PdfSolidBrush(new PdfColor(0, 0, 0));
             PdfLayoutResult result = element.Draw(page, new RectangleF(0, 0, page.Graphics.ClientSize.Width / 2, 200));
@@ -81,6 +83,8 @@ namespace Yarsey.Desktop.WPF.Services
             element.Brush = new PdfSolidBrush(new PdfColor(0, 0, 0));
             result = element.Draw(page, new RectangleF(10, result.Bounds.Bottom + 3, g.ClientSize.Width / 2, 100));
 
+
+
             PdfGrid grid = new PdfGrid();
             grid.DataSource = ConvertToDataTable(newInvoiceViewModel.ProductSelections);
             PdfGridCellStyle cellStyle = new PdfGridCellStyle();
@@ -104,7 +108,7 @@ namespace Yarsey.Desktop.WPF.Services
             header.Cells[1].Value = "QUANTITY";
             header.Cells[2].Value = "RATE";
             header.Cells[3].Value = "TAXES";
-            header.Cells[4].Value = "AMOUNT";
+            //header.Cells[4].Value = "AMOUNT";
             header.ApplyStyle(headerStyle);
             grid.Columns[0].Width = 180;
             cellStyle.Borders.Bottom = new PdfPen(new PdfColor(34, 83, 142), 0.70f);
@@ -149,11 +153,11 @@ namespace Yarsey.Desktop.WPF.Services
             PdfFont font = new PdfStandardFont(PdfFontFamily.TimesRoman, 12f, PdfFontStyle.Bold);
             gridResult.Page.Graphics.DrawString("TOTAL DUE", font, new PdfSolidBrush(new PdfColor(34, 83, 142)), new RectangleF(new PointF(pos, gridResult.Bounds.Bottom + 10), new SizeF(grid.Columns[3].Width - pos, 20)), new PdfStringFormat(PdfTextAlignment.Right));
             gridResult.Page.Graphics.DrawString("Thank you for your business!", new PdfStandardFont(PdfFontFamily.TimesRoman, 12), new PdfSolidBrush(new PdfColor(0, 0, 0)), new PointF(pos - 210, gridResult.Bounds.Bottom + 60));
-            pos += grid.Columns[4].Width;
+            pos += grid.Columns[3].Width;
 
             decimal total = newInvoiceViewModel.Total;
 
-            gridResult.Page.Graphics.DrawString("$" + total.ToString("#,###.00", CultureInfo.InvariantCulture), font, new PdfSolidBrush(new PdfColor(0, 0, 0)), new RectangleF(pos, gridResult.Bounds.Bottom + 10, grid.Columns[4].Width - pos, 20), new PdfStringFormat(PdfTextAlignment.Right));
+            gridResult.Page.Graphics.DrawString("$" + total.ToString("#,###.00", CultureInfo.InvariantCulture), font, new PdfSolidBrush(new PdfColor(0, 0, 0)), new RectangleF(pos, gridResult.Bounds.Bottom + 10, grid.Columns[3].Width - pos, 20), new PdfStringFormat(PdfTextAlignment.Right));
 
 
 
@@ -185,22 +189,34 @@ namespace Yarsey.Desktop.WPF.Services
             DataTable table = new DataTable();
             foreach (PropertyDescriptor prop in properties)
             {
-                if (prop.PropertyType == typeof(double))
+                //if (prop.PropertyType == typeof(double))
+                //    table.Columns.Add(prop.Name, typeof(string));
+                //else
+                //    table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+                if (prop.Name == "Tax" || prop.Name== "Quantity"|| prop.Name == "PricePerItem" || prop.Name== "Discount")
+                {
                     table.Columns.Add(prop.Name, typeof(string));
-                else
-                    table.Columns.Add(prop.Name, Nullable.GetUnderlyingType(prop.PropertyType) ?? prop.PropertyType);
+                }
+
             }
             foreach (T item in data)
             {
                 DataRow row = table.NewRow();
+                DataColumnCollection dataColumn = table.Columns;
                 foreach (PropertyDescriptor prop in properties)
                 {
-                    object value = prop.GetValue(item) ?? DBNull.Value;
-                    if (value is double)
-                        row[prop.Name] = ((double)value).ToString("#,###.00", CultureInfo.InvariantCulture);
-                    else
-                        row[prop.Name] = value;
+                    if(prop.Name == "Tax" || prop.Name == "Quantity" || prop.Name == "PricePerItem" || prop.Name == "Discount")
+                    {
+                        object value = prop.GetValue(item) ?? DBNull.Value;
+                        if (value is decimal)
+                            row[prop.Name] = ((decimal)value).ToString("#,###.00", CultureInfo.InvariantCulture);
+                        else
+                            row[prop.Name] = value;
+                    }
+
+                   
                 }
+
                 table.Rows.Add(row);
             }
             return table;

@@ -17,6 +17,7 @@ using AsyncRelayCommand = Yarsey.Desktop.WPF.Commands.AsyncRelayCommand;
 using System.Drawing;
 using System.Windows.Media.Imaging;
 using System.IO;
+using Yarsey.Domain.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -98,21 +99,11 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public ICommand CreateBusinessCommand { get; set; }
         public ICommand BrowseImage { get; set; }
 
-        BusinessDataService _businessDataService;
+        IBusinessService _businessDataService;
 
         public Action<Business> ChangeMainWindow;
 
-        //public Action<Business> ChangeMainWindow { 
-        //    get { return _changeMainWindow; }
-        //    set
-        //    {
-        //        if (value != null)
-        //        {
-        //            _changeMainWindow = value;
-        //        }
-        //    }
-        //}
-        public CreateBusinessPageModel(BusinessDataService businessDataService)
+        public CreateBusinessPageModel(IBusinessService businessDataService)
         {
         
             _businessDataService = businessDataService;

@@ -11,6 +11,9 @@ using Yarsey.Desktop.WPF.View;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.EntityFramework.Services;
 using AutoMapper;
+using Serilog;
+using Microsoft.Extensions.Logging;
+using Yarsey.Domain.Services;
 
 namespace Yarsey.Desktop.WPF.HostBuilder
 {
@@ -34,14 +37,14 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                                                              EditCustomerNavigationDrawerService(s),
                                                              s.GetRequiredService<CustomerDataService>(),
                                                              s.GetRequiredService<BusinessStore>(),
-                                                             s.GetRequiredService<BusinessDataService>(),
+                                                             s.GetRequiredService<IBusinessService>(),
                                                              s.GetRequiredService<GeneralModalNavigationService>()
 
                     ));
                 services.AddTransient<NewCustomerViewModel>(s => new NewCustomerViewModel(CreateCustomerNavigationDrawerService(s), 
                                                                     s.GetRequiredService<CustomerDataService>(),
                                                                     s.GetRequiredService<BusinessStore>(), 
-                                                                    s.GetRequiredService<BusinessDataService>(), 
+                                                                    s.GetRequiredService<IBusinessService>(), 
                                                                     s.GetRequiredService<GeneralModalNavigationService>(),
                                                                     s.GetRequiredService<IMapper>()
                                                                     
@@ -49,7 +52,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                                                                     ));
                 services.AddTransient<EditCustomerViewModel>(s => new EditCustomerViewModel(CreateCustomerNavigationDrawerService(s),
                                                                     s.GetRequiredService<BusinessStore>(),
-                                                                    s.GetRequiredService<BusinessDataService>(),
+                                                                    s.GetRequiredService<IBusinessService>(),
                                                                     s.GetRequiredService<GeneralModalNavigationService>()));
 
 
@@ -58,7 +61,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 #region Product
                 services.AddTransient<ProductViewModel>(s => new ProductViewModel(CreateNewProductNavigationDraweService(s),
                                                                                 s.GetRequiredService<BusinessStore>(),
-                                                                                s.GetRequiredService<BusinessDataService>(),
+                                                                                s.GetRequiredService<IBusinessService>(),
                                                                                 s.GetRequiredService<GeneralModalNavigationService>()
                                                         ));
 
@@ -67,7 +70,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 services.AddTransient<NewProductViewModel>(s => new NewProductViewModel(CreateProductNavigationDrawerService(s), 
                                                                     s.GetRequiredService<BusinessStore>(), 
-                                                                    s.GetRequiredService<BusinessDataService>()));
+                                                                    s.GetRequiredService<IBusinessService>()));
 
                 #endregion
 
@@ -82,12 +85,14 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 services.AddTransient<InvoiceViewModel>(s => new InvoiceViewModel(CreateNewInvoiceNavigationDraweService(s),
                                                                       s.GetRequiredService<BusinessStore>(),
-                                                                      s.GetRequiredService<BusinessDataService>(),
+                                                                      s.GetRequiredService<IBusinessService>(),
                                                                       s.GetRequiredService<GeneralModalNavigationService>()
                                                         ));
-                services.AddTransient<NewInvoiceViewModel>(s => new NewInvoiceViewModel(CreateInvoiceNavigationDrawerService(s),
+                services.AddTransient<NewInvoiceViewModel>(s => new NewInvoiceViewModel(
+                                                                      s.GetRequiredService<ILogger<NewInvoiceViewModel>>(),
+                                                                        CreateInvoiceNavigationDrawerService(s),
                                                                       s.GetRequiredService<BusinessStore>(),
-                                                                      s.GetRequiredService<BusinessDataService>(),
+                                                                      s.GetRequiredService<IBusinessService>(),
                                                                       s.GetRequiredService<InvoiceDataService>(),
                                                                       s.GetRequiredService<GeneralModalNavigationService>(),
                                                                       s.GetRequiredService<PdfService>()
@@ -116,9 +121,11 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                     s.GetRequiredService<ModalNavigationStore>()
 
                 ));
-                services.AddSingleton<MainWindowSetupViewModel>(s=>new MainWindowSetupViewModel(s.GetRequiredService<BusinessDataService>()));
+                services.AddSingleton<MainWindowSetupViewModel>(s=>new MainWindowSetupViewModel(s.GetRequiredService<IBusinessService>()));
                 services.AddSingleton<WindowSetupCompany>(s => new WindowSetupCompany(s.GetRequiredService<SettingsConfiguration>()) { DataContext=s.GetRequiredService<MainWindowSetupViewModel>()});
-                
+
+                services.AddSingleton<BusinessSelectionViewModel>();
+                services.AddSingleton<BusinessSelectionPage>(s=>new BusinessSelectionPage(s.GetRequiredService<SettingsConfiguration>()) {DataContext = s.GetRequiredService<BusinessSelectionViewModel>() });
 
                 //services.AddSingleton<MainViewModel>(s => new MainViewModel());
 

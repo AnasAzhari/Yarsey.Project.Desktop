@@ -166,15 +166,20 @@
                                                       x:Name="alamatInputLayout"
                                                        ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
                                                       HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
-                                                      Grid.Column="1" Grid.Row="1" >
+                                                      Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" >
                             <syncfusion:SfTextInputLayout.LeadingView>
 
                                 <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
                             </syncfusion:SfTextInputLayout.LeadingView>
                             <TextBox
                              Foreground="{Binding Foreground, ElementName=emailInputLayout, Mode=TwoWay}"
-                   
-                                
+                            TextWrapping="Wrap"
+                             
+                              AcceptsReturn="True"
+                                MinLines="3"
+                                MaxLines="3"
+                              VerticalScrollBarVisibility="Visible"
+                             
                             Text="{Binding Adress}" />
                         </syncfusion:SfTextInputLayout>
                         

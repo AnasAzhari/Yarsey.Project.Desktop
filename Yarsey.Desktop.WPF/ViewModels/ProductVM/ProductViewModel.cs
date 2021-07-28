@@ -9,6 +9,7 @@ using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
+using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
@@ -27,9 +28,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand DeleteProductCommand { get; set; }
       
-        public BusinessDataService _businessDataService { get; }
+        public IBusinessService _businessDataService { get; }
 
-        public ProductViewModel(INavigationService newProductnavService, BusinessStore businessStore, BusinessDataService businessDataService,GeneralModalNavigationService generalModalNavigationService)
+        public ProductViewModel(INavigationService newProductnavService, BusinessStore businessStore, IBusinessService businessDataService,GeneralModalNavigationService generalModalNavigationService)
         {
             this._businessStore = businessStore;
             _businessDataService = businessDataService;

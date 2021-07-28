@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Domain.Models;
+using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
@@ -36,7 +37,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public PageModel WelcomePage { get { return _welcomePage; } set { SetProperty(ref _welcomePage, value); } }
 
      
-        public MainWindowSetupViewModel(BusinessDataService businessDataService)
+        public MainWindowSetupViewModel(IBusinessService businessDataService)
         {
             PopulatePages(businessDataService);
             FinishCommand = new DelegateCommand<object>(Finish);
@@ -48,7 +49,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             Console.WriteLine(" Finish Command");
         }
 
-        public void PopulatePages(BusinessDataService businessDataService)  
+        public void PopulatePages(IBusinessService businessDataService)  
         {       
          
            _welcomePage=  new PageModel() { Title = "Selamat Datang, Terima Kasih kerana memilih Yarsey Desktop Akaun", 

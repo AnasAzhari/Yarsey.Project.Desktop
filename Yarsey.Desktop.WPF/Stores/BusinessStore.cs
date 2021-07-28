@@ -4,20 +4,21 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Yarsey.Domain.Models;
+using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.Stores
 {
     public class BusinessStore
     {
-        public BusinessStore(BusinessDataService businessDataService)
+        public BusinessStore(IBusinessService businessDataService)
         {
             this._businessDataService = businessDataService;
         }
         public event Action CurrentBusinessChanged;
 
         private Business _currentBusiness;
-        private readonly BusinessDataService _businessDataService;
+        private readonly IBusinessService _businessDataService;
 
         public Business CurrentBusiness
         {

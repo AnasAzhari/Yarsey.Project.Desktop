@@ -9,6 +9,7 @@ using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
+using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
@@ -17,7 +18,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
     {
         private readonly INavigationService _newInvoicenavService;
         private readonly BusinessStore _businessStore;
-        private readonly BusinessDataService _businessDataService;
+        private readonly IBusinessService _businessDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
 
 
@@ -40,7 +41,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand NavigateNewInvoice{ get; }
 
-        public InvoiceViewModel(INavigationService newInvoicenavService, BusinessStore businessStore, BusinessDataService businessDataService, GeneralModalNavigationService generalModalNavigationService)
+        public InvoiceViewModel(INavigationService newInvoicenavService, BusinessStore businessStore, IBusinessService businessDataService, GeneralModalNavigationService generalModalNavigationService)
         {
             this._newInvoicenavService = newInvoicenavService;
             this._businessStore = businessStore;

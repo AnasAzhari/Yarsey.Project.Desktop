@@ -7,45 +7,104 @@
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-            <ColumnDefinition/>
-        </Grid.ColumnDefinitions>
+        <TabControl>
+            <TabItem Header="Application Settings">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
 
-        <Grid Grid.Column="0" Margin="5,5,5,5">
-            <GroupBox   Header="Mode" Height="100" VerticalAlignment="Top">
-                <StackPanel Orientation="Horizontal"  Margin="0,5,0,0">
-                    <CheckBox Content="Light Mode"  IsChecked="{Binding LightMode}" Margin="5,5,5,5" VerticalAlignment="Top"/>
-               
-                </StackPanel>
-            </GroupBox>
-        </Grid>
+                    <Grid Grid.Column="0" Margin="5,5,5,5">
+                        <GroupBox   Header="Mode" Height="100" VerticalAlignment="Top">
+                            <StackPanel Orientation="Horizontal"  Margin="0,5,0,0">
+                                <CheckBox Content="Light Mode"  IsChecked="{Binding LightMode}" Margin="5,5,5,5" VerticalAlignment="Top"/>
 
-        <Grid Grid.Column="1" Margin="5,5,5,5">
-            <GroupBox  Header="Database" Height="300" VerticalAlignment="Top">
-                <StackPanel Orientation="Vertical">
-                    <Grid Height="60" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5,5,5,5">
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="1*"/>
-                            <ColumnDefinition Width="3*"/>
-                        </Grid.ColumnDefinitions>
-
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
-
-                        <Label Grid.Row="0" Grid.Column="0" Content="Backup Location" />
-                        <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding BackupLoc}"/>
-
-                        <Button Grid.Row="1" Grid.Column="1" Content="Browse" Width="90" HorizontalAlignment="Left" Margin="0,3,3,3"/>
-
+                            </StackPanel>
+                        </GroupBox>
                     </Grid>
 
-                </StackPanel>
-            </GroupBox>
-        </Grid>
+                    <Grid Grid.Column="1" Margin="5,5,5,5">
+                        <GroupBox  Header="Database" Height="300" VerticalAlignment="Top">
+                            <StackPanel Orientation="Vertical">
+                                <Grid Height="60" VerticalAlignment="Top" HorizontalAlignment="Stretch" Margin="5,5,5,5">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="1*"/>
+                                        <ColumnDefinition Width="3*"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="0" Content="Backup Location" />
+                                    <TextBox Grid.Row="0" Grid.Column="1" IsReadOnly="True" Text="{Binding BackupLoc}"/>
+
+                                    <Button Grid.Row="1" Grid.Column="1" Content="Browse" Width="90" HorizontalAlignment="Left" Margin="0,3,3,3"/>
+
+                                </Grid>
+
+                            </StackPanel>
+                        </GroupBox>
+                    </Grid>
+                </Grid>
+                
+                
+                
+            </TabItem>
+            <TabItem Header="Chart of Accounts">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0">
+                        <GroupBox Header="Assets" Margin="3,3,3,3">
+                          
+                            
+                        </GroupBox>
+                    </Grid>
+                    
+                    <Grid Grid.Column="1">
+                        <GroupBox Header="Liabilities" Margin="3,3,3,3">
+                    
+                        </GroupBox>
+                    </Grid>
+                    
+                    <Grid Grid.Column="2">
+                        <GroupBox Header="Equity" Margin="3,3,3,3">
+                      
+
+                        </GroupBox>
+                    </Grid>
+
+                    <Grid Grid.Column="3" >
+                        <GroupBox Header="Income" Margin="3,3,3,3">
+                          
+
+                        </GroupBox>
+                    </Grid>
+
+                    <Grid Grid.Column="4">
+                        <GroupBox Header="Expenses" Margin="3,3,3,3">
+                        
+
+                        </GroupBox>
+                    </Grid>
+
+
+                </Grid>
+                
+            </TabItem>
+            
+        </TabControl>
+     
         
     </Grid>
 </UserControl>

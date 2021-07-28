@@ -10,6 +10,7 @@ using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
+using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
@@ -18,7 +19,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
     {
         private readonly INavigationService _productNavService;
         private readonly BusinessStore _businessStore;
-        private readonly BusinessDataService _businessDataService;
+        private readonly IBusinessService _businessDataService;
 
         public string ProductName { get { return _productName; } set { SetProperty(ref _productName, value); } }
         public decimal ProductCost { get { return _productDecimal; } set { SetProperty(ref _productDecimal, value); } }
@@ -35,7 +36,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand CreateProductCommand { get; set; }
 
-        public NewProductViewModel(INavigationService productNavService, BusinessStore businessStore, BusinessDataService businessDataService)
+        public NewProductViewModel(INavigationService productNavService, BusinessStore businessStore, IBusinessService businessDataService)
         {
             this._productNavService = productNavService;
             this._businessStore = businessStore;

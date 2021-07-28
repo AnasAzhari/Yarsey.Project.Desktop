@@ -14,7 +14,8 @@ using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
 using Yarsey.EntityFramework.Services;
 using System.Diagnostics;
-
+using Microsoft.Extensions.Logging;
+using Yarsey.Domain.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -43,11 +44,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private string _adress;
         public string Adress { get { return _adress; } set { SetProperty(ref _adress, value); } }
 
+        private readonly ILogger<NewInvoiceViewModel> _newInvoiceLogger;
+
         #endregion
 
         private readonly INavigationService _productNavService;
         private readonly BusinessStore _businessStore;
-        private readonly BusinessDataService _businessDataService;
+        private readonly IBusinessService _businessDataService;
         private readonly InvoiceDataService _invoiceDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
         private readonly PdfService _pdfService;
@@ -67,9 +70,10 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public DelegateCommand<object> DeleteProductSelection { get; set; }
 
         public Action cbCalculateTotal;
-        public NewInvoiceViewModel(INavigationService invoiceNavService, BusinessStore businessStore,BusinessDataService businessDataService ,InvoiceDataService invoiceDataService,GeneralModalNavigationService generalModalNavigationService, PdfService pdfService)
+        public NewInvoiceViewModel(ILogger<NewInvoiceViewModel> newInvoiceLogger,INavigationService invoiceNavService, BusinessStore businessStore, IBusinessService businessDataService ,InvoiceDataService invoiceDataService,GeneralModalNavigationService generalModalNavigationService, PdfService pdfService)
         {
             this._productSelections = new ObservableCollection<ProductSelectionViewModel>();
+            this._newInvoiceLogger = newInvoiceLogger;
             this._productNavService = invoiceNavService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
@@ -111,6 +115,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
         public void InitRunningNo()
         {
+            _newInvoiceLogger.LogInformation("Initiate running no");
             CurrentRunningNo = _invoiceDataService.GetNextRunningNo(Helper.Helper.InvoiceModule);
         }
 

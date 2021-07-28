@@ -21,10 +21,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
         {
             host.ConfigureAppConfiguration(c =>
             {
-                
-               
-
-
+   
                 if (!System.IO.Directory.Exists(SettingsConfiguration.Folder))
                 {
                     System.IO.Directory.CreateDirectory(SettingsConfiguration.Folder);

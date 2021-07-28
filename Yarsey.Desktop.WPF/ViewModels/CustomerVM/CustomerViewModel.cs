@@ -9,6 +9,7 @@ using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
+using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
 
 namespace Yarsey.Desktop.WPF.ViewModels
@@ -35,7 +36,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         private readonly CustomerDataService _customerDataService;
         private readonly BusinessStore _businessStore;
-        private readonly BusinessDataService _businessDataService;
+        private readonly IBusinessService _businessDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
 
         public ICommand NavigateNewCustomer { get; }
@@ -44,7 +45,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public ICommand EditCustomerCommand { get; set; }
         public ICommand TestModal { get; set; }
 
-        public CustomerViewModel(INavigationService newCustNavService,INavigationService editCustNavService, CustomerDataService customerDataService,BusinessStore businessStore,BusinessDataService businessDataService, GeneralModalNavigationService generalModalNavigationService)
+        public CustomerViewModel(INavigationService newCustNavService,INavigationService editCustNavService, CustomerDataService customerDataService,BusinessStore businessStore, IBusinessService businessDataService, GeneralModalNavigationService generalModalNavigationService)
         {
             _customerDataService = customerDataService;
             this._businessStore = businessStore;
