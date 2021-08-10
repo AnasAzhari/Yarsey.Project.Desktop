@@ -33,15 +33,18 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
 
         private PageModel _welcomePage;
+        private readonly IBusinessService _businessDataService;
+        private readonly IAccountService _accountService;
 
         public PageModel WelcomePage { get { return _welcomePage; } set { SetProperty(ref _welcomePage, value); } }
 
      
-        public MainWindowSetupViewModel(IBusinessService businessDataService)
+        public MainWindowSetupViewModel(IBusinessService businessDataService,IAccountService accountService )
         {
-            PopulatePages(businessDataService);
+            PopulatePages();
             FinishCommand = new DelegateCommand<object>(Finish);
-           
+            this._businessDataService = businessDataService;
+            this._accountService = accountService;
         }
 
         public void Finish(object param)
@@ -49,12 +52,12 @@ namespace Yarsey.Desktop.WPF.ViewModels
             Console.WriteLine(" Finish Command");
         }
 
-        public void PopulatePages(IBusinessService businessDataService)  
+        public void PopulatePages()  
         {       
          
            _welcomePage=  new PageModel() { Title = "Selamat Datang, Terima Kasih kerana memilih Yarsey Desktop Akaun", 
                                             Content="Sila Tekan Next untuk konfigurasi bisnes anda" };
-           _businessPage=new CreateBusinessPageModel(businessDataService) { Title = "Konfigurasi Bisnes", Content = "Konfigurasi Bisnes" };
+           _businessPage=new CreateBusinessPageModel(_businessDataService, _accountService) { Title = "Konfigurasi Bisnes", Content = "Konfigurasi Bisnes" };
 
  
         }

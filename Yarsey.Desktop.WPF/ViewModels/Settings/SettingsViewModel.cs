@@ -7,6 +7,8 @@ using System.Threading.Tasks;
 using Yarsey.Desktop.WPF.Services;
 using Syncfusion;
 using Syncfusion.SfSkinManager;
+using System.Windows.Input;
+using Yarsey.Desktop.WPF.Commands;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -37,14 +39,33 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
 
 
+        public ICommand BackupCommand { get; set; }
+
         public SettingsViewModel(MainWindow mainWindow,SettingsConfiguration settingsConfiguration,GeneralModalNavigationService generalModalNavigationService)
         {
             this._mainWindow = mainWindow;
             this._settingsConfiguration = settingsConfiguration;
             this._generalModalNavigationService = generalModalNavigationService;
             InitConfigure();
-        
+            BackupCommand = new AsyncRelayCommand(ValidateBackupAsync, Success);
+
         }
+
+
+        private async Task<bool> ValidateBackupAsync()
+        {
+
+           return  this._settingsConfiguration.VerifyBackup();
+        }
+
+        private async Task Success()
+        {
+
+            this._settingsConfiguration.Backup();
+            _generalModalNavigationService.NavigationOnSuccess("Database backed up successfully");
+        }
+
+
 
         public void InitConfigure()
         {

@@ -109,7 +109,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             {
                 BusinessCustomers = new ObservableCollection<Customer>(c);
             }
-            var p = this._businessStore.CurrentBusiness?.Products.ToList();
+            var p = this._businessStore.CurrentBusiness?.Products?.ToList();
             _productList = new ObservableCollection<Product>(p);
             
         }
@@ -155,7 +155,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             var obj = param.GetType();
             ProductSelectionViewModel ps = (ProductSelectionViewModel)param;
             ps.Word = ps.SelectedProduct.Notes;
-            ps.PricePerItem = ps.SelectedProduct.ProductCost;
+            //ps.PricePerItem = ps.SelectedProduct.ProductCost;
             
         }
 

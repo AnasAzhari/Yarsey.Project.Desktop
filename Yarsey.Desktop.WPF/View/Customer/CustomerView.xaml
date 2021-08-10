@@ -148,6 +148,7 @@
                             <Style.Triggers>
                                 <DataTrigger Binding="{Binding SelectedCustomer}" Value="{x:Null}">
                                     <Setter Property="Visibility" Value="Hidden"/>
+                                    
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>

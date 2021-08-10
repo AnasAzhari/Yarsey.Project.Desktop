@@ -45,10 +45,10 @@
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition Height="90"/>
-                            <RowDefinition Height="90"/>
-                            <RowDefinition Height="90"/>
-                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="75"/>
                             <RowDefinition />
                             <RowDefinition Height="90"/>
 
@@ -72,8 +72,6 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
-
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice No"/>
                                 <syncfusion:SfTextBoxExt Grid.Row="1" Height="25" MaxLines="2" Grid.Column="1" IsReadOnly="False" Text="{Binding CurrentRunningNo}"  VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                          
@@ -92,8 +90,6 @@
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-
-                                <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice Date"/>
                                 <syncfusion:SfDatePicker Grid.Row="1" Height="25" Grid.Column="1" Value="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
@@ -121,8 +117,6 @@
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
 
-                                <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
-
                                 <Label Grid.Row="0" Grid.Column="1" Content="Invoice Due Date"/>
                                 <syncfusion:SfDatePicker Grid.Row="1" Height="25" Grid.Column="1" Value="{Binding Due,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" MinDate="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
                                                          
@@ -144,8 +138,6 @@
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-
-                                <Image Grid.Row="1" Grid.Column="0"  Source="{StaticResource Phone}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Customer"/>
                                 <syncfusion:ComboBoxAdv Height="25" x:Name="CustomerSelectionControl" ItemsSource="{Binding BusinessCustomers}" DisplayMemberPath="Name" 
@@ -206,8 +198,6 @@
                                     <ColumnDefinition Width="60"/>
                                     <ColumnDefinition />
                                 </Grid.ColumnDefinitions>
-
-                                <Image Grid.Row="1" Grid.Column="0" Height="30" Width="30"  Source="{StaticResource Adress}"/>
 
                                 <Label Grid.Row="0" Grid.Column="1" Content="Bill to :"/>
                             <TextBox Grid.Row="1" 

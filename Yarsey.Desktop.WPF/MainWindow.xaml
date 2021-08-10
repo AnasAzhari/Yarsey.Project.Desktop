@@ -82,7 +82,7 @@
 
         <syncfusion:SfNavigationDrawer x:Name="sff" DisplayMode="Expanded">
          
-            <syncfusion:NavigationItem Header="Home" Command="{Binding NavigateHomeCommand}" IsSelected="True">
+            <syncfusion:NavigationItem Header="Dashboard" Command="{Binding NavigateHomeCommand}" IsSelected="True">
                 <syncfusion:NavigationItem.Icon>
 
                     <Image Source="{StaticResource Home}"/>
@@ -106,6 +106,23 @@
                     <Image Source="{StaticResource  CustomerIcon}"/>
                 </syncfusion:NavigationItem.Icon>
             </syncfusion:NavigationItem>
+
+            <syncfusion:NavigationItem Header="Account" IsExpanded="False" >
+                
+                <syncfusion:NavigationItem.Icon>
+                    <Image Source="{StaticResource Accounting}"/>
+                </syncfusion:NavigationItem.Icon>
+                <syncfusion:NavigationItem Header="Chart Of Account">
+                    <syncfusion:NavigationItem.Icon>
+                        <Image Source="{StaticResource Accounting}"/>
+                    </syncfusion:NavigationItem.Icon>
+                </syncfusion:NavigationItem>
+               
+                
+            </syncfusion:NavigationItem>
+            
+            
+            
 
             <syncfusion:SfNavigationDrawer.FooterItems>
                 <syncfusion:NavigationItem Header="Settings" Command="{Binding NavigateSettingsCommand}"  >

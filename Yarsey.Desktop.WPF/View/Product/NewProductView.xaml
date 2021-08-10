@@ -9,7 +9,7 @@
              
         
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+            >
     <UserControl.Resources>
 
         <Style TargetType="Image">
@@ -22,14 +22,14 @@
 
         <Grid.RowDefinitions >
             <RowDefinition Height="50"/>
-            <RowDefinition Height="600"/>
-            <RowDefinition/>
+            <RowDefinition Height="10*"/>
+            <RowDefinition Height="*"/>
 
         </Grid.RowDefinitions>
         <Grid Grid.Row="0" Margin="5,5,5,5">
             <Label FontSize="25" Foreground="DarkGreen" Content="New Product" HorizontalAlignment="Center"/>
         </Grid>
-        <Grid Grid.Row="1" Margin="5,20,15,15">
+        <Grid Grid.Row="1" Margin="5,20,15,15" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="2*" />
                 <ColumnDefinition />
@@ -37,87 +37,562 @@
 
             <Grid Grid.Column="0">
                 <Grid Grid.Row="1"  VerticalAlignment="Top" Margin="5,5,20,5">
-                    <Grid>
+                    <Grid Margin="0,0,0,-20">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition/>
+                            <ColumnDefinition Width="2*"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
                         <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="35"/>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="75"/>
+
+                            <RowDefinition Height="30"/>
+                            <RowDefinition Height="35"/>
+
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="75"/>
+                            <RowDefinition Height="75"/>
+
+                            <RowDefinition Height="90"/>
 
                         </Grid.RowDefinitions>
 
+                        <Grid Grid.Row="0" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Product Name"/>
+
+                                <TextBox
+                                    
+                                            Grid.Row="1" Height="25"
+                                            Grid.Column="1"
+                                  
+                                    MaxLength="15"
+                                    Text="{Binding ProductName,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" >
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel>
+                                                <AdornedElementPlaceholder x:Name="ss">
+                                                    <Border BorderBrush="Red" 
+                                                        BorderThickness="2"/>
+
+                                                </AdornedElementPlaceholder>
+                                                <ItemsControl ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+
+                                            </StackPanel>
+
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+                                </TextBox>
+
+                                <Label Grid.Row="2" Grid.Column="1" Content=""/>
+
+
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Product UOM"/>
+                                <!--<syncfusion:SfDatePicker Grid.Row="1" Height="25" Grid.Column="1" Value="{Binding InvoiceDate,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"   VerticalAlignment="Center" VerticalContentAlignment="Center"
+                                                         
+                                    />-->
+                                <syncfusion:ComboBoxAdv Grid.Row="1" Grid.Column="1" Height="25" ItemsSource="{Binding ProductUoms}" SelectedItem="{Binding ProductUOM}" />
+
+
+
+                            </Grid>
+                        </Grid>
+
+                        <Grid Grid.Row="1" Grid.Column="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Product Name"/>
+
+                                <TextBox
+                                            Grid.Row="1" Height="25"
+                                            Grid.Column="1"
+                                    MaxLength="15"
+                                    Text="{Binding Notes,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" >
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel>
+                                                <AdornedElementPlaceholder x:Name="ss">
+                                                    <Border BorderBrush="Red" 
+                                                        BorderThickness="2"/>
+
+                                                </AdornedElementPlaceholder>
+                                                <ItemsControl ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+
+                                            </StackPanel>
+
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+                                </TextBox>
+
+                                <Label Grid.Row="2" Grid.Column="1" Content=""/>
+
+
+                            </Grid>
+
+                        </Grid>
+
+                        <Grid Grid.Row="2" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Line X1="60" X2="800" Y1="0" Y2="0"   Stroke="DarkGray" StrokeThickness="2" VerticalAlignment="Center"/>
+                        </Grid>
+                        
+
+                        <Grid Grid.Row="3" Grid.Column="0" >
+                        
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <CheckBox Grid.Row="0" Grid.Column="1" Content="Sell this product" IsChecked="{Binding IsSales,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,2,3,2"/>
+                        </Grid>
+                        <Grid Grid.Row="4" Grid.Column="0" x:Name="SellGrid" IsEnabled="{Binding IsSales}">
+                            <!--<Grid.Style>
+                                <Style TargetType="{x:Type Grid}">
+                                    <Setter Property="IsEnabled" Value="True"/>
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding IsSales}" Value="True">
+                                            <Setter Property="IsEnabled" Value="True"/>
+
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </Grid.Style>-->
+
+
+                            <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="1" Content="Sales Price"/>
+                                <syncfusion:DoubleTextBox Grid.Column="1" Grid.Row="1" Height="25" Value="{Binding SalesPrice,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  NumberDecimalDigits="2" MinValue="0"  Margin="3,0,3,0" >
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel>
+                                                <AdornedElementPlaceholder x:Name="ss">
+                                                    <Border BorderBrush="Red" 
+                                                        BorderThickness="2"/>
+
+                                                </AdornedElementPlaceholder>
+                                                <ItemsControl ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+
+                                            </StackPanel>
+
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+                                </syncfusion:DoubleTextBox>
+
+
+                                <Label Grid.Row="2" Grid.Column="1" Content=""/>
+
+                                   
+                                </Grid>
+                                <Grid Grid.Column="1">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="60"/>
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Label Grid.Row="0" Grid.Column="1" Content="Account"/>
+                                  
+                                    <ComboBox  Grid.Row="1" Grid.Column="1" Height="25" ItemsSource="{Binding SalesAccount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding SelectedSalesAccount}" >
+                                        <ComboBox.GroupStyle>
+                                            <GroupStyle>
+                                                <GroupStyle.HeaderTemplate>
+                                                    <DataTemplate>
+                                                        <TextBlock Text="{Binding Name}" FontSize="12" FontWeight="Bold"/>
+                                                    </DataTemplate>
+                                                </GroupStyle.HeaderTemplate>
+                                            </GroupStyle>
+                                        </ComboBox.GroupStyle>
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <TextBlock>
+                                                    <TextBlock.Text >
+                                                        <MultiBinding StringFormat="{}{0} - {1}">
+                                                            <Binding Path="Code"/>
+                                                            <Binding Path="Name"/>
+                                                        </MultiBinding>
+                                                    </TextBlock.Text>
+                                                </TextBlock>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel>
+                                                <AdornedElementPlaceholder x:Name="ss">
+                                                    <Border BorderBrush="Red" 
+                                                        BorderThickness="2"/>
+
+                                                </AdornedElementPlaceholder>
+                                                <ItemsControl ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+
+                                            </StackPanel>
+
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+                                </ComboBox >
+
+
+
+                                </Grid>
+                          
+
+                        </Grid>
+
+                        <Grid Grid.Row="5" Grid.Column="0" IsEnabled="{Binding IsSales}">
+                     
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Description"/>
+                                <TextBox
+                                    
+                                            Grid.Row="1" Height="25"
+                                            Grid.Column="1"
+                                  
+                                    MaxLength="15"
+                                    Text="{Binding SalesDescription,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+
+
+                                <Label Grid.Row="2" Grid.Column="1" Content=""/>
+
+
+                            </Grid>
+
+                        </Grid>
+
+                        <Grid Grid.Row="6" Grid.Column="0" IsEnabled="{Binding IsSales}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Tax"/>
+                                <syncfusion:DoubleTextBox Grid.Column="1" Grid.Row="1" Height="25"  NumberDecimalDigits="2" MinValue="0"  Margin="3,0,3,0" />
+
+
+                                <Label Grid.Row="2" Grid.Column="1" Content=""/>
+
+
+                            </Grid>
                        
-                        <syncfusion:SfTextInputLayout Hint="Product Name"
-                                                      x:Name="productNameInputLayout"
-                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
-                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
-                                                      Grid.Column="0" Grid.Row="0">
-                            <syncfusion:SfTextInputLayout.LeadingView>
 
-                                <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
-                            </syncfusion:SfTextInputLayout.LeadingView>
-                            <TextBox
-                            Foreground="{Binding Foreground, ElementName=productNameInputLayout, Mode=TwoWay}"
-                            MaxLength="15"
-                            Text="{Binding ProductName}" />
-                        </syncfusion:SfTextInputLayout>
-                        <syncfusion:SfTextInputLayout Hint="Product UOM"
-                                                      Margin="2,2,2,2"
-                                                      x:Name="productUomInputLayout"
-                                                
-                                                      Grid.Column="1" Grid.Row="0">
-                            <syncfusion:SfTextInputLayout.LeadingView>
+                        </Grid>
 
-                                <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
-                            </syncfusion:SfTextInputLayout.LeadingView>
-                            <!--<syncfusion:SfTextBoxExt AutoCompleteMode="Suggest" AllowDrop="True" IsReadOnly="True" SelectedValue="{Binding ProductUoms[0]}"  AutoCompleteSource="{Binding ProductUoms}" >
+                        <Grid Grid.Row="7" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Line X1="60" X2="800" Y1="0" Y2="0"   Stroke="DarkGray" StrokeThickness="2" VerticalAlignment="Center"/>
+                        </Grid>
 
-                            </syncfusion:SfTextBoxExt>-->
-                            <syncfusion:ComboBoxAdv ItemsSource="{Binding ProductUoms}" SelectedItem="{Binding ProductUOM}" />
-                        </syncfusion:SfTextInputLayout>
 
-                        <syncfusion:SfTextInputLayout Hint="Product Cost"
-                                                      x:Name="productCostInputLayout"
-                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
-                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
-                                                      Grid.Column="0" Grid.Row="1">
-                            <syncfusion:SfTextInputLayout.LeadingView>
+                        <Grid Grid.Row="8" Grid.Column="0" >
 
-                                <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
-                            </syncfusion:SfTextInputLayout.LeadingView>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="60"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+
+                            <CheckBox Grid.Row="0" Grid.Column="1" Content="Purchase this product" IsChecked="{Binding IsPurchase,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="0,2,3,2">
+                                <CheckBox.Triggers>
+                                    
+                                </CheckBox.Triggers>
+                                
+                            </CheckBox>
+                        </Grid>
+
+
+                        <Grid Grid.Row="9" Grid.Column="0" x:Name="PurchaseRow1" IsEnabled="{Binding IsPurchase}">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Purchase Price"/>
+                                <syncfusion:DoubleTextBox Grid.Column="1" Grid.Row="1" Height="25" Value="{Binding PurchasePrice,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"  NumberDecimalDigits="2" MinValue="0"  Margin="3,0,3,0" >
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel>
+                                                <AdornedElementPlaceholder x:Name="ss">
+                                                    <Border BorderBrush="Red" 
+                                                        BorderThickness="2"/>
+
+                                                </AdornedElementPlaceholder>
+                                                <ItemsControl ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
+
+
+                                            </StackPanel>
+
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+                                </syncfusion:DoubleTextBox>
+
+
+                                <Label Grid.Row="2" Grid.Column="1" Content=""/>
+
+
+                            </Grid>
+                            <Grid Grid.Column="1">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Account"/>
                          
-                            <!--<syncfusion:CurrencyTextBox Value="{Binding ProductCost}"/>-->
-                            <TextBox
-                            Foreground="{Binding Foreground, ElementName=notesInputLayout, Mode=TwoWay}"
-                            MaxLength="15"
-                              
-                            Text="{Binding ProductCost,StringFormat='#.00'}" />
+                                <ComboBox  Grid.Row="1" Grid.Column="1" Height="25" ItemsSource="{Binding PurchaseAccount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" SelectedItem="{Binding SelectedPurchaseAccount}" >
+                                    <ComboBox.GroupStyle>
+                                        <GroupStyle>
+                                            <GroupStyle.HeaderTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Name}" FontSize="12" FontWeight="Bold"/>
+                                                </DataTemplate>
+                                            </GroupStyle.HeaderTemplate>
+                                        </GroupStyle>
+                                    </ComboBox.GroupStyle>
+                                    <ComboBox.ItemTemplate>
+                                        <DataTemplate>
+                                            <TextBlock>
+                                                <TextBlock.Text >
+                                                    <MultiBinding StringFormat="{}{0} - {1}">
+                                                        <Binding Path="Code"/>
+                                                        <Binding Path="Name"/>
+                                                    </MultiBinding>
+                                                </TextBlock.Text>
+                                            </TextBlock>
+                                        </DataTemplate>
+                                    </ComboBox.ItemTemplate>
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <StackPanel>
+                                                <AdornedElementPlaceholder x:Name="ss">
+                                                    <Border BorderBrush="Red" 
+                                                        BorderThickness="2"/>
 
-                        </syncfusion:SfTextInputLayout>
-                        <!--<syncfusion:CurrencyTextBox Grid.Column="0" Grid.Row="1">
-                            
-                        </syncfusion:CurrencyTextBox>-->
+                                                </AdornedElementPlaceholder>
+                                                <ItemsControl ItemsSource="{Binding}">
+                                                    <ItemsControl.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <Label Content="{Binding ErrorContent}" Foreground="Red"/>
+                                                        </DataTemplate>
+                                                    </ItemsControl.ItemTemplate>
+                                                </ItemsControl>
 
-                        <syncfusion:SfTextInputLayout Hint="Notes"
-                                                      x:Name="notesInputLayout"
-                                                       ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
-                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}" 
-                                                      Grid.Column="1" Grid.Row="1">
-                            <syncfusion:SfTextInputLayout.LeadingView>
 
-                                <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
-                            </syncfusion:SfTextInputLayout.LeadingView>
-                            <TextBox
-                            Foreground="{Binding Foreground, ElementName=notesInputLayout, Mode=TwoWay}"
-                            MaxLength="15"
-                            Text="{Binding Notes}" />
-                        </syncfusion:SfTextInputLayout>
+                                            </StackPanel>
 
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+                                </ComboBox >
+
+
+
+                            </Grid>
+
+
+                        </Grid>
+
+                        <Grid Grid.Row="10" Grid.Column="0" x:Name="PurchaseRow2"  IsEnabled="{Binding IsPurchase}">
+
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0" Grid.ColumnSpan="2">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Description"/>
+                                <TextBox
+                                    
+                                            Grid.Row="1" Height="25"
+                                            Grid.Column="1"
+                                  
+                                    MaxLength="15"
+                                    Text="{Binding PurchaseDescription,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" />
+
+
+                                <Label Grid.Row="2" Grid.Column="1" Content=""/>
+
+
+                            </Grid>
+
+                        </Grid>
+
+                        <Grid Grid.Row="11" Grid.Column="0" x:Name="PurchaseRow3"  IsEnabled="{Binding IsPurchase}">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <Grid Grid.Column="0">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                    <RowDefinition/>
+                                </Grid.RowDefinitions>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="60"/>
+                                    <ColumnDefinition />
+                                </Grid.ColumnDefinitions>
+
+                                <Label Grid.Row="0" Grid.Column="1" Content="Tax"/>
+                                <syncfusion:DoubleTextBox Grid.Column="1" Grid.Row="1" Height="25"  NumberDecimalDigits="2" MinValue="0"  Margin="3,0,3,0" />
+
+
+                                <Label Grid.Row="2" Grid.Column="1" Content=""/>
+
+
+                            </Grid>
+
+
+                        </Grid>
                     </Grid>
 
                 </Grid>
@@ -129,9 +604,9 @@
             <StackPanel Orientation="Horizontal">
                 <Button Content="Simpan" Command="{Binding CreateProductCommand}" Height="50" Width="200" />
                 <Button Content="Batal" Command="{Binding NavigateProductCommand}" Margin="10,0,0,0" Height="50" Width="200"/>
+
             </StackPanel>
         </Grid>
-
 
     </Grid>
 </UserControl>

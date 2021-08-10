@@ -13,4 +13,6 @@
     <BitmapImage x:Key="Registration" UriSource="/Resources/Icon/licence_100px.png"/>
     <BitmapImage x:Key="Registration2" UriSource="/Resources/Icon/licence2_100px.png"/>
     <BitmapImage x:Key="Settings" UriSource="/Resources/Icon/settings_64px.png"/>
+    <BitmapImage x:Key="Accounting" UriSource="/Resources/Icon/accounting_48px.png"/>
+    
 </ResourceDictionary>

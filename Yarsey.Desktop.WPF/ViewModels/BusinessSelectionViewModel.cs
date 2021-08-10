@@ -20,11 +20,10 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
 
         private readonly IBusinessService _businessDataService;
-
-
+        private readonly IAccountService _accountService;
         private BusinessSelectionPageModel _businessSelectionPageVM;
 
-        public BusinessSelectionPageModel BusinessSelectionPage
+        public BusinessSelectionPageModel BizSelectionPage
         {
             get { return _businessSelectionPageVM; }
             set { SetProperty(ref _businessSelectionPageVM, value); }
@@ -38,12 +37,12 @@ namespace Yarsey.Desktop.WPF.ViewModels
             set { SetProperty(ref _businessPage, value); }
         }
 
-        public BusinessSelectionViewModel(IBusinessService businessDataService)
+        public BusinessSelectionViewModel(IBusinessService businessDataService,IAccountService accountService)
         {
             this._businessDataService = businessDataService;
-
+            this._accountService = accountService;
             _businessSelectionPageVM = new BusinessSelectionPageModel(_businessDataService);
-            _businessPage = new CreateBusinessPageModel(businessDataService) { Title = "Konfigurasi Bisnes", Content = "Konfigurasi Bisnes" };
+            _businessPage = new CreateBusinessPageModel(_businessDataService, _accountService) { Title = "Konfigurasi Bisnes", Content = "Konfigurasi Bisnes" };
         }
 
     }

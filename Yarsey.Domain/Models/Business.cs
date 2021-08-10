@@ -39,5 +39,7 @@ namespace Yarsey.Domain.Models
 
         public ICollection<Invoice> Invoices { get; set; }
 
+        public ICollection<Account> Accounts { get; set; }
+
     }
 }

@@ -121,7 +121,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                     s.GetRequiredService<ModalNavigationStore>()
 
                 ));
-                services.AddSingleton<MainWindowSetupViewModel>(s=>new MainWindowSetupViewModel(s.GetRequiredService<IBusinessService>()));
+                services.AddSingleton<MainWindowSetupViewModel>(s=>new MainWindowSetupViewModel(s.GetRequiredService<IBusinessService>(), s.GetRequiredService<IAccountService>()));
                 services.AddSingleton<WindowSetupCompany>(s => new WindowSetupCompany(s.GetRequiredService<SettingsConfiguration>()) { DataContext=s.GetRequiredService<MainWindowSetupViewModel>()});
 
                 services.AddSingleton<BusinessSelectionViewModel>();

@@ -24,6 +24,8 @@ namespace Yarsey.Desktop.WPF.UnitOfWork
 
         public IInvoiceService invoiceService => throw new NotImplementedException();
 
+        public IAccountService accountService => throw new NotImplementedException();
+
         public async Task<bool> Complete()
         {
            return await _context.SaveChangesAsync() > 0;

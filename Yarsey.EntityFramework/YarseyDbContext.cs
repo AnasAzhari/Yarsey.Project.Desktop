@@ -19,6 +19,9 @@ namespace Yarsey.EntityFramework
         public DbSet<Product> Products { get; set; }
         public DbSet<RunningNumber> RunningNumbers { get; set; }
         public DbSet<Invoice> Invoices { get; set; }
+
+        public DbSet<ProductSalesDetail> ProductSalesDetails { get; set; }
+        public DbSet<ProductPurchaseDetail> ProductPurchaseDetails { get; set; }
         public YarseyDbContext(DbContextOptions options) : base(options) { }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -42,6 +45,7 @@ namespace Yarsey.EntityFramework
                 entity.HasMany(e => e.Sales).WithOne().IsRequired().OnDelete(DeleteBehavior.Restrict);
                 entity.HasMany(e => e.Products).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
                 entity.HasMany(e => e.Invoices).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
+                entity.HasMany(e => e.Accounts).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
 
             });
             modelBuilder.Entity<RunningNumber>(entity =>
@@ -77,10 +81,10 @@ namespace Yarsey.EntityFramework
                 entity.Property(e => e.CreatedTime);
                 entity.Property(e => e.ProductName);
                 entity.Property(e => e.Notes);
-                entity.Property(e => e.ProductCost).HasConversion<double>();
-                
                 entity.Property(e => e.ProductUOM).HasConversion(v => v.ToString(), v => (ProductUom)Enum.Parse(typeof(ProductUom), v));
                 //entity.Property(e => e.ProductUOM).HasConversion<string>();
+                entity.HasOne(e => e.ProductSalesDetail).WithOne(e => e.Product).HasForeignKey<ProductSalesDetail>(e => e.ProductId).OnDelete(DeleteBehavior.ClientCascade);
+                entity.HasOne(e => e.ProductPurchaseDetail).WithOne(e => e.Product).HasForeignKey<ProductPurchaseDetail>(e => e.ProductId).OnDelete(DeleteBehavior.ClientCascade);
 
             });
 
@@ -103,6 +107,22 @@ namespace Yarsey.EntityFramework
                 entity.HasOne(e => e.SelectedProduct).WithMany().HasForeignKey(e=>e.SelectedProductId).IsRequired().OnDelete(DeleteBehavior.NoAction);
                 entity.Property(e => e.Quantity);                
             });
+
+            //modelBuilder.Entity<ProductSalesDetail>(entity =>
+            //{
+             
+            //    entity.Property(e => e.SalesPrice);
+            //    entity.Property(e => e.SalesDescription);
+            //    //entity.Property(e => e.SalesTax);
+            //});
+            //modelBuilder.Entity<ProductPurchaseDetail>(entity =>
+            //{
+                
+            //    entity.Property(e => e.PurchasePrice);
+            //    entity.Property(e => e.PurchaseDescription);
+            //    //entity.Property(e => e.PurchaseTax);
+            //});
+
 
             base.OnModelCreating(modelBuilder);
 

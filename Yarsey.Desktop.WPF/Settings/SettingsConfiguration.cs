@@ -26,8 +26,6 @@ namespace Yarsey.Desktop.WPF.Services
 
         public static string FileFolder = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Yarsey");
 
-
-
         public YarseySettings CurrentSettings { get; set; }
 
 
@@ -73,6 +71,41 @@ namespace Yarsey.Desktop.WPF.Services
             return invoiceFolder;
 
          }
+
+
+
+        public bool VerifyBackup()
+        {
+            var dbNewName = $"Yarsey-Backup({DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")}).db";
+            //var dbNewName = $"Yarsey-ds.db";
+            // var dbNewName = $"Yarsey-{DateTime.Now.Date.ToShortDateString()}.db";
+            //var dbNewName = Path.Combine("Yarsey", "-", DateTime.Now.Date.ToShortDateString(), ".db");
+            string pathnew = Path.Combine(backupLocation, dbNewName);
+
+            if (!Directory.Exists(backupLocation))
+            {
+                Directory.CreateDirectory(backupLocation);
+            }
+         
+            if (!File.Exists(pathnew))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public void Backup()
+        {
+            var dbNewName = $"Yarsey-Backup({DateTime.Now.ToString("MM/dd/yyyy hh:mm tt")}).db";
+            //var dbNewName = $"Yarsey-{DateTime.Now.Date.ToShortDateString()}.db";
+            //var dbNewName = Path.Combine("Yarsey", "-", DateTime.Now.Date.ToShortDateString(),".db");
+            string pathnew = Path.Combine(backupLocation, dbNewName);
+            File.Copy(DbConnection, pathnew);
+
+        }
 
 
 

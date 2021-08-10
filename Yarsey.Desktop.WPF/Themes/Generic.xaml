@@ -26,13 +26,13 @@
                                 <Border
                                     x:Name="border"
                                     Background="LightSkyBlue"
-                                    CornerRadius="5" />
+                                    CornerRadius="3" />
                                 <ContentControl Content="{TemplateBinding Content}" />
                             </Grid>
                             <Border.Effect>
                                 <DropShadowEffect
-                                    BlurRadius="10"
-                                    ShadowDepth="10"
+                                    BlurRadius="6"
+                                    ShadowDepth="6"
                                     Color="Gray" />
                             </Border.Effect>
                         </Border>

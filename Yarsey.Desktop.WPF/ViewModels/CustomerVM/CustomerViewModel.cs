@@ -138,8 +138,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
             }
         }
 
-
-
         #endregion
 
 

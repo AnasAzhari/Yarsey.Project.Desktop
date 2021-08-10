@@ -12,6 +12,7 @@ using Yarsey.Desktop.WPF.Stores;
 using Yarsey.Domain.Models;
 using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
+using System.Windows.Data;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -28,10 +29,35 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public List<ProductUom> ProductUoms { get; set; } = Enum.GetValues(typeof(ProductUom)).Cast<ProductUom>().ToList();
 
+     
         ProductUom _productUom;
         string _productName;
         decimal _productDecimal;
         string _notes;
+
+        bool _isSales;
+        public bool IsSales { get { return _isSales; } 
+            set { SetProperty(ref _isSales, value);  } }
+
+        bool _isPurchase;
+        public bool IsPurchase { get { return _isPurchase; } set { SetProperty(ref _isPurchase, value); ; } }
+
+
+        //sell 
+        public decimal SalesPrice { get; set; }
+        public Account SelectedSalesAccount { get; set; }
+        public ListCollectionView SalesAccount { get; set; }
+        public string SalesDescription { get; set; }
+
+        //
+        //purchase
+
+        public decimal PurchasePrice { get; set; }
+        public Account SelectedPurchaseAccount { get; set; }
+
+        public ListCollectionView PurchaseAccount { get; set; }
+        public string PurchaseDescription { get; set; }
+        //
         public ICommand NavigateProductCommand { get; set; }
 
         public ICommand CreateProductCommand { get; set; }
@@ -44,6 +70,36 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
             NavigateProductCommand = new NavigationDrawerCommand(productNavService);
             CreateProductCommand = new AsyncRelayCommand(ValidateAsync, Success);
+            SalesAccount = new ListCollectionView(this._businessStore.CurrentBusiness.Accounts.Where(x=>x.AccountType==AccountType.Income).ToList());
+            SalesAccount.GroupDescriptions.Add(new PropertyGroupDescription("AccountType"));
+            if(this._businessStore.CurrentBusiness.Accounts.ToList().Any(x=>x.Name=="Inventory Sales"))
+            {
+                foreach (var item in SalesAccount)
+                {
+                    var curr = (Account)item;
+                    if(curr.Name== "Inventory Sales")
+                    {
+                        SelectedSalesAccount = curr;
+                        break;
+                    }
+                }
+            }
+
+            PurchaseAccount = new ListCollectionView(this._businessStore.CurrentBusiness.Accounts.Where(x => x.AccountType == AccountType.Expenses).ToList());
+            PurchaseAccount.GroupDescriptions.Add(new PropertyGroupDescription("AccountType"));
+            if (this._businessStore.CurrentBusiness.Accounts.ToList().Any(x=>x.Name== "General Expense")){
+                foreach (var item in PurchaseAccount)
+                {
+                    var curr = (Account)item;
+                    if(curr.Name=="General Expenses")
+                    {
+                        SelectedPurchaseAccount = curr;
+                        break;
+
+                    }
+                }
+            }
+
         }
         private bool canValidateForErrors;
 
@@ -54,7 +110,32 @@ namespace Yarsey.Desktop.WPF.ViewModels
             //await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id, customer).ContinueWith((customer) => { _customerVMNavigationService.Navigate(); });
 
             //_businessStore.RefreshBusiness();
-            Product product = new Product() { ProductName = ProductName, ProductUOM = ProductUOM, ProductCost = ProductCost, Notes = Notes };
+            Product product = new Product() { ProductName = ProductName, ProductUOM = ProductUOM, Notes = Notes };
+
+            if(IsSales)
+            {
+                var salesDetail = new ProductSalesDetail()
+                {
+                    Product = product,
+                    SalesDescription = SalesDescription,
+                    SalesPrice = SalesPrice
+                };
+                product.ProductSalesDetail = salesDetail;
+            }
+
+            if (IsPurchase)
+            {
+                var purchaseDetail = new ProductPurchaseDetail()
+                {
+                    Product = product,
+                    PurchaseDescription = PurchaseDescription,
+                    PurchasePrice = PurchasePrice,
+
+                };
+                product.ProductPurchaseDetail = purchaseDetail;
+            }
+           
+
             await _businessDataService.AddProduct(_businessStore.CurrentBusiness.Id, product).ContinueWith((product) => { _productNavService.Navigate(); });
             _businessStore.RefreshBusiness();
         }
@@ -70,6 +151,21 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 //this.RaiseErrorsChanged("PhoneNo");
                 //this.RaiseErrorsChanged("Adress");
                 //this.RaiseErrorsChanged("Email");
+
+                if (IsSales)
+                {
+                    this.RaiseErrorsChanged("SalesPrice");
+                    this.RaiseErrorsChanged("SelectedSalesAccount");
+             
+                }
+
+
+                if (IsPurchase)
+                {
+                    this.RaiseErrorsChanged("PurchasePrice");
+                    this.RaiseErrorsChanged("SelectedPurchaseAccount");
+             
+                }
 
 
                 if (!this.HasErrors)
@@ -133,6 +229,54 @@ namespace Yarsey.Desktop.WPF.ViewModels
             {
                 if (string.IsNullOrEmpty(ProductName))
                     result.Add("Sila masukkan nama");
+            }
+
+            if (IsSales)
+            {
+                if (string.IsNullOrEmpty(columnName) || columnName == "SalesPrice")
+                {
+                    //if (string.IsNullOrEmpty(ProductName))
+                    //    result.Add("Sila masukkan nama");
+                    if (SalesPrice <= 0)
+                    {
+                        result.Add("Price must be greater than 0");
+                    }
+                }
+
+                if (string.IsNullOrEmpty(columnName) || columnName == "SelectedSalesAccount")
+                {
+                    //if (string.IsNullOrEmpty(ProductName))
+                    //    result.Add("Sila masukkan nama");
+                    if (SelectedSalesAccount == null)
+                    {
+                        result.Add("Please select account");
+                    }
+                }
+            }
+
+            if (IsPurchase)
+            {
+                if (string.IsNullOrEmpty(columnName) || columnName == "SelectedPurchaseAccount")
+                {
+                    //if (string.IsNullOrEmpty(ProductName))
+                    //    result.Add("Sila masukkan nama");
+                    if (SelectedPurchaseAccount == null)
+                    {
+                        result.Add("Please select account");
+                    }
+                }
+
+                if (string.IsNullOrEmpty(columnName) || columnName == "PurchasePrice")
+                {
+                    //if (string.IsNullOrEmpty(ProductName))
+                    //    result.Add("Sila masukkan nama");
+                    if (PurchasePrice <= 0)
+                    {
+                        result.Add("Price must be higher than 0");
+                    }
+                }
+
+         
             }
 
             return result;

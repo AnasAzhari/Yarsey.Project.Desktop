@@ -13,12 +13,14 @@ namespace Yarsey.EntityFramework.Services
     public class BusinessDataService : IBusinessService
     {
         private readonly YarseyDbContextFactory _yarseyDbContextFactory;
-
+    
         private readonly NonQueryDataService<Business> _nonQueryDataService;
+
 
         public BusinessDataService(YarseyDbContextFactory contextFactory)
         {
             _yarseyDbContextFactory = contextFactory;
+           
             _nonQueryDataService = new NonQueryDataService<Business>(contextFactory);
         }
 
@@ -26,6 +28,7 @@ namespace Yarsey.EntityFramework.Services
         {
             return await _nonQueryDataService.Create(entity);
         }
+        
 
         public async Task<bool> Delete(int id)
         {
@@ -69,7 +72,7 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business entity = await dbContext.Businesses.Include(c => c.Customers).Include(p=>p.Products).Include(i=>i.Invoices)
+                Business entity = await dbContext.Businesses.Include(c => c.Customers).Include(p => p.Products).ThenInclude(x => x.ProductSalesDetail).Include(p => p.Products).ThenInclude(x => x.ProductPurchaseDetail).Include(i=>i.Invoices).Include(a=>a.Accounts)
                                         .FirstOrDefaultAsync();
                 return entity;
             }
@@ -81,8 +84,11 @@ namespace Yarsey.EntityFramework.Services
             {
                  Business entity = await dbContext.Businesses.
                                                Include(c => c.Customers).
-                                               Include(p => p.Products).
+                                               Include(p => p.Products).ThenInclude(x=>x.ProductSalesDetail).
+                                               Include(p => p.Products).ThenInclude(x => x.ProductPurchaseDetail).
                                                Include(i => i.Invoices).
+                                               Include(a=>a.Accounts).
+                                               
                                                FirstOrDefaultAsync((a) => a.Id == id);
                     return entity;
             }

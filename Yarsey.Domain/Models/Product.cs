@@ -17,9 +17,14 @@ namespace Yarsey.Domain.Models
     {
 
         public string ProductName { get; set; }
-        public decimal ProductCost { get; set; }
+      
         public DateTime CreatedTime { get; set; } = DateTime.Now;
         public ProductUom ProductUOM { get; set; }
+
+        public ProductSalesDetail ProductSalesDetail { get; set; }
+        public ProductPurchaseDetail ProductPurchaseDetail { get; set; }
+
+
         public string Notes { get; set; }
     }
 }

@@ -15,9 +15,9 @@
 
         <Grid Grid.Row="0" Margin="5,5,20,5">
 
-            <Label Content="{Binding ErrorMessage}" FontSize="30"/>
+            <Label Content="{Binding ErrorMessage}" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="30"/>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.Row="1" HorizontalAlignment="Center">
             <StackPanel Orientation="Horizontal">
                 <Button
                     Margin="4,4,4,4"

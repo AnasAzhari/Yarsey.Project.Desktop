@@ -21,6 +21,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
                 services.AddSingleton<SettingsConfiguration>();
                 services.AddTransient<CustomerDataService>(s => new CustomerDataService(s.GetRequiredService<YarseyDbContextFactory>()));
                 services.AddTransient<IBusinessService, BusinessDataService>();
+                services.AddTransient<IAccountService, AccountDataService>();
                 services.AddTransient<SaleDataService>(s => new SaleDataService(s.GetRequiredService<YarseyDbContextFactory>()));
                 services.AddTransient<InvoiceDataService>(s => new InvoiceDataService(s.GetRequiredService<YarseyDbContextFactory>()));
                 services.AddTransient<PdfService>();

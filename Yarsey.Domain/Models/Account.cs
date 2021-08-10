@@ -15,11 +15,13 @@ namespace Yarsey.Domain.Models
         Expenses
     }
 
-    public class Account
+    public class Account:DomainObject
     {
         public AccountType AccountType { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
+        
+
 
     }
 }

@@ -100,13 +100,14 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public ICommand BrowseImage { get; set; }
 
         IBusinessService _businessDataService;
-
+        private readonly IAccountService _accountService;
         public Action<Business> ChangeMainWindow;
 
-        public CreateBusinessPageModel(IBusinessService businessDataService)
+        public CreateBusinessPageModel(IBusinessService businessDataService, IAccountService accountService)
         {
         
             _businessDataService = businessDataService;
+            this._accountService = accountService;
             CreateBusinessCommand = new AsyncRelayCommand(ValidateAsync, Success);
             BrowseImage = new RelayCommand(SearchImage);
             var imgHome = App.Current.TryFindResource("Home") as BitmapImage;
@@ -119,7 +120,8 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             Business business = new Business() { BusinessName = Name,RegistrationNo=RegistrationNo ,Adresss = Adress, Email = Email, PhoneNo = PhoneNo,Image=Image };
 
-            await _businessDataService.Create(business) ;
+            business= await _businessDataService.Create(business) ;
+            await this._accountService.GenerateDefaultAccounts(business.Id);
             ChangeMainWindow(business);
 
         }

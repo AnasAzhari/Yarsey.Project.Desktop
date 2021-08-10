@@ -4,6 +4,7 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Yarsey.Desktop.WPF"
+        x:Name="BizSelectionControl"
         xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
         xmlns:converters="clr-namespace:Yarsey.Desktop.WPF.Converter"
         xmlns:validation="clr-namespace:Yarsey.Desktop.WPF.Validation"
@@ -52,9 +53,21 @@
 
     <Grid Margin="20,20,20,20" x:Name="MainControl">
 
-        <syncfusion:WizardControl HelpText="Add Business">
+        <syncfusion:WizardControl x:Name="WizardControl"  NextText="Add Business" HelpVisible="False" BackVisible="False" CancelVisible="False">
 
-            <syncfusion:WizardPage Name="Page1" CancelVisible="False"  BackEnabled="False" NextEnabled="False" FontSize="25" VerticalContentAlignment="Center"  Title="Business Selection">
+            <interactivity:Interaction.Triggers>
+                <!--<interactivity:EventTrigger EventName="Help">
+                    <interactivity:InvokeCommandAction   />
+                </interactivity:EventTrigger>-->
+
+
+                <interactivity:EventTrigger EventName="Finish">
+                    <interactivity:InvokeCommandAction Command="{Binding BusinessPage.CreateBusinessCommand}" CommandParameter="{Binding ElementName=BizSelectionControl}" />
+                </interactivity:EventTrigger>
+            </interactivity:Interaction.Triggers>
+
+
+            <syncfusion:WizardPage Name="SelectionWizardPage"   BackEnabled="False"  FontSize="25" VerticalContentAlignment="Center" FinishVisible="False"  Title="Business Selection">
                    
                 <Grid>
 
@@ -68,7 +81,7 @@
                     <Grid Grid.Row="0">
 
                         <ScrollViewer VerticalScrollBarVisibility="Auto"  >
-                            <ListView ItemsSource="{Binding BusinessSelectionPage.Businesses,UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding BusinessSelectionPage.SelectedBusiness,Mode=TwoWay}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                            <ListView ItemsSource="{Binding BizSelectionPage.Businesses,UpdateSourceTrigger=PropertyChanged}" SelectedValue="{Binding BizSelectionPage.SelectedBusiness,Mode=OneWayToSource}" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                                 <ListView.ItemContainerStyle>
                                     <Style TargetType="ListViewItem">
                                         <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
@@ -104,9 +117,6 @@
                                     </DataTemplate>
                                 </ListView.ItemTemplate>
 
-
-
-
                             </ListView>
 
                         </ScrollViewer>
@@ -114,6 +124,192 @@
                     </Grid>
                 </Grid>
             </syncfusion:WizardPage>
+
+
+
+            <syncfusion:WizardPage Name="Page2" NextVisible="False" HelpVisible="False" BackVisible="False" >
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1.5*"/>
+                        <RowDefinition Height="0.2*"/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Grid.ColumnSpan="2" Grid.Row="0" MinHeight="150">
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Logo Syarikat" HorizontalAlignment="Center" FontSize="16"/>
+
+                            <Image Source="{Binding BusinessPage.BmpImage}" Width="120" Height="120"  Margin="2,2,2,2"/>
+
+                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                <Button Content="Browse" Width="100" Command="{Binding BusinessPage.BrowseImage}"/>
+                                <!--<TextBox  Name="textBox1" 
+                                         Width="300" Margin="5,0,0,0"
+                                         BorderBrush="#FF825E5E"  BorderThickness="1"
+                                         Validation.ErrorTemplate="{DynamicResource validationTemplate}"
+                                         Style="{StaticResource textBoxInError}"
+                                         >
+                                    
+                                    <Binding Path="BusinessPage.FileLocation" 
+                                            UpdateSourceTrigger="PropertyChanged"
+                                         
+                                            ValidatesOnNotifyDataErrors="True" 
+                                            Mode="TwoWay"
+                                             
+                                            
+                                             >
+                                        -->
+                                <!--<Binding.ValidationRules>
+                                            <validation:ImageValidationRule MaxSize="5"/>
+                                        </Binding.ValidationRules>-->
+                                <!--
+                                    </Binding>
+
+
+                                </TextBox>-->
+                                <TextBox Style="{StaticResource CustomTextBoxTextStyle}" FontSize="15"
+                                         Foreground="White" IsReadOnly="True"
+                                         Name="textBox1" Width="300" Margin="5,0,0,0">
+                                    <Validation.ErrorTemplate>
+                                        <ControlTemplate>
+                                            <DockPanel >
+                                                <TextBlock Foreground="Red" FontSize="20" Margin="5,0,0,0" DockPanel.Dock="Right">!</TextBlock>
+                                                <AdornedElementPlaceholder x:Name="ErrorAdorner"
+                                                    ></AdornedElementPlaceholder>
+                                            </DockPanel>
+                                        </ControlTemplate>
+                                    </Validation.ErrorTemplate>
+
+                                    <TextBox.Text>
+                                        <Binding Path="BusinessPage.FileLocation"  Mode="TwoWay" UpdateSourceTrigger="PropertyChanged"
+                                                 ValidatesOnNotifyDataErrors="True">
+                                            <!--<Binding.ValidationRules>
+                                                <local:NameValidator></local:NameValidator>
+                                            </Binding.ValidationRules>-->
+                                        </Binding>
+                                    </TextBox.Text>
+
+                                </TextBox>
+
+
+
+                            </StackPanel>
+                        </StackPanel>
+
+                    </Grid>
+                    <Grid Height="5"  Grid.Row="1" Grid.ColumnSpan="2">
+                        <Label Content="Butiran Perniagaan"/>
+                    </Grid>
+
+                    <syncfusion:SfTextInputLayout Hint="Name"
+                                                      Margin="2,2,2,2"
+                                                      x:Name="nameInputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
+                                                      Grid.Column="0" Grid.Row="2">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource CustomerIcon}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=nameInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding BusinessPage.Name}" />
+                    </syncfusion:SfTextInputLayout>
+
+                    <syncfusion:SfTextInputLayout Hint="No Daftar Syarikat"
+                                                      x:Name="regNoInputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
+                                                      Grid.Column="1" Grid.Row="2">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Registration2 }" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=regNoInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding BusinessPage.RegistrationNo}" />
+                    </syncfusion:SfTextInputLayout>
+
+                    <syncfusion:SfTextInputLayout Hint="No Telefon"
+                                                      Margin="2,2,2,2"
+                                                      x:Name="phoneinputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
+                                                      Grid.Column="0" Grid.Row="3">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Phone}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=phoneinputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding BusinessPage.PhoneNo}" />
+                    </syncfusion:SfTextInputLayout>
+
+
+
+
+                    <syncfusion:SfTextInputLayout Hint="Email"
+                                                      x:Name="emailInputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
+                                                      Grid.Column="1" Grid.Row="3">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource  Email}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=emailInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding BusinessPage.Email}" />
+                    </syncfusion:SfTextInputLayout>
+
+                    <syncfusion:SfTextInputLayout Hint="Alamat"
+                                                      x:Name="adressInputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
+                                                      Grid.Column="0" Grid.Row="4">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=adressInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding BusinessPage.Adress}" />
+                    </syncfusion:SfTextInputLayout>
+
+                    <!--<syncfusion:SfTextInputLayout Hint="Logo"
+                                                      x:Name="logoInputLayout"
+                                                      ErrorText="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource ErrorConverter}}" 
+                                                      HasError="{Binding RelativeSource={RelativeSource Mode=Self}, Path=InputView.(Validation.Errors), Converter={StaticResource EmptyCollectionToObjectConverter}}"
+                                                      Grid.Column="1" Grid.Row="4">
+                        <syncfusion:SfTextInputLayout.LeadingView>
+
+                            <Image Margin="0,0,0,0"  Source="{StaticResource Adress}" />
+                        </syncfusion:SfTextInputLayout.LeadingView>
+                        <TextBox
+                            Foreground="{Binding Foreground, ElementName=logoInputLayout, Mode=TwoWay}"
+                            MaxLength="15"
+                            Text="{Binding BusinessPage.FileLocation}" />
+                    </syncfusion:SfTextInputLayout>-->
+
+
+
+                </Grid>
+
+            </syncfusion:WizardPage>
+
+
+
         </syncfusion:WizardControl>
 
 

@@ -45,5 +45,15 @@ namespace Yarsey.Desktop.WPF.Services
             _confirmMessageViewModel.ConfirmTask = task;
             
         }
+
+        public async void NavigationOnConfirmBackup(string message, Func<Task> task)
+        {
+            _modaNavigationStore.CurrentViewModel = _confirmMessageViewModel;
+            _confirmMessageViewModel.ConfirmMessage = message;
+            _confirmMessageViewModel.ConfirmTask = task;
+
+        }
+
+
     }
 }

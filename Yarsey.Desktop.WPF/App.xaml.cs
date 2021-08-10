@@ -125,14 +125,19 @@ namespace Yarsey.Desktop.WPF
 
         private void ConfigureBusinessSelectionWindow()
         {
-            var businessSelectionPage = _host.Services.GetRequiredService<BusinessSelectionViewModel>().BusinessSelectionPage;
+            var businessSelectionPage = _host.Services.GetRequiredService<BusinessSelectionViewModel>().BizSelectionPage;
+            var createBusinessPage = (CreateBusinessPageModel)_host.Services.GetRequiredService<BusinessSelectionViewModel>().BusinessPage;
+
             businessSelectionPage.ChangeMainWindow += ChangeBusinessSelectionWindowtoMainwindow;
+            createBusinessPage.ChangeMainWindow += ChangeBusinessSelectionWindowtoMainwindow;
         }
 
         private void DeConfigureBusinessSelectionWindow()
         {
-            var businessSelectionPage = _host.Services.GetRequiredService<BusinessSelectionViewModel>().BusinessSelectionPage;
+            var businessSelectionPage = _host.Services.GetRequiredService<BusinessSelectionViewModel>().BizSelectionPage;
+            var createBusinessPage = (CreateBusinessPageModel)_host.Services.GetRequiredService<BusinessSelectionViewModel>().BusinessPage;
             businessSelectionPage.ChangeMainWindow -= ChangeBusinessSelectionWindowtoMainwindow;
+            createBusinessPage.ChangeMainWindow -= ChangeBusinessSelectionWindowtoMainwindow;
         }
 
         public void ChangeSetupWindowtoMainwindow(Business business)
@@ -147,10 +152,13 @@ namespace Yarsey.Desktop.WPF
 
         }
 
-        public void ChangeBusinessSelectionWindowtoMainwindow(Business business)
+        public async void ChangeBusinessSelectionWindowtoMainwindow(Business business)
         {
             //var mainwindowsetup = _host.Services.GetRequiredService<MainViewModel>();
             //mainwindowsetup.Business = business;
+            var id = business.Id;
+            business = await _host.Services.GetRequiredService<IBusinessService>().Get(id);
+
             _host.Services.GetRequiredService<BusinessSelectionPage>().Hide();
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
