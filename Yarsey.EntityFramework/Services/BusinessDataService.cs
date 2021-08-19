@@ -72,7 +72,7 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business entity = await dbContext.Businesses.Include(c => c.Customers).Include(p => p.Products).ThenInclude(x => x.ProductSalesDetail).Include(p => p.Products).ThenInclude(x => x.ProductPurchaseDetail).Include(i=>i.Invoices).Include(a=>a.Accounts)
+                Business entity = await dbContext.Businesses.Include(c => c.Customers).Include(p => p.Products).ThenInclude(x => x.ProductSalesDetail).Include(p => p.Products).ThenInclude(x => x.ProductPurchaseDetail).Include(i=>i.Invoices).ThenInclude(p=>p.ProductsSelected).Include(a=>a.Accounts)
                                         .FirstOrDefaultAsync();
                 return entity;
             }
@@ -86,7 +86,7 @@ namespace Yarsey.EntityFramework.Services
                                                Include(c => c.Customers).
                                                Include(p => p.Products).ThenInclude(x=>x.ProductSalesDetail).
                                                Include(p => p.Products).ThenInclude(x => x.ProductPurchaseDetail).
-                                               Include(i => i.Invoices).
+                                               Include(i => i.Invoices).ThenInclude(x=>x.ProductsSelected).
                                                Include(a=>a.Accounts).
                                                
                                                FirstOrDefaultAsync((a) => a.Id == id);

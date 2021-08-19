@@ -13,6 +13,7 @@ using Yarsey.Desktop.WPF.Services;
 using System.Windows.Media;
 using Color = System.Windows.Media.Color;
 using Brush = System.Windows.Media.Brush;
+using System.Globalization;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -58,6 +59,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
             this._businessstore.CurrentBusinessChanged += OnBusinessChanged;
             InitConfigure();
 
+            Console.WriteLine(CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol);
 
         }
 
@@ -88,6 +90,20 @@ namespace Yarsey.Desktop.WPF.ViewModels
             byte[] imgBlob = this._businessstore.CurrentBusiness.Image;
             Image = Helper.Helper.BlobToImage(imgBlob);
             //PersonsList = this._businessstore.CurrentBusiness.Customers.ToList();
+            var invoices = this._businessstore.CurrentBusiness.Invoices;
+            var totalReceivable = invoices.SelectMany(o => o.ProductsSelected).Sum(x => x.PricePerItem * x.Quantity);
+            TotalReceivable = totalReceivable;
+        }
+
+        decimal _totalReceivable;
+        public decimal TotalReceivable
+        {
+            get { return _totalReceivable; }
+            set { SetProperty(ref _totalReceivable, value); }
+        }
+        public string CurrencySymbol
+        {
+            get { return CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol; }
         }
     }
 
