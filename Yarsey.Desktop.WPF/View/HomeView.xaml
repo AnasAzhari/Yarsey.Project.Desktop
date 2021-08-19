@@ -9,46 +9,132 @@
             >
     <Grid>
         
+            
+       
         <Grid.RowDefinitions>
+
             <RowDefinition Height="50"/>
-            <!--<RowDefinition Height="50"/>-->
-            <RowDefinition/>
+            <RowDefinition Height="200" />
             <RowDefinition/>
         </Grid.RowDefinitions>
-            <Label Foreground="Bisque" Grid.Row="0" VerticalContentAlignment="Center" FontSize="25" Content="HomeView" HorizontalContentAlignment="Center"/>
+            <Label x:Name="HomeViewLabel" Grid.Row="0" Foreground="{Binding ColorOnTheme}" VerticalContentAlignment="Center" FontSize="25" Content="{Binding BizName}" HorizontalContentAlignment="Center"/>
 
 
-            <Grid Grid.Row="1" >
-            <syncfusion:TileViewControl Margin="5,5,5,5" Height="200" VerticalAlignment="Top" 
-                                        HorizontalContentAlignment="Stretch">
-                <syncfusion:TileViewItem Margin="10,10,10,10" Height="200" Header="Total Receivable" >
-                    <Grid >
-                        <Grid.RowDefinitions>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                            <RowDefinition/>
-                        </Grid.RowDefinitions>
+            <Grid Grid.Row="1"  Margin="5,5,5,5">
+          
 
-                        <Grid Grid.Row="0">
-                            <Label Content="Hiia" />
+                <Grid >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Margin="1.5,1.5,1.5,1.5">
+                    <GroupBox BorderThickness="2" Header="Receivable" >
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Total Receivable" FontSize="18"/>
+                            <Line X1="5" X2="800" Y1="0" Y2="0" StrokeThickness="15" Stroke="DarkKhaki" Margin="0,12,0,10" />
+                            <StackPanel Orientation="Horizontal" >
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="Current Receivable" Foreground="ForestGreen"/>
+                                    <Label Content="Value"/>
+                                    <Label Content=""/>
+                                </StackPanel>
+                                <Line X1="10" X2="10" Y1="150" Y2="0" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="Overdue Receivable" Foreground="PaleVioletRed"/>
+                                    <Label Content="Value"/>
+                                    <Label Content="In 1-7 Days"/>
+                                </StackPanel>
+                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="" Foreground="PaleVioletRed"/>
+                                    <Label Content="Value"/>
+                                    <Label Content="In 7-14 Days"/>
+                                </StackPanel>
+                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="" Foreground="PaleVioletRed"/>
+                                    <Label Content="Value"/>
+                                    <Label Content="In 14-30 Days"/>
+                                </StackPanel>
+                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="" Foreground="PaleVioletRed"/>
+                                    <Label Content="Value"/>
+                                    <Label Content="In 30 Days or more"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
+                </Grid>
+
+                    <Grid Grid.Column="1" Margin="1.5,1.5,1.5,1.5" >
+
+                    <GroupBox BorderThickness="2" Header="Payable" FontSize="26">
+                        <!--<StackPanel Orientation="Vertical">
+                            <Label Content="Total Receivable"/>
+                            <Line X1="20" X2="800" Y1="0" Y2="0" StrokeThickness="15" Stroke="DarkMagenta" Margin="0,50,0,10" />
+                            <Grid >
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+
+                                <Grid Grid.Column="0" >
+                                    <Label Content="dss" FontSize="18"/>
+                                </Grid>
+                            </Grid>
+                        </StackPanel>-->
+                        <StackPanel Orientation="Vertical">
+                            <Label Content="Total Payable" FontSize="18"/>
+                            <Line X1="5" X2="800" Y1="0" Y2="0" StrokeThickness="15" Stroke="DarkMagenta" Margin="0,12,0,10" />
+                            <StackPanel Orientation="Horizontal" >
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="Current Payable" Foreground="ForestGreen"/>
+                                    <Label Content="Value"/>
+                                    <Label Content=""/>
+                                </StackPanel>
+                                <Line X1="10" X2="10" Y1="150" Y2="0" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="Overdue Payable" Foreground="PaleVioletRed"/>
+                                    <Label Content="Value"/>
+                                    <Label Content="In 1-7 Days"/>
+                                </StackPanel>
+                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="" Foreground="PaleVioletRed"/>
+                                    <Label Content="Value"/>
+                                    <Label Content="In 7-14 Days"/>
+                                </StackPanel>
+                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="" Foreground="PaleVioletRed"/>
+                                    <Label Content="Value"/>
+                                    <Label Content="In 14-30 Days"/>
+                                </StackPanel>
+                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                <StackPanel Orientation="Vertical">
+                                    <Label Content="" Foreground="PaleVioletRed"/>
+                                    <Label Content="Value"/>
+                                    <Label Content="In 30 Days or more"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </StackPanel>
+                    </GroupBox>
                             
-                        </Grid>
-
-                        <Grid Grid.Row="1">
-                            <Border BorderBrush="Red"/>
-                        </Grid>
-                        
                     </Grid>
-                </syncfusion:TileViewItem>
-                <syncfusion:TileViewItem Margin="10,10,10,10 
-                                         " Height="200" Header="Total Payable"/>
-            </syncfusion:TileViewControl>
-        </Grid>
+
+                </Grid>
+                
+                
+            </Grid>
 
 
 
 
-           
 
+      
     </Grid>
 </UserControl>

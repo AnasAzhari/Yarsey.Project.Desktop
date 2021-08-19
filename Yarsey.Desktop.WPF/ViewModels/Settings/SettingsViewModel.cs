@@ -9,12 +9,14 @@ using Syncfusion;
 using Syncfusion.SfSkinManager;
 using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
+using Yarsey.Desktop.WPF.View;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
     public class SettingsViewModel:ViewModelBase
     {
         private readonly MainWindow _mainWindow;
+        private readonly HomeViewModel _homeViewModel;
         private readonly SettingsConfiguration _settingsConfiguration;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
 
@@ -41,16 +43,16 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
         public ICommand BackupCommand { get; set; }
 
-        public SettingsViewModel(MainWindow mainWindow,SettingsConfiguration settingsConfiguration,GeneralModalNavigationService generalModalNavigationService)
+        public SettingsViewModel(MainWindow mainWindow,HomeViewModel homeViewModel,SettingsConfiguration settingsConfiguration,GeneralModalNavigationService generalModalNavigationService)
         {
             this._mainWindow = mainWindow;
+            this._homeViewModel = homeViewModel;
             this._settingsConfiguration = settingsConfiguration;
             this._generalModalNavigationService = generalModalNavigationService;
             InitConfigure();
             BackupCommand = new AsyncRelayCommand(ValidateBackupAsync, Success);
 
         }
-
 
         private async Task<bool> ValidateBackupAsync()
         {
@@ -64,8 +66,6 @@ namespace Yarsey.Desktop.WPF.ViewModels
             this._settingsConfiguration.Backup();
             _generalModalNavigationService.NavigationOnSuccess("Database backed up successfully");
         }
-
-
 
         public void InitConfigure()
         {
@@ -82,11 +82,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
             if (LightMode == true)
             {
                 _mainWindow.SetLightMode();
+                _homeViewModel.SetLightMode();
 
             }
             else
             {
-                _mainWindow.SetDarkMode();
+               _mainWindow.SetDarkMode();
+                _homeViewModel.SetDarkMode();
             }
             _settingsConfiguration.WriteSettingsToJson();
 

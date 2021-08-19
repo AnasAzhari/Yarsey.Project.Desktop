@@ -80,7 +80,7 @@
 
         <!--<syncfusion:SfBusyIndicator IsBusy="True" AnimationType="Cupertino"/>-->
 
-        <syncfusion:SfNavigationDrawer x:Name="sff" DisplayMode="Expanded">
+        <syncfusion:SfNavigationDrawer x:Name="sff" DisplayMode="Expanded" >
          
             <syncfusion:NavigationItem Header="Dashboard" Command="{Binding NavigateHomeCommand}" IsSelected="True">
                 <syncfusion:NavigationItem.Icon>
@@ -113,9 +113,9 @@
                     <Image Source="{StaticResource Accounting}"/>
                 </syncfusion:NavigationItem.Icon>
                 <syncfusion:NavigationItem Header="Chart Of Account">
-                    <syncfusion:NavigationItem.Icon>
+                    <!--<syncfusion:NavigationItem.Icon>
                         <Image Source="{StaticResource Accounting}"/>
-                    </syncfusion:NavigationItem.Icon>
+                    </syncfusion:NavigationItem.Icon>-->
                 </syncfusion:NavigationItem>
                
                 

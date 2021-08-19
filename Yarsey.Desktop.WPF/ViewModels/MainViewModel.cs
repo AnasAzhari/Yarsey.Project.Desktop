@@ -41,7 +41,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
                 SetProperty(ref _isBusy, value); }
         }
         public bool IsOpen => _modalNavigationStore.IsOpen;
-        public NavationItemClickedAction navationItemClickedAction { get; set; }
+        //public NavationItemClickedAction navationItemClickedAction { get; set; }
 
         public ViewModelBase CurrentLayout { get; set; }
 

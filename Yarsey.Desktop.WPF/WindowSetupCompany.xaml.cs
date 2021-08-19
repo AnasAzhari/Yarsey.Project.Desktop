@@ -50,9 +50,9 @@ namespace Yarsey.Desktop.WPF
         public void SetLightMode()
         {
 
-      
             SfSkinManager.SetTheme(this, _lightFluent);
             MainControl.Background = _lightBrush;
+            
         }
         public void SetDarkMode()
         {
@@ -67,6 +67,7 @@ namespace Yarsey.Desktop.WPF
             _lightFluent = new FluentTheme("FluentLight", null);
             _lightFluent.ShowAcrylicBackground = false;
             _lightFluent.HoverEffectMode = HoverEffect.BackgroundAndBorder;
+            
 
             _darkFluent = new FluentTheme("FluentDark", null);
             _darkFluent.ShowAcrylicBackground = false;
