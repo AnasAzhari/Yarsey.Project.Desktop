@@ -5,24 +5,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Yarsey.Desktop.WPF.View"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
-             mc:Ignorable="d" 
+             xmlns:chart="clr-namespace:Syncfusion.UI.Xaml.Charts;assembly=Syncfusion.SfChart.WPF"
+             mc:Ignorable="d"
+             
             >
-    <Grid>
+
+    <UserControl.Resources>
+        <DataTemplate x:Key="labelTemplate">
+            <TextBlock FontSize="12" Text="Label Template" />
+        </DataTemplate>
+
+        <Style x:Key="axisLineStyle" TargetType="Line">
+            <Setter Property="Stroke" Value="#FFBCBEC0" />
+            <Setter Property="StrokeThickness" Value="1" />
+        </Style>
+
+        <Style x:Key="gridLineStyle" TargetType="Line">
+            <Setter Property="Stroke" Value="Gray" />
+            <Setter Property="StrokeThickness" Value="0.2" />
+        </Style>
+
+        <Style x:Key="majorTickLineStyle" TargetType="Line">
+            <Setter Property="Stroke" Value="#FFBCBEC0" />
+            <Setter Property="StrokeThickness" Value="1" />
+        </Style>
+
+
+    </UserControl.Resources>
+    
+    <ScrollViewer>
+    <Grid Margin="10,10,10,10">
+           
+
         
-            
-       
         <Grid.RowDefinitions>
 
             <RowDefinition Height="50"/>
-            <RowDefinition Height="200" />
+            <RowDefinition Height="200"/>
             <RowDefinition/>
-        </Grid.RowDefinitions>
-            <Label x:Name="HomeViewLabel" Grid.Row="0" Foreground="{Binding ColorOnTheme}" VerticalContentAlignment="Center" FontSize="25" Content="{Binding BizName}" HorizontalContentAlignment="Center"/>
+            <RowDefinition/>
+            </Grid.RowDefinitions>
 
+            <Label x:Name="HomeViewLabel" Grid.Row="0" Foreground="{Binding ColorOnTheme}" VerticalContentAlignment="Center" FontSize="25" Content="{Binding BizName}" HorizontalContentAlignment="Center"/>
+          
 
             <Grid Grid.Row="1"  Margin="5,5,5,5">
           
-
+                
                 <Grid >
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition/>
@@ -30,71 +59,57 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" Margin="1.5,1.5,1.5,1.5">
-                    <GroupBox BorderThickness="2" Header="Receivable" >
-                        <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal">
-                                <Label Content="Total Receivable :" FontSize="18"/>
-                                <Label Content="{Binding CurrencySymbol}" FontSize="18"/>
-                                <Label  FontSize="18" Content="{Binding TotalReceivable}"/>
-                            </StackPanel>
-                            <Line X1="5" X2="800" Y1="0" Y2="0" StrokeThickness="15" Stroke="DarkKhaki" Margin="0,12,0,10" />
-                            <StackPanel Orientation="Horizontal" >
-                                <StackPanel Orientation="Vertical">
-                                    <Label Content="Current Receivable" Foreground="ForestGreen"/>
+                                <GroupBox BorderThickness="2" Header="Receivable" >
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal">
+                                            <Label Content="Total Receivable :" FontSize="18"/>
+                                            <Label Content="{Binding CurrencySymbol}" FontSize="18"/>
+                                            <Label  FontSize="18" Content="{Binding TotalReceivable}"/>
+                                        </StackPanel>
+                                        <Line X1="5" X2="800" Y1="0" Y2="0" StrokeThickness="15" Stroke="DarkKhaki" Margin="0,12,0,10" />
+                                        <StackPanel Orientation="Horizontal" >
+                                            <StackPanel Orientation="Vertical">
+                                                <Label Content="Current Receivable" Foreground="ForestGreen"/>
                                     
-                                    <StackPanel Orientation="Horizontal">
-                                        <Label Content="{Binding CurrencySymbol}"/>
-                                        <Label Content="{Binding TotalReceivable}"/>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <Label Content="{Binding CurrencySymbol}"/>
+                                                    <Label Content="{Binding TotalReceivable}"/>
+                                                </StackPanel>
+                                                <Label Content=""/>
+                                            </StackPanel>
+                                            <Line X1="10" X2="10" Y1="150" Y2="0" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <Label Content="Overdue Receivable" Foreground="PaleVioletRed"/>
+                                                <Label Content="Value"/>
+                                                <Label Content="In 1-7 Days"/>
+                                            </StackPanel>
+                                            <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <Label Content="" Foreground="PaleVioletRed"/>
+                                                <Label Content="Value"/>
+                                                <Label Content="In 7-14 Days"/>
+                                            </StackPanel>
+                                            <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <Label Content="" Foreground="PaleVioletRed"/>
+                                                <Label Content="Value"/>
+                                                <Label Content="In 14-30 Days"/>
+                                            </StackPanel>
+                                            <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
+                                            <StackPanel Orientation="Vertical">
+                                                <Label Content="" Foreground="PaleVioletRed"/>
+                                                <Label Content="Value"/>
+                                                <Label Content="In 30 Days or more"/>
+                                            </StackPanel>
+                                        </StackPanel>
                                     </StackPanel>
-                                    <Label Content=""/>
-                                </StackPanel>
-                                <Line X1="10" X2="10" Y1="150" Y2="0" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
-                                <StackPanel Orientation="Vertical">
-                                    <Label Content="Overdue Receivable" Foreground="PaleVioletRed"/>
-                                    <Label Content="Value"/>
-                                    <Label Content="In 1-7 Days"/>
-                                </StackPanel>
-                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
-                                <StackPanel Orientation="Vertical">
-                                    <Label Content="" Foreground="PaleVioletRed"/>
-                                    <Label Content="Value"/>
-                                    <Label Content="In 7-14 Days"/>
-                                </StackPanel>
-                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
-                                <StackPanel Orientation="Vertical">
-                                    <Label Content="" Foreground="PaleVioletRed"/>
-                                    <Label Content="Value"/>
-                                    <Label Content="In 14-30 Days"/>
-                                </StackPanel>
-                                <Line X1="10" X2="10" Y1="150" Y2="20" Stroke="CornflowerBlue" StrokeThickness="2" Margin="3,3,3,3"/>
-                                <StackPanel Orientation="Vertical">
-                                    <Label Content="" Foreground="PaleVioletRed"/>
-                                    <Label Content="Value"/>
-                                    <Label Content="In 30 Days or more"/>
-                                </StackPanel>
-                            </StackPanel>
-                        </StackPanel>
-                    </GroupBox>
+                                </GroupBox>
                 </Grid>
 
-                    <Grid Grid.Column="1" Margin="1.5,1.5,1.5,1.5" >
+                <Grid Grid.Column="1" Margin="1.5,1.5,1.5,1.5" >
 
                     <GroupBox BorderThickness="2" Header="Payable" FontSize="26">
-                        <!--<StackPanel Orientation="Vertical">
-                            <Label Content="Total Receivable"/>
-                            <Line X1="20" X2="800" Y1="0" Y2="0" StrokeThickness="15" Stroke="DarkMagenta" Margin="0,50,0,10" />
-                            <Grid >
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                    <ColumnDefinition/>
-                                </Grid.ColumnDefinitions>
-
-                                <Grid Grid.Column="0" >
-                                    <Label Content="dss" FontSize="18"/>
-                                </Grid>
-                            </Grid>
-                        </StackPanel>-->
+                   
                         <StackPanel Orientation="Vertical">
                             <Label Content="Total Payable" FontSize="18"/>
                             <Line X1="5" X2="800" Y1="0" Y2="0" StrokeThickness="15" Stroke="DarkMagenta" Margin="0,12,0,10" />
@@ -139,10 +154,149 @@
                 
             </Grid>
 
+            <Grid Grid.Row="2" VerticalAlignment="Top" Margin="5,5,5,5">
+
+                <GroupBox Header="Income" >
+                    <StackPanel Orientation="Vertical">
+                        <syncfusion:ComboBoxAdv Width="130" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="10,10,10,10"/>
+                        
+                        
+                        
+                        
+                        
+                        
+                        
+                        <chart:SfChart  Height="400" x:Name="CashFlowChart" 
+                                             ColorModel="{StaticResource CustomColor}"
+                                             Palette="Custom"
+                                             Header="Cashflow"
+                                             >
+                            <chart:SfChart.Legend>
+                                <chart:ChartLegend HorizontalContentAlignment="Center"
+                                                   DockPosition="Bottom"/>
+                            </chart:SfChart.Legend>
+
+                            <chart:SfChart.PrimaryAxis>
+                                <chart:CategoryAxis
+                                    LabelFormat="yyyy"
+                                    Header="Year"
+                                    PlotOffset="15"
+                                    LabelPlacement="BetweenTicks"
+                                    ShowGridLines="False"
+                                    ShowTrackBallInfo="True" />
+                            </chart:SfChart.PrimaryAxis>
+
+                            <chart:SfChart.SecondaryAxis>
+                                <chart:NumericalAxis
+                                    HorizontalAlignment="Center"
+                                    Header="Efficiency"
+                                    Interval="10"
+                                    Maximum="60"
+                                    Minimum="0"/>
+                            </chart:SfChart.SecondaryAxis>
+                            
+                            <chart:LineSeries
+                                EnableAnimation="True"
+                                ItemsSource="{Binding DataPoints}"
+                                Label="Germany"
+                                ShowTooltip="True"
+                                XBindingPath="Year"
+                                YBindingPath="Germany">
+                                <chart:LineSeries.AdornmentsInfo>
+                                    <chart:ChartAdornmentInfo
+                                        ShowMarker="True"
+                                        Symbol="Ellipse">
+                                    </chart:ChartAdornmentInfo>
+                                </chart:LineSeries.AdornmentsInfo>
+                            </chart:LineSeries>
+                            
+                            <chart:LineSeries
+                                EnableAnimation="True"
+                                ItemsSource="{Binding DataPoints}"
+                                Label="England"
+                                ShowTooltip="True"
+                                XBindingPath="Year"
+                                YBindingPath="England">
+                                <chart:LineSeries.AdornmentsInfo>
+                                    <chart:ChartAdornmentInfo
+                                        ShowMarker="True"
+                                        Symbol="Ellipse" >
+                                    </chart:ChartAdornmentInfo>
+                                </chart:LineSeries.AdornmentsInfo>
+                            </chart:LineSeries>
 
 
-
-
+                        </chart:SfChart>
+                        
       
-    </Grid>
+                    </StackPanel>
+                   
+                </GroupBox>
+
+       
+            
+            </Grid>
+            <Grid Grid.Row="3" VerticalAlignment="Top" Margin="5,5,5,5">
+
+                <GroupBox Header="Income And Expense" Height="500">
+                    <chart:SfChart x:Name="IncomeExpensesChart" Palette="LightCandy" AreaBorderThickness="0" ColorModel="{StaticResource CustomColor}">
+                        <chart:SfChart.PrimaryAxis>
+                            <chart:CategoryAxis AxisLineStyle="{StaticResource axisLinesStyle}"
+                                                ShowGridLines="False"
+                                                LabelPlacement="BetweenTicks"
+                                                LabelTemplate="{StaticResource labelTemplate}" 
+                                                MajorGridLineStyle="{StaticResource gridLineStyle}"
+                                                MajorTickLineStyle="{StaticResource majorTickLineStyle}" 
+                                                >
+                                
+                            </chart:CategoryAxis>
+                        </chart:SfChart.PrimaryAxis>
+
+                        <chart:SfChart.SecondaryAxis>
+                            <chart:NumericalAxis
+                                    AxisLineStyle="{StaticResource axisLineStyle}"
+                                    Interval="300"
+                                    LabelTemplate="{StaticResource labelTemplate}"
+                                    MajorTickLineStyle="{StaticResource majorTickLineStyle}"
+                                    RangePadding="Additional"
+                                    Minimum="100"
+                                    ShowGridLines="True" />
+                        </chart:SfChart.SecondaryAxis>
+
+                        <chart:SfChart.Legend>
+                            <chart:ChartLegend/>
+                        </chart:SfChart.Legend>
+
+                        <chart:ColumnSeries 
+                            
+                            x:Name="barSeries1"
+                            ItemsSource="{Binding RegisteredUsers}"
+                            Label="Registered Users"
+                            XBindingPath="SocialSite"
+                            YBindingPath="UsersCount" 
+                            
+                            />
+                        <chart:ColumnSeries
+                            x:Name="barSeries2"
+                            ItemsSource="{Binding ActiveUsers}"
+                            Label="Active Users"
+                            XBindingPath="SocialSite"
+                            YBindingPath="UsersCount"
+                            
+                            />
+
+                    </chart:SfChart>
+                    
+                    
+                </GroupBox>
+
+
+
+            </Grid>
+
+
+
+        </Grid>
+    </ScrollViewer>
 </UserControl>
+ 

@@ -14,6 +14,7 @@ using System.Windows.Media;
 using Color = System.Windows.Media.Color;
 using Brush = System.Windows.Media.Brush;
 using System.Globalization;
+using System.Collections.ObjectModel;
 
 namespace Yarsey.Desktop.WPF.ViewModels
 {
@@ -93,6 +94,24 @@ namespace Yarsey.Desktop.WPF.ViewModels
             var invoices = this._businessstore.CurrentBusiness.Invoices;
             var totalReceivable = invoices.SelectMany(o => o.ProductsSelected).Sum(x => x.PricePerItem * x.Quantity);
             TotalReceivable = totalReceivable;
+
+
+            this.DataPoints = new ObservableCollection<LineChartModel>();
+            DateTime year = new DateTime(2005, 5, 1);
+
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(1), Germany = 24, England = 34 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(2), Germany = 14, England = 24 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(3), Germany = 25, England = 35 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(4), Germany = 08, England = 18 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(5), Germany = 27, England = 37 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(6), Germany = 34, England = 44 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(7), Germany = 39, England = 49 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(8), Germany = 17, England = 27 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(9), Germany = 24, England = 34 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(10), Germany = 28, England = 38 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(11), Germany = 34, England = 44 });
+            DataPoints.Add(new LineChartModel() { Year = year.AddYears(12), Germany = 39, England = 49 });
+
         }
 
         decimal _totalReceivable;
@@ -104,6 +123,31 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public string CurrencySymbol
         {
             get { return CultureInfo.CurrentCulture.NumberFormat.CurrencySymbol; }
+        }
+
+        public ObservableCollection<LineChartModel> DataPoints
+        {
+            get;
+            set;
+        }
+    }
+
+    public class LineChartModel
+    {
+        public DateTime Year
+        {
+            get;
+            set;
+        }
+        public double Germany
+        {
+            get;
+            set;
+        }
+        public double England
+        {
+            get;
+            set;
         }
     }
 
