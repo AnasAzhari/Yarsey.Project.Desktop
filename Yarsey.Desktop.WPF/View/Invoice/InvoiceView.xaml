@@ -4,12 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Yarsey.Desktop.WPF.View"
+             xmlns:converter="clr-namespace:Yarsey.Desktop.WPF.Converter"
              xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
               xmlns:behaviorCustom="clr-namespace:Yarsey.Desktop.WPF.Behaviour"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
              xmlns:datapager="clr-namespace:Syncfusion.UI.Xaml.Controls.DataPager;assembly=Syncfusion.SfGrid.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+
+    <UserControl.Resources>
+        <converter:StatusConverter x:Key="StatusConverter"/>
+    </UserControl.Resources>
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
@@ -85,6 +90,29 @@
                                     <syncfusion:GridTextColumn HeaderText="Customer Name" MappingName="Customer.Name" />
                                     
                                     <!--<syncfusion:GridTextColumn HeaderText="Status" MappingName="InvoiceStatus" />-->
+
+                                    <syncfusion:GridTemplateColumn
+                                        Width="90"
+                                        HeaderText="Status"
+                                        MappingName="InvoiceStatus"
+                                        >
+                                        <syncfusion:GridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <TextBlock
+                                                    Padding="3"
+                                                    Foreground="{Binding InvoiceStatus,Converter={StaticResource StatusConverter}}"
+                                                    Text="{Binding InvoiceStatus}"
+                                                    
+                                                    />
+                                            </DataTemplate>
+                                        </syncfusion:GridTemplateColumn.CellTemplate>
+                                        
+                                    </syncfusion:GridTemplateColumn>
+                                    
+                                    
+                                    
+                                    
+                                    
                                     <syncfusion:GridDateTimeColumn CustomPattern="dd/MM/yy hh:mm tt"  Pattern="CustomPattern" HeaderText="Created At" MappingName="CreatedTime" />
                                 </syncfusion:SfDataGrid.Columns>
                                 <behavior:Interaction.Triggers>

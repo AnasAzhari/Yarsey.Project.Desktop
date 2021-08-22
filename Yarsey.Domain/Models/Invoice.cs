@@ -6,10 +6,20 @@ using System.Threading.Tasks;
 
 namespace Yarsey.Domain.Models
 {
+    public enum InvoiceStatus
+    {
+       
+        Unpaid,
+        Paid,
+        Overdue
+    }
+
     public class Invoice:DomainObject
     {
 
         public Customer Customer { get; set; }
+
+        public InvoiceStatus InvoiceStatus { get; set; }
         public int Customer_Id { get; set; }
         public string ref_no { get; set; }
         public DateTime CreatedTime { get; set; } = DateTime.Now;
@@ -20,4 +30,6 @@ namespace Yarsey.Domain.Models
 
 
     }
+
+
 }

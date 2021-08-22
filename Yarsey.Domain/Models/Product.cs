@@ -23,8 +23,6 @@ namespace Yarsey.Domain.Models
 
         public ProductSalesDetail ProductSalesDetail { get; set; }
         public ProductPurchaseDetail ProductPurchaseDetail { get; set; }
-
-
         public string Notes { get; set; }
     }
 }

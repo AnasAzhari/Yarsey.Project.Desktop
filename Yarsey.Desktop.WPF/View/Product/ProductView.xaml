@@ -138,11 +138,14 @@
                         <Grid Grid.Row="0" >
                             <Grid>
                                 <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="2*"/>
                                     <ColumnDefinition Width="5*"/>
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="50"/> <!-- 0 action-->
+                                    <RowDefinition Height="30"/> <!-- 1 action buttons-->
+
+                                    <RowDefinition Height="50"/> <!-- 2 - product information-->
                                     <RowDefinition Height="30"/>
                                     <RowDefinition Height="50"/>
                                     <RowDefinition Height="30"/>
@@ -153,11 +156,16 @@
 
                                 </Grid.RowDefinitions>
 
-                                <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
+                                <Grid Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,3,0,3">
+                                    <Label Content="Action" FontSize="18" FontWeight="Bold" FontStyle="Italic" />
+                                </Grid>
+                               
+
+                                <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
                                     <Label FontSize="15" Content="Action" />
 
                                 </Grid>
-                                <Grid Grid.Row="0" Grid.Column="1">
+                                <Grid Grid.Row="1" Grid.Column="1">
                                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="3,0,0,0">
                                         <Button Content="Edit" Margin="0,0,5,0" Height="30" Width="50" FontSize="15" />
                                         <Button Content="Delete" Height="30" Width="50" FontSize="15" IsDefault="False" Command="{Binding DeleteProductCommand}" Background="Red"   />
@@ -165,57 +173,57 @@
 
                                 </Grid>
 
-                                <!--<Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-                                    
-                                </Grid>-->
-
-                                <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
-                                    <Label Content="Name" FontSize="15"/>
-
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-
-                                    <Label FontSize="15" Content="{Binding SelectedProduct.ProductName}"/>
-                                </Grid>
-                                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,3,0,3">
-                                    <Label Content="Sales Information" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+                                <Grid Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
+                                    <Label Content="Product Information" FontSize="18" FontWeight="Bold" FontStyle="Italic" />
                                 </Grid>
 
                                 <Grid Grid.Row="3" Grid.Column="0" VerticalAlignment="Center">
-                                    <Label Content="Sales Price" FontSize="15"/>
+                                    <Label Content="Name" FontSize="15"/>
 
                                 </Grid>
                                 <Grid Grid.Row="3" Grid.Column="1" VerticalAlignment="Center">
 
+                                    <Label FontSize="15" Content="{Binding SelectedProduct.ProductName}"/>
+                                </Grid>
+                                <Grid Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,3,0,3">
+                                    <Label Content="Sales Information" FontSize="18" FontWeight="Bold" FontStyle="Italic" />
+                                </Grid>
+
+                                <Grid Grid.Row="5" Grid.Column="0" VerticalAlignment="Center">
+                                    <Label Content="Sales Price" FontSize="15"/>
+
+                                </Grid>
+                                <Grid Grid.Row="5" Grid.Column="1" VerticalAlignment="Center">
+
                                     <Label FontSize="15" Content="{Binding SelectedProduct.ProductSalesDetail.SalesPrice}"/>
                                 </Grid>
 
-                                <Grid Grid.Row="4" Grid.Column="0" VerticalAlignment="Center">
-                                    <Label Content="Sales Description" FontSize="15"/>
-
-                                </Grid>
-                                <Grid Grid.Row="4" Grid.Column="1" VerticalAlignment="Center">
-
-                                    <Label FontSize="15" Content="{Binding SelectedProduct.ProductSalesDetail.SalesDescription}"/>
-                                </Grid>
-                                <Grid Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,3,0,3">
-                                    <Label Content="Sales Information" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
-                                </Grid>
-
                                 <Grid Grid.Row="6" Grid.Column="0" VerticalAlignment="Center">
-                                    <Label Content="Sales Price" FontSize="15"/>
+                                    <Label Content="Sales Description" FontSize="15"/>
 
                                 </Grid>
                                 <Grid Grid.Row="6" Grid.Column="1" VerticalAlignment="Center">
 
+                                    <Label FontSize="15" Content="{Binding SelectedProduct.ProductSalesDetail.SalesDescription}"/>
+                                </Grid>
+                                <Grid Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="2" Margin="0,3,0,3">
+                                    <Label Content="Purchase Information" FontSize="18" FontWeight="Bold" FontStyle="Italic"/>
+                                </Grid>
+
+                                <Grid Grid.Row="8" Grid.Column="0" VerticalAlignment="Center">
+                                    <Label Content="Purchase Price" FontSize="15"/>
+
+                                </Grid>
+                                <Grid Grid.Row="8" Grid.Column="1" VerticalAlignment="Center">
+
                                     <Label FontSize="15" Content="{Binding SelectedProduct.ProductPurchaseDetail.PurchasePrice}"/>
                                 </Grid>
 
-                                <Grid Grid.Row="7" Grid.Column="0" VerticalAlignment="Center">
-                                    <Label Content="Sales Description" FontSize="15"/>
+                                <Grid Grid.Row="9" Grid.Column="0" VerticalAlignment="Center">
+                                    <Label Content="Purchase Description" FontSize="15"/>
 
                                 </Grid>
-                                <Grid Grid.Row="7" Grid.Column="1" VerticalAlignment="Center">
+                                <Grid Grid.Row="9" Grid.Column="1" VerticalAlignment="Center">
 
                                     <Label FontSize="15" Content="{Binding SelectedProduct.ProductPurchaseDetail.PurchaseDescription}"/>
                                 </Grid>

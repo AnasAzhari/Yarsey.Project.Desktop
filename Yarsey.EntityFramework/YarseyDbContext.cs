@@ -93,7 +93,7 @@ namespace Yarsey.EntityFramework
                 entity.Property(e => e.InvoiceDate);
                 entity.Property(e => e.Due);
                 entity.Property(e => e.Adress);
-                
+                entity.Property(e => e.InvoiceStatus).HasConversion(v => v.ToString(), v => (InvoiceStatus)Enum.Parse(typeof(InvoiceStatus), v)); 
                 entity.HasOne(e => e.Customer).WithMany().HasForeignKey(e => e.Customer_Id).OnDelete(DeleteBehavior.NoAction);
                
                 entity.HasMany(e => e.ProductsSelected).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);

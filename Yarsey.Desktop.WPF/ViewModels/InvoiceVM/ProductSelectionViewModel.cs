@@ -27,7 +27,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         string _word;
         private readonly NewInvoiceViewModel _newInvoiceViewModel;
 
-        public Product SelectedProduct { get { return _selectedProduct; } set { SetProperty(ref _selectedProduct, value); RecalculateAmount(); } }
+        public Product SelectedProduct { get { return _selectedProduct; } set { SetProperty(ref _selectedProduct, value); SetPricePerItem(); } }
         public int Quantity { get { return _quantity; } set { SetProperty(ref _quantity, value); RecalculateAmount(); } }
         public decimal PricePerItem { get { return _pricePerItem; } set { SetProperty(ref _pricePerItem, value); RecalculateAmount(); } }
         public decimal Tax { get { return _tax; } set { SetProperty(ref _tax, value); RecalculateAmount(); } }
@@ -35,8 +35,40 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public decimal Amount { get { return _amount; } set { SetProperty(ref _amount, value); } }
         public string Word { get { return _word; } set { SetProperty(ref _word, value); } }
 
+
+        private void SetPricePerItem()
+        {
+            if (_selectedProduct != null)
+            {
+                if (_selectedProduct.ProductSalesDetail != null)
+                {
+                    PricePerItem = _selectedProduct.ProductSalesDetail.SalesPrice;
+                }
+            }
+        }
+
         private void RecalculateAmount()
         {
+            //ProductSalesDetail productSalesDetail;
+            //if (_selectedProduct != null)
+            //{
+            //    if(_selectedProduct.ProductSalesDetail != null)
+            //    {
+            //        productSalesDetail = SelectedProduct.ProductSalesDetail;
+            //        PricePerItem = productSalesDetail.SalesPrice;
+            //    }
+
+            //}
+
+            //if (_selectedProduct != null)
+            //{
+            //    if (_selectedProduct.ProductSalesDetail != null)
+            //    {
+            //        PricePerItem = _selectedProduct.ProductSalesDetail.SalesPrice;
+            //    }
+            //}
+           
+
             decimal baseAmount = PricePerItem * Quantity;
             decimal discountedAmount = ((Tax - Discount) / 100)*baseAmount;
             Amount = baseAmount + discountedAmount;

@@ -112,6 +112,25 @@ namespace Yarsey.Desktop.WPF.ViewModels
             DataPoints.Add(new LineChartModel() { Year = year.AddYears(11), Germany = 34, England = 44 });
             DataPoints.Add(new LineChartModel() { Year = year.AddYears(12), Germany = 39, England = 49 });
 
+
+            //Active Users
+            this.ActiveUsers = new ObservableCollection<PaletteModel>();
+            ActiveUsers.Add(new PaletteModel { SocialSite = "Twitter", UsersCount = 302 });
+            ActiveUsers.Add(new PaletteModel { SocialSite = "Skype", UsersCount = 300 });
+            ActiveUsers.Add(new PaletteModel { SocialSite = "WeChat", UsersCount = 559 });
+            ActiveUsers.Add(new PaletteModel { SocialSite = "Google+", UsersCount = 650 });
+            ActiveUsers.Add(new PaletteModel { SocialSite = "WhatsApp", UsersCount = 800 });
+            ActiveUsers.Add(new PaletteModel { SocialSite = "Facebook", UsersCount = 1184 });
+
+            // Registered users
+            this.RegisteredUsers = new ObservableCollection<PaletteModel>();
+            RegisteredUsers.Add(new PaletteModel { SocialSite = "Twitter", UsersCount = 500 });
+            RegisteredUsers.Add(new PaletteModel { SocialSite = "Skype", UsersCount = 663 });
+            RegisteredUsers.Add(new PaletteModel { SocialSite = "WeChat", UsersCount = 1120 });
+            RegisteredUsers.Add(new PaletteModel { SocialSite = "Google+", UsersCount = 540 });
+            RegisteredUsers.Add(new PaletteModel { SocialSite = "WhatsApp", UsersCount = 920 });
+            RegisteredUsers.Add(new PaletteModel { SocialSite = "Facebook", UsersCount = 1600 });
+
         }
 
         decimal _totalReceivable;
@@ -126,6 +145,17 @@ namespace Yarsey.Desktop.WPF.ViewModels
         }
 
         public ObservableCollection<LineChartModel> DataPoints
+        {
+            get;
+            set;
+        }
+
+        public ObservableCollection<PaletteModel> ActiveUsers
+        {
+            get;
+            set;
+        }
+        public ObservableCollection<PaletteModel> RegisteredUsers
         {
             get;
             set;
@@ -149,6 +179,41 @@ namespace Yarsey.Desktop.WPF.ViewModels
             get;
             set;
         }
+    }
+
+    public class PaletteModel
+    {
+        public string SocialSite
+        {
+            get;
+            set;
+        }
+        public double UsersCount
+        {
+            get;
+            set;
+        }
+        public double Year2012
+        {
+            get;
+            set;
+        }
+        public double Year2014
+        {
+            get;
+            set;
+        }
+        public double Year2015
+        {
+            get;
+            set;
+        }
+        public string Country
+        {
+            get;
+            set;
+        }
+
     }
 
 

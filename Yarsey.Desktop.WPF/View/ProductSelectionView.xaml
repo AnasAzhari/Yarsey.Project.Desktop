@@ -72,12 +72,12 @@
             </Validation.ErrorTemplate>
 
         </syncfusion:ComboBoxAdv>
-        <syncfusion:UpDown  Grid.Column="1" MinValue="1" Step="1" NumberDecimalDigits="0"  Value="{Binding Quantity,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3,0,3,0" />
+        <syncfusion:UpDown  Grid.Column="1" FontSize="15" MinValue="1" Step="1" NumberDecimalDigits="0"  Value="{Binding Quantity,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Margin="3,0,3,0" />
         <!--<syncfusion:SfTextBoxExt x:Name="Asds" Grid.Column="1" Grid.Row="0" Text="{Binding Word,Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  Margin="3,0,3,0" />-->
-        <syncfusion:DoubleTextBox  Grid.Column="2" NumberDecimalDigits="2" MinValue="0" Value="{Binding PricePerItem,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
-        <syncfusion:DoubleTextBox  Grid.Column="3" NumberDecimalDigits="2" MinValue="0" Value="{Binding Tax,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
-        <syncfusion:DoubleTextBox  Grid.Column="4" NumberDecimalDigits="2" MinValue="0" Value="{Binding Discount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
-        <syncfusion:CurrencyTextBox Grid.Column="5" IsReadOnly="True" CurrencyDecimalDigits="2"  Value="{Binding Amount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" >
+        <syncfusion:DoubleTextBox FontSize="15"  Grid.Column="2" NumberDecimalDigits="2" MinValue="0" Value="{Binding PricePerItem,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+        <syncfusion:DoubleTextBox FontSize="15" Grid.Column="3" NumberDecimalDigits="2" MinValue="0" Value="{Binding Tax,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+        <syncfusion:DoubleTextBox FontSize="15" Grid.Column="4" NumberDecimalDigits="2" MinValue="0" Value="{Binding Discount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" />
+        <syncfusion:CurrencyTextBox FontSize="15" Grid.Column="5" IsReadOnly="True" CurrencyDecimalDigits="2"  Value="{Binding Amount,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}" Grid.Row="0" Margin="3,0,3,0" >
             <syncfusion:CurrencyTextBox.Style>
                 <Style TargetType="syncfusion:CurrencyTextBox">
                     <Style.Triggers>
