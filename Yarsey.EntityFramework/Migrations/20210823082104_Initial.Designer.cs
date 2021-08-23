@@ -9,8 +9,8 @@ using Yarsey.EntityFramework;
 namespace Yarsey.EntityFramework.Migrations
 {
     [DbContext(typeof(YarseyDbContext))]
-    [Migration("20210803105616_accountconfigs")]
-    partial class accountconfigs
+    [Migration("20210823082104_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -147,6 +147,10 @@ namespace Yarsey.EntityFramework.Migrations
                     b.Property<DateTime>("InvoiceDate")
                         .HasColumnType("TEXT");
 
+                    b.Property<string>("InvoiceStatus")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
+
                     b.Property<string>("ref_no")
                         .HasColumnType("TEXT");
 
@@ -165,9 +169,6 @@ namespace Yarsey.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
-                    b.Property<int>("AssociatedAccountId")
-                        .HasColumnType("INTEGER");
-
                     b.Property<int>("BusinessId")
                         .HasColumnType("INTEGER");
 
@@ -176,9 +177,6 @@ namespace Yarsey.EntityFramework.Migrations
 
                     b.Property<string>("Notes")
                         .HasColumnType("TEXT");
-
-                    b.Property<double>("ProductCost")
-                        .HasColumnType("REAL");
 
                     b.Property<string>("ProductName")
                         .HasColumnType("TEXT");
@@ -189,11 +187,55 @@ namespace Yarsey.EntityFramework.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AssociatedAccountId");
-
                     b.HasIndex("BusinessId");
 
                     b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("Yarsey.Domain.Models.ProductPurchaseDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("PurchaseDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("PurchasePrice")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("ProductPurchaseDetails");
+                });
+
+            modelBuilder.Entity("Yarsey.Domain.Models.ProductSalesDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("INTEGER");
+
+                    b.Property<int>("ProductId")
+                        .HasColumnType("INTEGER");
+
+                    b.Property<string>("SalesDescription")
+                        .HasColumnType("TEXT");
+
+                    b.Property<decimal>("SalesPrice")
+                        .HasColumnType("TEXT");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId")
+                        .IsUnique();
+
+                    b.ToTable("ProductSalesDetails");
                 });
 
             modelBuilder.Entity("Yarsey.Domain.Models.ProductSelection", b =>
@@ -241,13 +283,21 @@ namespace Yarsey.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("BusinessId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ModuleName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prefix")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("RunningNo")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("RunningNumbers");
                 });
@@ -353,19 +403,33 @@ namespace Yarsey.EntityFramework.Migrations
 
             modelBuilder.Entity("Yarsey.Domain.Models.Product", b =>
                 {
-                    b.HasOne("Yarsey.Domain.Models.Account", "AssociatedAccount")
-                        .WithMany()
-                        .HasForeignKey("AssociatedAccountId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Yarsey.Domain.Models.Business", null)
                         .WithMany("Products")
                         .HasForeignKey("BusinessId")
                         .OnDelete(DeleteBehavior.ClientCascade)
                         .IsRequired();
+                });
 
-                    b.Navigation("AssociatedAccount");
+            modelBuilder.Entity("Yarsey.Domain.Models.ProductPurchaseDetail", b =>
+                {
+                    b.HasOne("Yarsey.Domain.Models.Product", "Product")
+                        .WithOne("ProductPurchaseDetail")
+                        .HasForeignKey("Yarsey.Domain.Models.ProductPurchaseDetail", "ProductId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("Yarsey.Domain.Models.ProductSalesDetail", b =>
+                {
+                    b.HasOne("Yarsey.Domain.Models.Product", "Product")
+                        .WithOne("ProductSalesDetail")
+                        .HasForeignKey("Yarsey.Domain.Models.ProductSalesDetail", "ProductId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Yarsey.Domain.Models.ProductSelection", b =>
@@ -383,6 +447,15 @@ namespace Yarsey.EntityFramework.Migrations
                         .IsRequired();
 
                     b.Navigation("SelectedProduct");
+                });
+
+            modelBuilder.Entity("Yarsey.Domain.Models.RunningNumber", b =>
+                {
+                    b.HasOne("Yarsey.Domain.Models.Business", null)
+                        .WithMany("RunningNumbers")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Yarsey.Domain.Models.Sale", b =>
@@ -423,6 +496,8 @@ namespace Yarsey.EntityFramework.Migrations
 
                     b.Navigation("Products");
 
+                    b.Navigation("RunningNumbers");
+
                     b.Navigation("Sales");
 
                     b.Navigation("Transactions");
@@ -431,6 +506,13 @@ namespace Yarsey.EntityFramework.Migrations
             modelBuilder.Entity("Yarsey.Domain.Models.Invoice", b =>
                 {
                     b.Navigation("ProductsSelected");
+                });
+
+            modelBuilder.Entity("Yarsey.Domain.Models.Product", b =>
+                {
+                    b.Navigation("ProductPurchaseDetail");
+
+                    b.Navigation("ProductSalesDetail");
                 });
 #pragma warning restore 612, 618
         }

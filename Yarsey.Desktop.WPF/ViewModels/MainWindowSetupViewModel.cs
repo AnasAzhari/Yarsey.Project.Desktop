@@ -41,10 +41,11 @@ namespace Yarsey.Desktop.WPF.ViewModels
      
         public MainWindowSetupViewModel(IBusinessService businessDataService,IAccountService accountService )
         {
-            PopulatePages();
+           
             FinishCommand = new DelegateCommand<object>(Finish);
             this._businessDataService = businessDataService;
             this._accountService = accountService;
+            PopulatePages();
         }
 
         public void Finish(object param)
@@ -57,7 +58,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
          
            _welcomePage=  new PageModel() { Title = "Selamat Datang, Terima Kasih kerana memilih Yarsey Desktop Akaun", 
                                             Content="Sila Tekan Next untuk konfigurasi bisnes anda" };
-           _businessPage=new CreateBusinessPageModel(_businessDataService, _accountService) { Title = "Konfigurasi Bisnes", Content = "Konfigurasi Bisnes" };
+           _businessPage=new CreateBusinessPageModel(this._businessDataService, _accountService) { Title = "Konfigurasi Bisnes", Content = "Konfigurasi Bisnes" };
 
  
         }

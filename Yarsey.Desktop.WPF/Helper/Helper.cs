@@ -16,8 +16,8 @@ namespace Yarsey.Desktop.WPF.Helper
     {
         #region CONSTANT
         // DONT CHANGE THIS SECTION !!!!!
-        public const string InvoiceModule = "Inv";
-        public const string ReceiptModule = "Rcp";
+        public const string InvoiceModule = "Invoice"; // refer businessdataservice GenerateDefaultRunningNumbers(int bizId)
+        public const string ReceiptModule = "Receipt";
         #endregion
         public static BitmapSource ImageResizer(string loc,int maxheight)
         {

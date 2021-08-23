@@ -72,8 +72,14 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business entity = await dbContext.Businesses.Include(c => c.Customers).Include(p => p.Products).ThenInclude(x => x.ProductSalesDetail).Include(p => p.Products).ThenInclude(x => x.ProductPurchaseDetail).Include(i=>i.Invoices).ThenInclude(p=>p.ProductsSelected).Include(a=>a.Accounts)
-                                        .FirstOrDefaultAsync();
+                Business entity = await dbContext.Businesses.
+                                                  Include(c => c.Customers).
+                                                  Include(p => p.Products).ThenInclude(x => x.ProductSalesDetail).
+                                                  Include(p => p.Products).ThenInclude(x => x.ProductPurchaseDetail).
+                                                  Include(i=>i.Invoices).ThenInclude(p=>p.ProductsSelected).
+                                                  Include(a=>a.Accounts).
+                                                  Include(r=>r.RunningNumbers)
+                                                  .FirstOrDefaultAsync();
                 return entity;
             }
         }
@@ -87,6 +93,7 @@ namespace Yarsey.EntityFramework.Services
                                                Include(p => p.Products).ThenInclude(x=>x.ProductSalesDetail).
                                                Include(p => p.Products).ThenInclude(x => x.ProductPurchaseDetail).
                                                Include(i => i.Invoices).ThenInclude(x=>x.ProductsSelected).
+                                               Include(r => r.RunningNumbers).
                                                Include(a=>a.Accounts).
                                                
                                                FirstOrDefaultAsync((a) => a.Id == id);
@@ -146,16 +153,50 @@ namespace Yarsey.EntityFramework.Services
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                Business businesses = await dbContext.Businesses.Include(p => p.Invoices).FirstOrDefaultAsync(x => x.Id == bizId);
+                Business businesses = await dbContext.Businesses.Include(p => p.Invoices).Include(x=>x.RunningNumbers).FirstOrDefaultAsync(x => x.Id == bizId);
 
                 businesses.Invoices.Add(invoice);
 
-                RunningNumber rn = await dbContext.RunningNumbers.Where(x => x.ModuleName == module).FirstOrDefaultAsync();
+                //RunningNumber rn = await dbContext.RunningNumbers.Where(x => x.ModuleName == module).FirstOrDefaultAsync();
+
+                //update running no
+                RunningNumber rn = businesses.RunningNumbers.Where(x => x.ModuleName == module).FirstOrDefault();
 
                 rn.RunningNo = rn.RunningNo + 1;
 
                 await dbContext.SaveChangesAsync();
             }
+        }
+
+        public async Task GenerateDefaultRunningNumbers(int bizId)
+        {
+            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
+            {
+                Business entity = await dbContext.Businesses.Include(c => c.RunningNumbers)
+                                        .FirstOrDefaultAsync(b => b.Id == bizId);
+                if (!entity.RunningNumbers.Any())
+                {
+                    entity.RunningNumbers = ListOfDefaultRunningNumber();
+                    await dbContext.SaveChangesAsync();
+                }
+                return;
+            }
+        }
+
+        public List<RunningNumber> ListOfDefaultRunningNumber()
+        {
+            // create default Running Numbers
+            List<RunningNumber> runningNumbers = new List<RunningNumber>();
+
+            RunningNumber invoiceRunningNo = new RunningNumber()
+            {
+                Prefix = "INV",
+                ModuleName = "Invoice",
+                RunningNo = 0
+            };
+            runningNumbers.Add(invoiceRunningNo);
+
+            return runningNumbers;
         }
 
 

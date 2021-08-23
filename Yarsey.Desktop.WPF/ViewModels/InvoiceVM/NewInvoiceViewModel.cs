@@ -116,7 +116,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public void InitRunningNo()
         {
             _newInvoiceLogger.LogInformation("Initiate running no");
-            CurrentRunningNo = _invoiceDataService.GetNextRunningNo(Helper.Helper.InvoiceModule);
+            CurrentRunningNo = _invoiceDataService.GetNextRunningNo(Helper.Helper.InvoiceModule,this._businessStore.CurrentBusiness.Id);
         }
 
         public async Task<bool> AddValidationAsync()

@@ -17,5 +17,7 @@ namespace Yarsey.Domain.Services
         Task AddProduct(int bizId, Product product);
         Task AddInvoice(int bizId, Invoice invoice, string module);
         Task DeleteProduct(Product product);
+
+        Task GenerateDefaultRunningNumbers(int bizId);
     }
 }

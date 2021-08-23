@@ -41,5 +41,7 @@ namespace Yarsey.Domain.Models
 
         public ICollection<Account> Accounts { get; set; }
 
+        public ICollection<RunningNumber> RunningNumbers { get; set; }
+
     }
 }

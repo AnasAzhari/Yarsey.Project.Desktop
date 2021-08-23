@@ -26,12 +26,7 @@ namespace Yarsey.EntityFramework
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-
-            modelBuilder.Entity<RunningNumber>(entity =>
-            {
-                entity.Property(e => e.ModuleName);
-                entity.Property(e => e.RunningNo);
-            });
+            base.OnModelCreating(modelBuilder);
 
             modelBuilder.Entity<Business>(entity =>
             {
@@ -46,14 +41,20 @@ namespace Yarsey.EntityFramework
                 entity.HasMany(e => e.Products).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
                 entity.HasMany(e => e.Invoices).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
                 entity.HasMany(e => e.Accounts).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
+                entity.HasMany(e => e.RunningNumbers).WithOne().IsRequired().OnDelete(DeleteBehavior.ClientCascade);
+
 
             });
+
+
             modelBuilder.Entity<RunningNumber>(entity =>
             {
                 entity.Property(e => e.ModuleName);
                 entity.Property(e => e.RunningNo);
-        
+                entity.Property(e => e.Prefix);
             });
+
+   
 
             modelBuilder.Entity<Customer>(entity =>
             {
@@ -124,7 +125,7 @@ namespace Yarsey.EntityFramework
             //});
 
 
-            base.OnModelCreating(modelBuilder);
+           
 
         }
     }

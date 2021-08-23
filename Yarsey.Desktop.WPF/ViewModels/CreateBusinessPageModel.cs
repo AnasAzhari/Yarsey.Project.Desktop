@@ -122,6 +122,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
             business= await _businessDataService.Create(business) ;
             await this._accountService.GenerateDefaultAccounts(business.Id);
+            await this._businessDataService.GenerateDefaultRunningNumbers(business.Id);
             ChangeMainWindow(business);
 
         }

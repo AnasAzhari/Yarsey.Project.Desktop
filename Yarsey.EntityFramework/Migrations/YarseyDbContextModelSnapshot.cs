@@ -281,13 +281,21 @@ namespace Yarsey.EntityFramework.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("INTEGER");
 
+                    b.Property<int>("BusinessId")
+                        .HasColumnType("INTEGER");
+
                     b.Property<string>("ModuleName")
+                        .HasColumnType("TEXT");
+
+                    b.Property<string>("Prefix")
                         .HasColumnType("TEXT");
 
                     b.Property<int>("RunningNo")
                         .HasColumnType("INTEGER");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("BusinessId");
 
                     b.ToTable("RunningNumbers");
                 });
@@ -439,6 +447,15 @@ namespace Yarsey.EntityFramework.Migrations
                     b.Navigation("SelectedProduct");
                 });
 
+            modelBuilder.Entity("Yarsey.Domain.Models.RunningNumber", b =>
+                {
+                    b.HasOne("Yarsey.Domain.Models.Business", null)
+                        .WithMany("RunningNumbers")
+                        .HasForeignKey("BusinessId")
+                        .OnDelete(DeleteBehavior.ClientCascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("Yarsey.Domain.Models.Sale", b =>
                 {
                     b.HasOne("Yarsey.Domain.Models.Business", null)
@@ -476,6 +493,8 @@ namespace Yarsey.EntityFramework.Migrations
                     b.Navigation("Invoices");
 
                     b.Navigation("Products");
+
+                    b.Navigation("RunningNumbers");
 
                     b.Navigation("Sales");
 

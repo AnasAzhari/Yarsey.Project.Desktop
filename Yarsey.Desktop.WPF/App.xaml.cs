@@ -58,12 +58,12 @@ namespace Yarsey.Desktop.WPF
         {
 
             _host.Start();
-            Business business;
+            Business business=null;
             YarseyDbContextFactory contextFactory = _host.Services.GetRequiredService<YarseyDbContextFactory>();
             using (YarseyDbContext context = contextFactory.CreateDbContext())
             {
                 await context.Database.MigrateAsync();
-                await Seed.SeedReference(context, new List<string>() { Helper.Helper.InvoiceModule, Helper.Helper.ReceiptModule });
+                //await Seed.SeedReference(context, new List<string>() { Helper.Helper.InvoiceModule, Helper.Helper.ReceiptModule });
                 var biz=context.Businesses.FirstOrDefault();
 
                 business = biz;

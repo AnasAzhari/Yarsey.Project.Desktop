@@ -80,38 +80,20 @@ namespace Yarsey.EntityFramework.Services
             return await _nonQueryDataService.Update(id, entity);
         }
 
-        public int GetCurrentNo(string module)
-        {
+        
 
-            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
-            {
-                var v = dbContext.RunningNumbers.Where(x => x.ModuleName == module).Select(h => h.RunningNo).FirstOrDefault();
-
-                return v;
-            }
-
-        }
-
-        public string GetCurrentRunningNo(string module)
+        public string GetNextRunningNo(string module,int bizId)
         {
             using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
             {
-                var v = dbContext.RunningNumbers.Where(x => x.ModuleName == module).Select(h => h.RunningNo).FirstOrDefault();
+                //var v = dbContext.RunningNumbers.Where(x => x.ModuleName == module).Select(h => h.RunningNo).FirstOrDefault();
+                var biz = dbContext.Businesses.Include(j => j.RunningNumbers).FirstOrDefault(x => x.Id == bizId);
+
+                var rn = biz.RunningNumbers.Where(x => x.ModuleName == module).FirstOrDefault();
+
                 char pad = '0';
-                string numberString = v.ToString().PadLeft(8, pad);
-                string fullString = $"{module}{numberString}";
-                return fullString;
-            }
-        }
-
-        public string GetNextRunningNo(string module)
-        {
-            using (YarseyDbContext dbContext = _yarseyDbContextFactory.CreateDbContext())
-            {
-                var v = dbContext.RunningNumbers.Where(x => x.ModuleName == module).Select(h => h.RunningNo).FirstOrDefault();
-                char pad = '0';
-                string numberString = (v + 1).ToString().PadLeft(8, pad);
-                string fullString = $"{module}{numberString}";
+                string numberString = (rn.RunningNo + 1).ToString().PadLeft(8, pad);
+                string fullString = $"{rn.Prefix}-{numberString}";
                 return fullString;
             }
         }
