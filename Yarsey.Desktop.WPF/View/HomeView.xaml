@@ -155,17 +155,14 @@
             </Grid>
 
             <Grid Grid.Row="2" VerticalAlignment="Top" Margin="5,5,5,5">
+                
 
-                <GroupBox Header="Income" >
+                <GroupBox Header="Cashflow"  >
+                  
+                    
                     <StackPanel Orientation="Vertical">
                         <syncfusion:ComboBoxAdv Width="130" HorizontalContentAlignment="Left" HorizontalAlignment="Left" Margin="10,10,10,10"/>
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+
                         <chart:SfChart  Height="400" x:Name="CashFlowChart" 
                                              ColorModel="{StaticResource CustomColor}"
                                              Palette="Custom"
@@ -197,7 +194,7 @@
                             
                             <chart:LineSeries
                                 EnableAnimation="True"
-                                ItemsSource="{Binding DataPoints}"
+                                ItemsSource="{Binding DataPoints,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                 Label="Germany"
                                 ShowTooltip="True"
                                 XBindingPath="Year"
@@ -212,7 +209,7 @@
                             
                             <chart:LineSeries
                                 EnableAnimation="True"
-                                ItemsSource="{Binding DataPoints}"
+                                ItemsSource="{Binding DataPoints,UpdateSourceTrigger=PropertyChanged,Mode=TwoWay}"
                                 Label="England"
                                 ShowTooltip="True"
                                 XBindingPath="Year"

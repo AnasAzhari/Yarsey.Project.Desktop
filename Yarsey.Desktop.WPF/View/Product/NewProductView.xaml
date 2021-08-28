@@ -18,6 +18,10 @@
         <converters:EmptyCollectionToObjectConverter x:Key="EmptyCollectionToObjectConverter" EmptyValue="False" NotEmptyValue="True"/>
         <converters:ErrorConverter x:Key="ErrorConverter"/>
     </UserControl.Resources>
+
+    <ScrollViewer>
+        
+    
     <Grid>
 
         <Grid.RowDefinitions >
@@ -609,4 +613,5 @@
         </Grid>
 
     </Grid>
+    </ScrollViewer>
 </UserControl>

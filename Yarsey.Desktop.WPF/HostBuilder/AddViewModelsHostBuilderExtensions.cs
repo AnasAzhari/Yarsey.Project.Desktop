@@ -26,7 +26,8 @@ namespace Yarsey.Desktop.WPF.HostBuilder
             {
 
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>(), s.GetRequiredService<SettingsConfiguration>()));
-                services.AddScoped<HomeView>();
+                services.AddSingleton<HomeViewModel>();
+                services.AddSingleton<HomeView>();
 
                 #region Customer
 
@@ -100,7 +101,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 #endregion
 
-                services.AddScoped<HomeViewModel>();
+                
                 services.AddSingleton<MainViewModel>(s => new MainViewModel(
                     
                     s.GetRequiredService<NavigationDrawerStore>(),

@@ -162,6 +162,9 @@ namespace Yarsey.Desktop.WPF
             _host.Services.GetRequiredService<BusinessSelectionPage>().Hide();
             MainWindow = _host.Services.GetRequiredService<MainWindow>();
             MainWindow.Show();
+
+
+
             BusinessStore bizStore = _host.Services.GetRequiredService<BusinessStore>();
             bizStore.CurrentBusiness = business;
 

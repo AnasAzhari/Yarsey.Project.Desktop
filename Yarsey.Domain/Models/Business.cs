@@ -24,7 +24,7 @@ namespace Yarsey.Domain.Models
         [MaxLength(128)]
         public string Email { get; set; }
 
-        [MaxLength(128)]
+        [MaxLength(128)]                                                         
         public string Adresss { get; set; }
 
         public byte[] Image { get; set; }

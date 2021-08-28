@@ -41,7 +41,7 @@ namespace Yarsey.Desktop.WPF.Stores
 
         private void OnCurrentBusinessChanged()
         {
-            var delegates=CurrentBusinessChanged?.GetInvocationList();
+            //var delegates=CurrentBusinessChanged?.GetInvocationList();
 
             CurrentBusinessChanged?.Invoke();
         }

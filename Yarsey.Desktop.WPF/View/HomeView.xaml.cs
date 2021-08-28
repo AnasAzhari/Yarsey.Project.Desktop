@@ -41,7 +41,8 @@ namespace Yarsey.Desktop.WPF.View
 
         public void Dispose()
         {
-            
+            //IncomeExpensesChart.Dispose();
+            //CashFlowChart.Dispose();
         }
 
         //public void SetLightMode()
