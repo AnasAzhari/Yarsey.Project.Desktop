@@ -75,9 +75,9 @@ namespace Yarsey.Desktop.WPF.ViewModels
             this._mapper.Map(this,customer);
 
 
-            await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id, customer).ContinueWith((customer) => { _customerVMNavigationService.Navigate(); });
+            await _businessDataService.AddCustomer(_businessStore.CurrentBusiness.Id, customer).ContinueWith((customer) => { _businessStore.RefreshBusiness(); _customerVMNavigationService.Navigate(); });
             _generalModalNavigationService.NavigationOnSuccess("Customer Created Successfully");
-            _businessStore.RefreshBusiness();
+           
         
         }
 

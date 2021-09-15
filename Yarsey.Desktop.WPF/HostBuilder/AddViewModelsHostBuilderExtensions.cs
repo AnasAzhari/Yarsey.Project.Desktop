@@ -27,7 +27,7 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 services.AddSingleton<MainWindow>(s => new MainWindow(s.GetRequiredService<MainViewModel>(), s.GetRequiredService<SettingsConfiguration>()));
                 services.AddSingleton<HomeViewModel>();
-                services.AddSingleton<HomeView>();
+           
 
                 #region Customer
 
@@ -84,10 +84,14 @@ namespace Yarsey.Desktop.WPF.HostBuilder
 
                 #region Invoice 
 
+                
+
                 services.AddTransient<InvoiceViewModel>(s => new InvoiceViewModel(CreateNewInvoiceNavigationDraweService(s),
                                                                       s.GetRequiredService<BusinessStore>(),
                                                                       s.GetRequiredService<IBusinessService>(),
-                                                                      s.GetRequiredService<GeneralModalNavigationService>()
+                                                                      s.GetRequiredService<GeneralModalNavigationService>(),
+                                                                    
+                                                                      s.GetRequiredService<PdfService>()
                                                         ));
                 services.AddTransient<NewInvoiceViewModel>(s => new NewInvoiceViewModel(
                                                                       s.GetRequiredService<ILogger<NewInvoiceViewModel>>(),

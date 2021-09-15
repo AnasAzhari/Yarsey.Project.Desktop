@@ -8,6 +8,7 @@
              xmlns:behavior="http://schemas.microsoft.com/xaml/behaviors"
               xmlns:behaviorCustom="clr-namespace:Yarsey.Desktop.WPF.Behaviour"
              xmlns:syncfusion="http://schemas.syncfusion.com/wpf"
+             xmlns:pdf="clr-namespace:Syncfusion.Windows.PdfViewer;assembly=Syncfusion.PdfViewer.WPF"
              xmlns:datapager="clr-namespace:Syncfusion.UI.Xaml.Controls.DataPager;assembly=Syncfusion.SfGrid.WPF"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
@@ -26,8 +27,8 @@
               FontWeight="DemiBold"  Content="Senarai Pelanggan"/>-->
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
                 <Grid Grid.Column="0">
@@ -46,8 +47,8 @@
 
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition/>
-                    <ColumnDefinition/>
+                    <ColumnDefinition Width="1.5*"/>
+                    <ColumnDefinition Width="2*"/>
                 </Grid.ColumnDefinitions>
 
                 <!--table-->
@@ -92,7 +93,7 @@
                                     <!--<syncfusion:GridTextColumn HeaderText="Status" MappingName="InvoiceStatus" />-->
 
                                     <syncfusion:GridTemplateColumn
-                                        Width="90"
+                                        Width="90"      
                                         HeaderText="Status"
                                         MappingName="InvoiceStatus"
                                         >
@@ -181,51 +182,10 @@
 
                     <Grid Margin="5">
 
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="*"/>
-                            <RowDefinition Height="3*"/>
-                        </Grid.RowDefinitions>
 
-                        <Grid Grid.Row="0" >
-                            <Grid>
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="*"/>
-                                    <ColumnDefinition Width="6*"/>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                    <RowDefinition/>
-                                </Grid.RowDefinitions>
+                        <pdf:PdfDocumentView x:Name="pdfViewer" ItemSource="{Binding FileLocation}">
 
-                                <Grid Grid.Row="0" Grid.Column="0" VerticalAlignment="Center">
-                                    <Label FontSize="20" Content="Action" />
-
-                                </Grid>
-                                <Grid Grid.Row="0" Grid.Column="1">
-                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Left" Margin="3,0,0,0">
-                                        <!--<Button Content="Edit" Margin="0,0,5,0" Height="30" Width="70" Command="{Binding EditCustomerCommand}" CommandParameter="{Binding SelectedCustomer}"/>
-                                        <Button Content="Delete" Height="30" Width="70" IsDefault="False" Command="{Binding DeleteCustomerCommand}" Background="Red"   />-->
-                                    </StackPanel>
-
-                                </Grid>
-
-                                <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center">
-                                    <Label Content="Name" FontSize="20"/>
-
-                                </Grid>
-                                <Grid Grid.Row="1" Grid.Column="1" VerticalAlignment="Center">
-
-                                    <Label FontSize="20" Content="{Binding SelectedInvoice.ref_no}"/>
-                                </Grid>
-
-                            </Grid>
-
-
-
-                        </Grid>
+                        </pdf:PdfDocumentView>
                     </Grid>
 
 

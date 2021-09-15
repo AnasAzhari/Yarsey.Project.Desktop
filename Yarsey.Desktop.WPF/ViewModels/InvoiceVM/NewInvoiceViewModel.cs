@@ -41,14 +41,14 @@ namespace Yarsey.Desktop.WPF.ViewModels
         decimal _total;
         public decimal Total { get { return _total; } set { SetProperty(ref _total, value); } }
 
-        private string _adress;
+        private string _adress= string.Empty;
         public string Adress { get { return _adress; } set { SetProperty(ref _adress, value); } }
 
         private readonly ILogger<NewInvoiceViewModel> _newInvoiceLogger;
 
         #endregion
 
-        private readonly INavigationService _productNavService;
+        private readonly INavigationService _invoiceNavService;
         private readonly BusinessStore _businessStore;
         private readonly IBusinessService _businessDataService;
         private readonly InvoiceDataService _invoiceDataService;
@@ -74,7 +74,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         {
             this._productSelections = new ObservableCollection<ProductSelectionViewModel>();
             this._newInvoiceLogger = newInvoiceLogger;
-            this._productNavService = invoiceNavService;
+            this._invoiceNavService = invoiceNavService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
             this._invoiceDataService = invoiceDataService;
@@ -222,13 +222,13 @@ namespace Yarsey.Desktop.WPF.ViewModels
 
                 };
 
-                await _businessDataService.AddInvoice(_businessStore.CurrentBusiness.Id, inv,Helper.Helper.InvoiceModule);
-                _generalModalNavigationService.NavigationOnSuccess("Invoice Created Successfully");
-                _businessStore.RefreshBusiness();
+                await _businessDataService.AddInvoice(_businessStore.CurrentBusiness.Id, inv,Helper.Helper.InvoiceModule).ContinueWith((inv)=> { _businessStore.RefreshBusiness(); this._invoiceNavService.Navigate(); });
+                _generalModalNavigationService.NavigationOnSuccess($"Invoice {CurrentRunningNo} Created Successfully");
+                
             }
             catch (Exception ex)
             {
-                //_generalModalNavigationService.NavigateOnEception(ex.ToString());
+                _generalModalNavigationService.NavigateOnEception($"Error saving invoice ");
 
                 Console.WriteLine(ex.ToString());
             }

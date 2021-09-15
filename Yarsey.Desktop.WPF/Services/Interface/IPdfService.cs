@@ -11,7 +11,7 @@ namespace Yarsey.Desktop.WPF.Services
     public interface IPdfService
     {
 
-        public void CreatePDF(object obj);
+        public void CreatePDF(Invoice invoice,Business business);
 
         public void CreateInvoicePDF(NewInvoiceViewModel newInvoiceViewModel,Business business);
     }

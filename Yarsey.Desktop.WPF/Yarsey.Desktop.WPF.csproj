@@ -92,6 +92,9 @@
     <Reference Include="Syncfusion.Pdf.Base">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Pdf.Base.dll</HintPath>
     </Reference>
+    <Reference Include="Syncfusion.PdfViewer.WPF">
+      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.PdfViewer.WPF.dll</HintPath>
+    </Reference>
     <Reference Include="Syncfusion.Presentation.Base">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.Presentation.Base.dll</HintPath>
     </Reference>
@@ -115,9 +118,6 @@
     </Reference>
     <Reference Include="Syncfusion.SfDiagram.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfDiagram.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="Syncfusion.SfGauge.WPF">
-      <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfGauge.WPF.dll</HintPath>
     </Reference>
     <Reference Include="Syncfusion.SfGrid.WPF">
       <HintPath>D:\Syncfusion\Essential Studio\WPF\19.2.0.44\precompiledassemblies\net5.0\Syncfusion.SfGrid.WPF.dll</HintPath>

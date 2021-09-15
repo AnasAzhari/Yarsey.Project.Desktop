@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,6 +9,7 @@ using System.Windows.Input;
 using Yarsey.Desktop.WPF.Commands;
 using Yarsey.Desktop.WPF.Services;
 using Yarsey.Desktop.WPF.Stores;
+using Yarsey.Desktop.WPF.View;
 using Yarsey.Domain.Models;
 using Yarsey.Domain.Services;
 using Yarsey.EntityFramework.Services;
@@ -20,9 +22,7 @@ namespace Yarsey.Desktop.WPF.ViewModels
         private readonly BusinessStore _businessStore;
         private readonly IBusinessService _businessDataService;
         private readonly GeneralModalNavigationService _generalModalNavigationService;
-
-
-
+        private readonly PdfService _pdfService;
         private ObservableCollection<Invoice> _invCollection;
 
         public ObservableCollection<Invoice> InvoiceCollection
@@ -36,20 +36,25 @@ namespace Yarsey.Desktop.WPF.ViewModels
         public Invoice SelectedInvoice
         {
             get { return _selectedInvoice; }
-            set { SetProperty(ref _selectedInvoice, value); }
+            set { SetProperty(ref _selectedInvoice, value); OnSelectedInvoiceChange(); }
         }
+
+        public string _fileLocation;
+        public string FileLocation { get { return _fileLocation; } set { SetProperty(ref _fileLocation, value); } }
+
+        public DelegateCommand<object> InitPdf { get; set; }
 
         public ICommand NavigateNewInvoice{ get; }
 
-        public InvoiceViewModel(INavigationService newInvoicenavService, BusinessStore businessStore, IBusinessService businessDataService, GeneralModalNavigationService generalModalNavigationService)
+        public InvoiceViewModel(INavigationService newInvoicenavService, BusinessStore businessStore, IBusinessService businessDataService, GeneralModalNavigationService generalModalNavigationService,PdfService pdfService)
         {
             this._newInvoicenavService = newInvoicenavService;
             this._businessStore = businessStore;
             this._businessDataService = businessDataService;
             this._generalModalNavigationService = generalModalNavigationService;
-
+            this._pdfService = pdfService;
             this.NavigateNewInvoice = new NavigationDrawerCommand(newInvoicenavService);
-
+        
             OnBusinessChanged();
         }
 
@@ -82,6 +87,40 @@ namespace Yarsey.Desktop.WPF.ViewModels
             else
             {
                 return null;
+            }
+        }
+
+        //private void InitializePdf(object param)
+        //{
+        //    var obj = param.GetType();
+
+
+        //}
+
+        private void OnSelectedInvoiceChange()
+        {
+            if (SelectedInvoice != null)
+            {
+                var globalization = System.Globalization.CultureInfo.CurrentCulture;
+
+                string invoiceFolder = SettingsConfiguration.GetInvoiceFolder(this._businessStore.CurrentBusiness);
+                string invoicefileName = SelectedInvoice.ref_no + ".pdf";
+
+                string completeName = Path.Combine(invoiceFolder, invoicefileName);
+
+                if(!File.Exists(completeName)){
+                    _pdfService.CreatePDF(SelectedInvoice, _businessStore.CurrentBusiness);
+                    FileLocation = completeName;
+                    //_invoiceView.LoadPdfFile(completeName);
+
+                }
+                else
+                {
+                    FileLocation = completeName;
+                    //_invoiceView.LoadPdfFile(completeName);
+                }
+
+               
             }
         }
 

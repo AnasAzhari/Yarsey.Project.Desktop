@@ -9,6 +9,7 @@ using System.Drawing.Drawing2D;
 using System.Windows.Media;
 using System.IO;
 using Yarsey.EntityFramework;
+using Yarsey.Domain.Models;
 
 namespace Yarsey.Desktop.WPF.Helper
 {
@@ -113,7 +114,12 @@ namespace Yarsey.Desktop.WPF.Helper
         //  //  return $currentNumber->dat_description.date("Y").str_pad($newNumber, 8, "0", STR_PAD_LEFT);
 
         //}
+        public static decimal CalculateInvoiceTotal(Invoice invoice)
+        {
+            var totalReceivable = invoice.ProductsSelected.Sum(x => x.Amount);
 
+            return totalReceivable;
+        }
 
     }
 }

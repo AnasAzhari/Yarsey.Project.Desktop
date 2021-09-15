@@ -20,9 +20,19 @@ namespace Yarsey.Desktop.WPF.View
     /// </summary>
     public partial class InvoiceView : UserControl
     {
+
+        
         public InvoiceView()
         {
+           
             InitializeComponent();
+
+        }
+
+        public void LoadPdfFile(string fileLocation)
+        {
+            string trimfilLoc = @$"{fileLocation}";
+            pdfViewer.Load(fileLocation);
         }
     }
 }
